@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>19 Quantum computing and cryptography I | A Minimal Book Example</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="19 Quantum computing and cryptography I | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="19 Quantum computing and cryptography I | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="sfetwochap.html"/>
+<link rel="next" href="quantum-computing-and-cryptography-ii.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="mathematical-background.html"><a href="mathematical-background.html"><i class="fa fa-check"></i><b>1</b> Mathematical Background</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="mathematical-background.html"><a href="mathematical-background.html#a-quick-overview-of-mathematical-prerequisites"><i class="fa fa-check"></i><b>1.1</b> A quick overview of mathematical prerequisites</a></li>
+<li class="chapter" data-level="1.2" data-path="mathematical-background.html"><a href="mathematical-background.html#mathematical-proofs"><i class="fa fa-check"></i><b>1.2</b> Mathematical Proofs</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="mathematical-background.html"><a href="mathematical-background.html#example-the-existence-of-infinitely-many-primes."><i class="fa fa-check"></i><b>1.2.1</b> Example: The existence of infinitely many primes.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="mathematical-background.html"><a href="mathematical-background.html#probability-and-sample-spaces"><i class="fa fa-check"></i><b>1.3</b> Probability and Sample spaces</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="mathematical-background.html"><a href="mathematical-background.html#random-variables"><i class="fa fa-check"></i><b>1.3.1</b> Random variables</a></li>
+<li class="chapter" data-level="1.3.2" data-path="mathematical-background.html"><a href="mathematical-background.html#distributions-over-strings"><i class="fa fa-check"></i><b>1.3.2</b> Distributions over strings</a></li>
+<li class="chapter" data-level="1.3.3" data-path="mathematical-background.html"><a href="mathematical-background.html#more-general-sample-spaces."><i class="fa fa-check"></i><b>1.3.3</b> More general sample spaces.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="mathematical-background.html"><a href="mathematical-background.html#correlations-and-independence"><i class="fa fa-check"></i><b>1.4</b> Correlations and independence</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="mathematical-background.html"><a href="mathematical-background.html#independent-random-variables"><i class="fa fa-check"></i><b>1.4.1</b> Independent random variables</a></li>
+<li class="chapter" data-level="1.4.2" data-path="mathematical-background.html"><a href="mathematical-background.html#collections-of-independent-random-variables."><i class="fa fa-check"></i><b>1.4.2</b> Collections of independent random variables.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="mathematical-background.html"><a href="mathematical-background.html#concentration-and-tail-bounds"><i class="fa fa-check"></i><b>1.5</b> Concentration and tail bounds</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="mathematical-background.html"><a href="mathematical-background.html#chebyshevs-inequality"><i class="fa fa-check"></i><b>1.5.1</b> Chebyshev’s Inequality</a></li>
+<li class="chapter" data-level="1.5.2" data-path="mathematical-background.html"><a href="mathematical-background.html#the-chernoff-bound"><i class="fa fa-check"></i><b>1.5.2</b> The Chernoff bound</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises"><i class="fa fa-check"></i><b>1.6</b> Exercises</a></li>
+<li class="chapter" data-level="1.7" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises-1"><i class="fa fa-check"></i><b>1.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#defining-encryptions"><i class="fa fa-check"></i><b>2.2</b> Defining encryptions</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#defining-security-of-encryption"><i class="fa fa-check"></i><b>2.3</b> Defining security of encryption</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction.html"><a href="introduction.html#generating-randomness-in-actual-cryptographic-systems"><i class="fa fa-check"></i><b>2.3.1</b> Generating randomness in actual cryptographic systems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#defining-the-secrecy-requirement."><i class="fa fa-check"></i><b>2.4</b> Defining the secrecy requirement.</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction.html"><a href="introduction.html#perfect-secrecy"><i class="fa fa-check"></i><b>2.5</b> Perfect Secrecy</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="introduction.html"><a href="introduction.html#achieving-perfect-secrecy"><i class="fa fa-check"></i><b>2.5.1</b> Achieving perfect secrecy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="introduction.html"><a href="introduction.html#necessity-of-long-keys"><i class="fa fa-check"></i><b>2.6</b> Necessity of long keys</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction.html"><a href="introduction.html#amplifying-success-probability"><i class="fa fa-check"></i><b>2.6.1</b> Amplifying success probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction.html"><a href="introduction.html#bibliographical-notes"><i class="fa fa-check"></i><b>2.7</b> Bibliographical notes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="computational-security.html"><a href="computational-security.html"><i class="fa fa-check"></i><b>3</b> Computational Security</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="computational-security.html"><a href="computational-security.html#proof-by-reduction"><i class="fa fa-check"></i><b>3.0.1</b> Proof by reduction</a></li>
+<li class="chapter" data-level="3.1" data-path="computational-security.html"><a href="computational-security.html#the-asymptotic-approach"><i class="fa fa-check"></i><b>3.1</b> The asymptotic approach</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="computational-security.html"><a href="computational-security.html#countoperation"><i class="fa fa-check"></i><b>3.1.1</b> Counting number of operations.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="computational-security.html"><a href="computational-security.html#our-first-conjecture"><i class="fa fa-check"></i><b>3.2</b> Our first conjecture</a></li>
+<li class="chapter" data-level="3.3" data-path="computational-security.html"><a href="computational-security.html#why-care-about-the-cipher-conjecture"><i class="fa fa-check"></i><b>3.3</b> Why care about the cipher conjecture?</a></li>
+<li class="chapter" data-level="3.4" data-path="computational-security.html"><a href="computational-security.html#prelude-computational-indistinguishability"><i class="fa fa-check"></i><b>3.4</b> Prelude: Computational Indistinguishability</a></li>
+<li class="chapter" data-level="3.5" data-path="computational-security.html"><a href="computational-security.html#the-length-extension-theorem-or-stream-ciphers"><i class="fa fa-check"></i><b>3.5</b> The Length Extension Theorem or Stream Ciphers</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="computational-security.html"><a href="computational-security.html#appendix-the-computational-model"><i class="fa fa-check"></i><b>3.5.1</b> Appendix: The computational model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pseudorandomness.html"><a href="pseudorandomness.html"><i class="fa fa-check"></i><b>4</b> Pseudorandomness</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#unpredictability-an-alternative-approach-for-proving-the-length-extension-theorem"><i class="fa fa-check"></i><b>4.0.1</b> Unpredictability: an alternative approach for proving the length extension theorem</a></li>
+<li class="chapter" data-level="4.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#stream-ciphers"><i class="fa fa-check"></i><b>4.1</b> Stream ciphers</a></li>
+<li class="chapter" data-level="4.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#what-do-pseudorandom-generators-actually-look-like"><i class="fa fa-check"></i><b>4.2</b> What do pseudorandom generators actually look like?</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-0-the-counter-generator"><i class="fa fa-check"></i><b>4.2.1</b> Attempt 0: The counter generator</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-1-the-linear-checksum-linear-feedback-shift-register-lfsr"><i class="fa fa-check"></i><b>4.2.2</b> Attempt 1: The linear checksum / linear feedback shift register (LFSR)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#from-insecurity-to-security"><i class="fa fa-check"></i><b>4.2.3</b> From insecurity to security</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-2-linear-congruential-generators-with-dropped-bits"><i class="fa fa-check"></i><b>4.2.4</b> Attempt 2: Linear Congruential Generators with dropped bits</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#successful-examples"><i class="fa fa-check"></i><b>4.3</b> Successful examples</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-1-subset-sum-generator"><i class="fa fa-check"></i><b>4.3.1</b> Case Study 1: Subset Sum Generator</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-2-rc4"><i class="fa fa-check"></i><b>4.3.2</b> Case Study 2: RC4</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-3-blum-blum-and-shub"><i class="fa fa-check"></i><b>4.3.3</b> Case Study 3: Blum, Blum and Shub</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#non-constructive-existence-of-pseudorandom-generators"><i class="fa fa-check"></i><b>4.4</b> Non-constructive existence of pseudorandom generators</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html"><i class="fa fa-check"></i><b>5</b> Pseudorandom functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#one-time-passwords-e.g.-google-authenticator-rsa-id-etc."><i class="fa fa-check"></i><b>5.1</b> One time passwords (e.g. Google Authenticator, RSA ID, etc.)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#how-do-pseudorandom-functions-help-in-the-login-problem"><i class="fa fa-check"></i><b>5.1.1</b> How do pseudorandom functions help in the login problem?</a></li>
+<li class="chapter" data-level="5.1.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#modifying-input-and-output-lengths-of-prfs"><i class="fa fa-check"></i><b>5.1.2</b> Modifying input and output lengths of PRFs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#message-authentication-codes"><i class="fa fa-check"></i><b>5.2</b> Message Authentication Codes</a></li>
+<li class="chapter" data-level="5.3" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#macs-from-prfs"><i class="fa fa-check"></i><b>5.3</b> MACs from PRFs</a></li>
+<li class="chapter" data-level="5.4" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#arbitrary-input-length-extension-for-macs-and-prfs"><i class="fa fa-check"></i><b>5.4</b> Arbitrary input length extension for MACs and PRFs</a></li>
+<li class="chapter" data-level="5.5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#aside-natural-proofs"><i class="fa fa-check"></i><b>5.5</b> Aside: natural proofs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><i class="fa fa-check"></i><b>6</b> Pseudorandom functions from pseudorandom generators and CPA security</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#securely-encrypting-many-messages---chosen-plaintext-security"><i class="fa fa-check"></i><b>6.1</b> Securely encrypting many messages - chosen plaintext security</a></li>
+<li class="chapter" data-level="6.2" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#pseudorandom-permutations-block-ciphers"><i class="fa fa-check"></i><b>6.2</b> Pseudorandom permutations / block ciphers</a></li>
+<li class="chapter" data-level="6.3" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#encryption-modes"><i class="fa fa-check"></i><b>6.3</b> Encryption modes</a></li>
+<li class="chapter" data-level="6.4" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#optional-aside-broadcast-encryption"><i class="fa fa-check"></i><b>6.4</b> Optional, Aside: Broadcast Encryption</a></li>
+<li class="chapter" data-level="6.5" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#reading-comprehension-exercises"><i class="fa fa-check"></i><b>6.5</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html"><i class="fa fa-check"></i><b>7</b> Chosen Ciphertext Security</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#short-recap"><i class="fa fa-check"></i><b>7.1</b> Short recap</a></li>
+<li class="chapter" data-level="7.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#going-beyond-cpa"><i class="fa fa-check"></i><b>7.2</b> Going beyond CPA</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#example-the-wired-equivalence-privacy-wep"><i class="fa fa-check"></i><b>7.2.1</b> Example: The Wired Equivalence Privacy (WEP)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-security-1"><i class="fa fa-check"></i><b>7.2.2</b> Chosen ciphertext security</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#constructing-cca-secure-encryption"><i class="fa fa-check"></i><b>7.3</b> Constructing CCA secure encryption</a></li>
+<li class="chapter" data-level="7.4" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#simplified-gcm-encryption"><i class="fa fa-check"></i><b>7.4</b> (Simplified) GCM encryption</a></li>
+<li class="chapter" data-level="7.5" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#padding-chopping-and-their-pitfalls-the-buffer-overflow-of-cryptography"><i class="fa fa-check"></i><b>7.5</b> Padding, chopping, and their pitfalls: the “buffer overflow” of cryptography</a></li>
+<li class="chapter" data-level="7.6" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-attack-as-implementing-metaphors"><i class="fa fa-check"></i><b>7.6</b> Chosen ciphertext attack as implementing metaphors</a></li>
+<li class="chapter" data-level="7.7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#reading-comprehension-exercises-1"><i class="fa fa-check"></i><b>7.7</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="hash-functions-random-oracles-and-bitcoin.html"><a href="hash-functions-random-oracles-and-bitcoin.html"><i class="fa fa-check"></i><b>8</b> Hash Functions, Random Oracles, and Bitcoin</a></li>
+<li class="chapter" data-level="9" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><i class="fa fa-check"></i><b>9</b> Key derivation, protecting passwords, slow hashes, Merkle trees</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#keys-from-passwords"><i class="fa fa-check"></i><b>9.1</b> Keys from passwords</a></li>
+<li class="chapter" data-level="9.2" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#merkle-trees-and-verifying-storage."><i class="fa fa-check"></i><b>9.2</b> Merkle trees and verifying storage.</a></li>
+<li class="chapter" data-level="9.3" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#proofs-of-retrievability"><i class="fa fa-check"></i><b>9.3</b> Proofs of Retrievability</a></li>
+<li class="chapter" data-level="9.4" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#entropy-extraction"><i class="fa fa-check"></i><b>9.4</b> Entropy extraction</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#forward-and-backward-secrecy"><i class="fa fa-check"></i><b>9.4.1</b> Forward and backward secrecy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html"><i class="fa fa-check"></i><b>10</b> Public key cryptography</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#private-key-crypto-recap"><i class="fa fa-check"></i><b>10.1</b> Private key crypto recap</a></li>
+<li class="chapter" data-level="10.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#public-key-encryptions-definition"><i class="fa fa-check"></i><b>10.2</b> Public Key Encryptions: Definition</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-obfuscation-paradigm"><i class="fa fa-check"></i><b>10.2.1</b> The obfuscation paradigm</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#some-concrete-candidates"><i class="fa fa-check"></i><b>10.3</b> Some concrete candidates:</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#diffie-hellman-encryption-aka-el-gamal"><i class="fa fa-check"></i><b>10.3.1</b> Diffie-Hellman Encryption (aka El-Gamal)</a></li>
+<li class="chapter" data-level="10.3.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#sampling-random-primes"><i class="fa fa-check"></i><b>10.3.2</b> Sampling random primes</a></li>
+<li class="chapter" data-level="10.3.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#a-little-bit-of-group-theory."><i class="fa fa-check"></i><b>10.3.3</b> A little bit of group theory.</a></li>
+<li class="chapter" data-level="10.3.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#digital-signatures"><i class="fa fa-check"></i><b>10.3.4</b> Digital Signatures</a></li>
+<li class="chapter" data-level="10.3.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-digital-signature-algorithm-dsa"><i class="fa fa-check"></i><b>10.3.5</b> The Digital Signature Algorithm (DSA)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#putting-everything-together---security-in-practice."><i class="fa fa-check"></i><b>10.4</b> Putting everything together - security in practice.</a></li>
+<li class="chapter" data-level="10.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#appendix-an-alternative-proof-of-the-density-of-primes"><i class="fa fa-check"></i><b>10.5</b> Appendix: An alternative proof of the density of primes</a></li>
+<li class="chapter" data-level="10.6" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#additional-group-theory-exercises-and-proofs"><i class="fa fa-check"></i><b>10.6</b> Additional Group Theory Exercises and Proofs</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#solved-exercises"><i class="fa fa-check"></i><b>10.6.1</b> Solved exercises:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html"><i class="fa fa-check"></i><b>11</b> Concrete candidates for public key crypto</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#some-number-theory."><i class="fa fa-check"></i><b>11.1</b> Some number theory.</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#primaliy-testing"><i class="fa fa-check"></i><b>11.1.1</b> Primaliy testing</a></li>
+<li class="chapter" data-level="11.1.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#fields"><i class="fa fa-check"></i><b>11.1.2</b> Fields</a></li>
+<li class="chapter" data-level="11.1.3" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#chinese-remainder-theorem"><i class="fa fa-check"></i><b>11.1.3</b> Chinese remainder theorem</a></li>
+<li class="chapter" data-level="11.1.4" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#the-rsa-and-rabin-functions"><i class="fa fa-check"></i><b>11.1.4</b> The RSA and Rabin functions</a></li>
+<li class="chapter" data-level="11.1.5" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#abstraction-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.5</b> Abstraction: trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.6" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#public-key-encryption-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.6</b> Public key encryption from trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.7" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#digital-signatures-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.7</b> Digital signatures from trapdoor permutations</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#hardcore-bits-and-security-without-random-oracles"><i class="fa fa-check"></i><b>11.2</b> Hardcore bits and security without random oracles</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#extending-to-more-than-one-hardcore-bit"><i class="fa fa-check"></i><b>11.2.1</b> Extending to more than one hardcore bit</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html"><i class="fa fa-check"></i><b>12</b> Lattice based cryptography</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#quick-linear-algebra-recap"><i class="fa fa-check"></i><b>12.0.1</b> Quick linear algebra recap</a></li>
+<li class="chapter" data-level="12.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#a-world-without-gaussian-elimination"><i class="fa fa-check"></i><b>12.1</b> A world without Gaussian elimination</a></li>
+<li class="chapter" data-level="12.2" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#security-in-the-real-world."><i class="fa fa-check"></i><b>12.2</b> Security in the real world.</a></li>
+<li class="chapter" data-level="12.3" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#search-to-decision"><i class="fa fa-check"></i><b>12.3</b> Search to decision</a></li>
+<li class="chapter" data-level="12.4" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#lweencsec"><i class="fa fa-check"></i><b>12.4</b> An LWE based encryption scheme</a></li>
+<li class="chapter" data-level="12.5" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#but-what-are-lattices"><i class="fa fa-check"></i><b>12.5</b> But what are lattices?</a></li>
+<li class="chapter" data-level="12.6" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#ring-based-lattices"><i class="fa fa-check"></i><b>12.6</b> Ring based lattices</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html"><i class="fa fa-check"></i><b>13</b> Establishing secure connections over insecure channels</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cryptographys-obsession-with-adjectives."><i class="fa fa-check"></i><b>13.1</b> Cryptography’s obsession with adjectives.</a></li>
+<li class="chapter" data-level="13.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#basic-key-exchange-protocol"><i class="fa fa-check"></i><b>13.2</b> Basic Key Exchange protocol</a></li>
+<li class="chapter" data-level="13.3" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#authenticated-key-exchange"><i class="fa fa-check"></i><b>13.3</b> Authenticated key exchange</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#bleichenbachers-attack-on-rsa-pkcs-v1.5-and-ssl-v3.0"><i class="fa fa-check"></i><b>13.3.1</b> Bleichenbacher’s attack on RSA PKCS V1.5 and SSL V3.0</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#chosen-ciphertext-attack-security-for-public-key-cryptography"><i class="fa fa-check"></i><b>13.4</b> Chosen ciphertext attack security for public key cryptography</a></li>
+<li class="chapter" data-level="13.5" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cca-secure-public-key-encryption-in-the-random-oracle-model"><i class="fa fa-check"></i><b>13.5</b> CCA secure public key encryption in the Random Oracle Model</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#defining-secure-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.1</b> Defining secure authenticated key exchange</a></li>
+<li class="chapter" data-level="13.5.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#the-compiler-approach-for-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.2</b> The compiler approach for authenticated key exchange</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#password-authenticated-key-exchange."><i class="fa fa-check"></i><b>13.6</b> Password authenticated key exchange.</a></li>
+<li class="chapter" data-level="13.7" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#client-to-client-key-exchange-for-secure-text-messaging---zrtp-otr-textsecure"><i class="fa fa-check"></i><b>13.7</b> Client to client key exchange for secure text messaging - ZRTP, OTR, TextSecure</a></li>
+<li class="chapter" data-level="13.8" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#heartbleed-and-logjam-attacks"><i class="fa fa-check"></i><b>13.8</b> Heartbleed and logjam attacks</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html"><i class="fa fa-check"></i><b>14</b> Zero knowledge proofs</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#applications-for-zero-knowledge-proofs."><i class="fa fa-check"></i><b>14.1</b> Applications for zero knowledge proofs.</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#nuclear-disarmament"><i class="fa fa-check"></i><b>14.1.1</b> Nuclear disarmament</a></li>
+<li class="chapter" data-level="14.1.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#voting"><i class="fa fa-check"></i><b>14.1.2</b> Voting</a></li>
+<li class="chapter" data-level="14.1.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#more-applications"><i class="fa fa-check"></i><b>14.1.3</b> More applications</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-and-constructing-zero-knowledge-proofs"><i class="fa fa-check"></i><b>14.2</b> Defining and constructing zero knowledge proofs</a></li>
+<li class="chapter" data-level="14.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-zero-knowledge"><i class="fa fa-check"></i><b>14.3</b> Defining zero knowledge</a></li>
+<li class="chapter" data-level="14.4" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#zero-knowledge-proof-for-hamiltonicity."><i class="fa fa-check"></i><b>14.4</b> Zero knowledge proof for Hamiltonicity.</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#why-is-this-interesting"><i class="fa fa-check"></i><b>14.4.1</b> Why is this interesting?</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#parallel-repetition-and-turning-zero-knowledge-proofs-to-signatures."><i class="fa fa-check"></i><b>14.5</b> Parallel repetition and turning zero knowledge proofs to signatures.</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#bonus-features-of-zero-knowledge"><i class="fa fa-check"></i><b>14.5.1</b> “Bonus features” of zero knowledge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="chapfheone.html"><a href="chapfheone.html"><i class="fa fa-check"></i><b>15</b> Fully homomorphic encryption: Introduction and bootstrapping</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="chapfheone.html"><a href="chapfheone.html#defining-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>15.1</b> Defining fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="chapfheone.html"><a href="chapfheone.html#another-application-fully-homomorphic-encryption-for-verifying-computation"><i class="fa fa-check"></i><b>15.1.1</b> Another application: fully homomorphic encryption for verifying computation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="chapfheone.html"><a href="chapfheone.html#example-an-xor-homomorphic-encryption"><i class="fa fa-check"></i><b>15.2</b> Example: An XOR homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="chapfheone.html"><a href="chapfheone.html#abstraction-a-trapdoor-pseudorandom-generator."><i class="fa fa-check"></i><b>15.2.1</b> Abstraction: A trapdoor pseudorandom generator.</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="chapfheone.html"><a href="chapfheone.html#from-linear-homomorphism-to-full-homomorphism"><i class="fa fa-check"></i><b>15.3</b> From linear homomorphism to full homomorphism</a></li>
+<li class="chapter" data-level="15.4" data-path="chapfheone.html"><a href="chapfheone.html#bootstrapping-fully-homomorphic-escape-velocity"><i class="fa fa-check"></i><b>15.4</b> Bootstrapping: Fully Homomorphic “escape velocity”</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="chapfheone.html"><a href="chapfheone.html#radioactive-legos-analogy"><i class="fa fa-check"></i><b>15.4.1</b> Radioactive legos analogy</a></li>
+<li class="chapter" data-level="15.4.2" data-path="chapfheone.html"><a href="chapfheone.html#proving-the-bootstrapping-theorem"><i class="fa fa-check"></i><b>15.4.2</b> Proving the bootstrapping theorem</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="chapfhetwo.html"><a href="chapfhetwo.html"><i class="fa fa-check"></i><b>16</b> Fully homomorphic encryption: Construction</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#prelude-from-vectors-to-matrices"><i class="fa fa-check"></i><b>16.1</b> Prelude: from vectors to matrices</a></li>
+<li class="chapter" data-level="16.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#real-world-partially-homomorphic-encryption"><i class="fa fa-check"></i><b>16.2</b> Real world partially homomorphic encryption</a></li>
+<li class="chapter" data-level="16.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#noise-management-via-encoding"><i class="fa fa-check"></i><b>16.3</b> Noise management via encoding</a></li>
+<li class="chapter" data-level="16.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#putting-it-all-together"><i class="fa fa-check"></i><b>16.4</b> Putting it all together</a></li>
+<li class="chapter" data-level="16.5" data-path="chapfhetwo.html"><a href="chapfhetwo.html#analysis-of-our-scheme"><i class="fa fa-check"></i><b>16.5</b> Analysis of our scheme</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#correctness"><i class="fa fa-check"></i><b>16.5.1</b> Correctness</a></li>
+<li class="chapter" data-level="16.5.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#cpa-security"><i class="fa fa-check"></i><b>16.5.2</b> CPA Security</a></li>
+<li class="chapter" data-level="16.5.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#homomorphism"><i class="fa fa-check"></i><b>16.5.3</b> Homomorphism</a></li>
+<li class="chapter" data-level="16.5.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#shallow-decryption-circuit"><i class="fa fa-check"></i><b>16.5.4</b> Shallow decryption circuit</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="chapfhetwo.html"><a href="chapfhetwo.html#advanced-topics"><i class="fa fa-check"></i><b>16.6</b> Advanced topics:</a>
+<ul>
+<li class="chapter" data-level="16.6.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#fully-homomorphic-encryption-for-approximate-computation-over-the-real-numbers-ckks"><i class="fa fa-check"></i><b>16.6.1</b> Fully homomorphic encryption for approximate computation over the real numbers: CKKS</a></li>
+<li class="chapter" data-level="16.6.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#bandwidth-efficient-fully-homomorphic-encryption-gh"><i class="fa fa-check"></i><b>16.6.2</b> Bandwidth efficient fully homomorphic encryption GH</a></li>
+<li class="chapter" data-level="16.6.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#using-fully-homomorphic-encryption-to-achieve-private-information-retrieval."><i class="fa fa-check"></i><b>16.6.3</b> Using fully homomorphic encryption to achieve private information retrieval.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sfeonechap.html"><a href="sfeonechap.html"><i class="fa fa-check"></i><b>17</b> Multiparty secure computation I: Definition and Honest-But-Curious to Malicious complier</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sfeonechap.html"><a href="sfeonechap.html#ideal-vs.-real-model-security."><i class="fa fa-check"></i><b>17.1</b> Ideal vs. Real Model Security.</a></li>
+<li class="chapter" data-level="17.2" data-path="sfeonechap.html"><a href="sfeonechap.html#formally-defining-secure-multiparty-computation"><i class="fa fa-check"></i><b>17.2</b> Formally defining secure multiparty computation</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="sfeonechap.html"><a href="sfeonechap.html#first-attempt-a-slightly-too-ideal-definition"><i class="fa fa-check"></i><b>17.2.1</b> First attempt: a slightly “too ideal” definition</a></li>
+<li class="chapter" data-level="17.2.2" data-path="sfeonechap.html"><a href="sfeonechap.html#allowing-for-aborts"><i class="fa fa-check"></i><b>17.2.2</b> Allowing for aborts</a></li>
+<li class="chapter" data-level="17.2.3" data-path="sfeonechap.html"><a href="sfeonechap.html#some-comments"><i class="fa fa-check"></i><b>17.2.3</b> Some comments:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="sfeonechap.html"><a href="sfeonechap.html#example-second-price-auction-using-bitcoin"><i class="fa fa-check"></i><b>17.3</b> Example: Second price auction using bitcoin</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="sfeonechap.html"><a href="sfeonechap.html#another-example-distributed-and-threshold-cryptography"><i class="fa fa-check"></i><b>17.3.1</b> Another example: distributed and threshold cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="sfeonechap.html"><a href="sfeonechap.html#proving-the-fundamental-theorem"><i class="fa fa-check"></i><b>17.4</b> Proving the fundamental theorem:</a></li>
+<li class="chapter" data-level="17.5" data-path="sfeonechap.html"><a href="sfeonechap.html#hbctomalred"><i class="fa fa-check"></i><b>17.5</b> Malicious to honest but curious reduction</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="sfeonechap.html"><a href="sfeonechap.html#handling-probabilistic-strategies"><i class="fa fa-check"></i><b>17.5.1</b> Handling probabilistic strategies:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sfetwochap.html"><a href="sfetwochap.html"><i class="fa fa-check"></i><b>18</b> Multiparty secure computation II: Construction using Fully Homomorphic Encryption</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sfetwochap.html"><a href="sfetwochap.html#constructing-2-party-honest-but-curious-computation-from-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.1</b> Constructing 2 party honest but curious computation from fully homomorphic encryption</a></li>
+<li class="chapter" data-level="18.2" data-path="sfetwochap.html"><a href="sfetwochap.html#achieving-circuit-privacy-in-a-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.2</b> Achieving circuit privacy in a fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="sfetwochap.html"><a href="sfetwochap.html#bottom-line-a-two-party-secure-computation-protocol"><i class="fa fa-check"></i><b>18.2.1</b> Bottom line: A two party secure computation protocol</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="sfetwochap.html"><a href="sfetwochap.html#beyond-two-parties"><i class="fa fa-check"></i><b>18.3</b> Beyond two parties</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html"><i class="fa fa-check"></i><b>19</b> Quantum computing and cryptography I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#the-double-slit-experiment"><i class="fa fa-check"></i><b>19.1</b> The double slit experiment</a></li>
+<li class="chapter" data-level="19.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-amplitudes"><i class="fa fa-check"></i><b>19.2</b> Quantum amplitudes</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-computing-and-computation---an-executive-summary."><i class="fa fa-check"></i><b>19.2.1</b> Quantum computing and computation - an executive summary.</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-101"><i class="fa fa-check"></i><b>19.3</b> Quantum 101</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#physically-realizing-quantum-computation"><i class="fa fa-check"></i><b>19.3.1</b> Physically realizing quantum computation</a></li>
+<li class="chapter" data-level="19.3.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bra-ket-notation"><i class="fa fa-check"></i><b>19.3.2</b> Bra-ket notation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bells-inequality"><i class="fa fa-check"></i><b>19.4</b> Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.5" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#analysis-of-bells-inequality"><i class="fa fa-check"></i><b>19.5</b> Analysis of Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.6" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#grovers-algorithm"><i class="fa fa-check"></i><b>19.6</b> Grover’s Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html"><i class="fa fa-check"></i><b>20</b> Quantum computing and cryptography II</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-order-finding-to-factoring-and-discrete-log"><i class="fa fa-check"></i><b>20.1</b> From order finding to factoring and discrete log</a></li>
+<li class="chapter" data-level="20.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#finding-periods-of-a-function-simons-algorithm"><i class="fa fa-check"></i><b>20.2</b> Finding periods of a function: Simon’s Algorithm</a></li>
+<li class="chapter" data-level="20.3" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-simon-to-shor"><i class="fa fa-check"></i><b>20.3</b> From Simon to Shor</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#the-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.1</b> The Fourier transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+<li class="chapter" data-level="20.3.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.2</b> Quantum Fourier Transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#shor鈥檚-order-finding-algorithm."><i class="fa fa-check"></i><b>20.4</b> Shor鈥檚 Order-Finding Algorithm.</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#analysis-the-case-that-rm"><i class="fa fa-check"></i><b>20.4.1</b> Analysis: the case that <span class="math inline">\(r|m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.5" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#rational-approximation-of-real-numbers"><i class="fa fa-check"></i><b>20.5</b> Rational approximation of real numbers</a>
+<ul>
+<li class="chapter" data-level="20.5.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-cryptography"><i class="fa fa-check"></i><b>20.5.1</b> Quantum cryptography</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="software-obfuscation.html"><a href="software-obfuscation.html"><i class="fa fa-check"></i><b>21</b> Software Obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#witness-encryption"><i class="fa fa-check"></i><b>21.1</b> Witness encryption</a></li>
+<li class="chapter" data-level="21.2" data-path="software-obfuscation.html"><a href="software-obfuscation.html#deniable-encryption"><i class="fa fa-check"></i><b>21.2</b> Deniable encryption</a></li>
+<li class="chapter" data-level="21.3" data-path="software-obfuscation.html"><a href="software-obfuscation.html#functional-encryption"><i class="fa fa-check"></i><b>21.3</b> Functional encryption</a></li>
+<li class="chapter" data-level="21.4" data-path="software-obfuscation.html"><a href="software-obfuscation.html#the-software-patch-problem"><i class="fa fa-check"></i><b>21.4</b> The software patch problem</a></li>
+<li class="chapter" data-level="21.5" data-path="software-obfuscation.html"><a href="software-obfuscation.html#software-obfuscation-1"><i class="fa fa-check"></i><b>21.5</b> Software obfuscation</a></li>
+<li class="chapter" data-level="21.6" data-path="software-obfuscation.html"><a href="software-obfuscation.html#applications-of-obfuscation"><i class="fa fa-check"></i><b>21.6</b> Applications of obfuscation</a></li>
+<li class="chapter" data-level="21.7" data-path="software-obfuscation.html"><a href="software-obfuscation.html#impossibility-of-obfuscation"><i class="fa fa-check"></i><b>21.7</b> Impossibility of obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.7.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#proof-of-impossibility-of-vbb-obfuscation"><i class="fa fa-check"></i><b>21.7.1</b> Proof of impossibility of VBB obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="21.8" data-path="software-obfuscation.html"><a href="software-obfuscation.html#indistinguishability-obfuscation"><i class="fa fa-check"></i><b>21.8</b> Indistinguishability obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html"><i class="fa fa-check"></i><b>22</b> More obfuscation, exotic encryptions</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#slower-weaker-less-securer"><i class="fa fa-check"></i><b>22.1</b> Slower, weaker, less securer</a></li>
+<li class="chapter" data-level="22.2" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#how-to-get-ibe-from-pairing-based-assumptions."><i class="fa fa-check"></i><b>22.2</b> How to get IBE from pairing based assumptions.</a></li>
+<li class="chapter" data-level="22.3" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#beyond-pairing-based-cryptography"><i class="fa fa-check"></i><b>22.3</b> Beyond pairing based cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="anonymous-communication.html"><a href="anonymous-communication.html"><i class="fa fa-check"></i><b>23</b> Anonymous communication</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="anonymous-communication.html"><a href="anonymous-communication.html#steganography"><i class="fa fa-check"></i><b>23.1</b> Steganography</a></li>
+<li class="chapter" data-level="23.2" data-path="anonymous-communication.html"><a href="anonymous-communication.html#anonymous-routing"><i class="fa fa-check"></i><b>23.2</b> Anonymous routing</a></li>
+<li class="chapter" data-level="23.3" data-path="anonymous-communication.html"><a href="anonymous-communication.html#tor"><i class="fa fa-check"></i><b>23.3</b> Tor</a></li>
+<li class="chapter" data-level="23.4" data-path="anonymous-communication.html"><a href="anonymous-communication.html#telex"><i class="fa fa-check"></i><b>23.4</b> Telex</a></li>
+<li class="chapter" data-level="23.5" data-path="anonymous-communication.html"><a href="anonymous-communication.html#riposte"><i class="fa fa-check"></i><b>23.5</b> Riposte</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html"><i class="fa fa-check"></i><b>24</b> Ethical, moral, and policy dimensions to cryptography</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#reading-prior-to-lecture"><i class="fa fa-check"></i><b>24.1</b> Reading prior to lecture:</a></li>
+<li class="chapter" data-level="24.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#case-studies."><i class="fa fa-check"></i><b>24.2</b> Case studies.</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#the-snowden-revelations"><i class="fa fa-check"></i><b>24.2.1</b> The Snowden revelations</a></li>
+<li class="chapter" data-level="24.2.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#fbi-vs-apple-case"><i class="fa fa-check"></i><b>24.2.2</b> FBI vs Apple case</a></li>
+<li class="chapter" data-level="24.2.3" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#juniper-backdoor-case-and-the-opm-break-in"><i class="fa fa-check"></i><b>24.2.3</b> Juniper backdoor case and the OPM break-in</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="course-recap.html"><a href="course-recap.html"><i class="fa fa-check"></i><b>25</b> Course recap</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="course-recap.html"><a href="course-recap.html#some-things-we-did-not-cover"><i class="fa fa-check"></i><b>25.1</b> Some things we did not cover</a></li>
+<li class="chapter" data-level="25.2" data-path="course-recap.html"><a href="course-recap.html#what-i-hope-you-learned"><i class="fa fa-check"></i><b>25.2</b> What I hope you learned</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="quantum-computing-and-cryptography-i" class="section level1 hasAnchor" number="19">
+<h1><span class="header-section-number">19</span> Quantum computing and cryptography I<a href="quantum-computing-and-cryptography-i.html#quantum-computing-and-cryptography-i" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<blockquote>
+<p><em>“I think I can safely say that nobody understands quantum mechanics.”</em> , Richard Feynman, 1965</p>
+</blockquote>
+<blockquote>
+<p><em>“The only difference between a probabilistic classical world and the equations of the quantum world is that somehow or other it appears as if the probabilities would have to go negative”</em>, Richard Feynman, 1982</p>
+</blockquote>
+<p>There were two schools of natural philosophy in ancient Greece.
+<em>Aristotle</em> believed that objects have an <em>essence</em> that explains their behavior, and a theory of the natural world has to refer to the <em>reasons</em> (or “final cause” to use Aristotle’s language) as to why they exhibit certain phenomena.
+<em>Democritus</em> believed in a purely mechanistic explanation of the world.
+In his view, the universe was ultimately composed of elementary particles (or <em>Atoms</em>) and our observed phenomena arise from the interactions between these particles according to some local rules.
+Modern science (arguably starting with Newton) has embraced Democritus’ point of view, of a mechanistic or “clockwork” universe of particles and forces acting upon them.</p>
+<p>While the classification of particles and forces evolved with time, to a large extent the “big picture” has not changed from Newton till Einstein.
+In particular it was held as an axiom that if we knew fully the current <em>state</em> of the universe (i.e., the particles and their properties such as location and velocity) then we could predict its future state at any point in time.
+In computational language, in all these theories the state of a system with <span class="math inline">\(n\)</span> particles could be stored in an array of <span class="math inline">\(O(n)\)</span> numbers, and predicting the evolution of the system can be done by running some efficient (e.g., <span class="math inline">\(poly(n)\)</span> time) deterministic computation on this array.</p>
+<div id="the-double-slit-experiment" class="section level2 hasAnchor" number="19.1">
+<h2><span class="header-section-number">19.1</span> The double slit experiment<a href="quantum-computing-and-cryptography-i.html#the-double-slit-experiment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Alas, in the beginning of the 20th century, several experimental results were calling into question this “clockwork” or “billiard ball” theory of the world.
+One such experiment is the famous <a href="https://en.wikipedia.org/wiki/Double-slit_experiment">double slit experiment</a>.
+Here is one way to describe it.
+Suppose that we buy one of those baseball pitching machines, and aim it at a soft plastic wall, but put a <em>metal barrier with a single slit</em> between the machine and the plastic wall (see <a href="" class="ref">doublebaseballfig</a>).
+If we shoot baseballs at the plastic wall, then some of the baseballs would bounce off the metal barrier, while some would make it through the slit and dent the wall.
+If we now carve out an additional slit in the metal barrier then more balls would get through, and so the plastic wall would be <em>even more dented</em>.</p>
+<div class="float" id="doublebaseballfig">
+<img src="../figure/double_baseball2.png" class="margin" width="300" height="300" alt="In the “double baseball experiment” we shoot baseballs from a gun at a soft wall through a hard barrier that has one or two slits open in it. There is only “constructive interference” in the sense that the dent in each position in the wall when both slits are open is the sum of the dents when each slit is open on its own." />
+<div class="figcaption">In the “double baseball experiment” we shoot baseballs from a gun at a soft wall through a hard barrier that has one or two slits open in it. There is only “constructive interference” in the sense that the dent in each position in the wall when both slits are open is the sum of the dents when each slit is open on its own.</div>
+</div>
+<p>So far this is pure common sense, and it is indeed (to my knowledge) an accurate description of what happens when we shoot baseballs at a plastic wall.
+However, this is not the same when we shoot <em>photons</em>.
+Amazingly, if we shoot with a “photon gun” (i.e., a laser) at a wall equipped with photon detectors through some barrier, then (as shown in <a href="" class="ref">doubleslitfig</a>) in some positions of the wall we will see <em>fewer</em> hits when the two slits are open than one only ones of them is!.<a href="#fn113" class="footnote-ref" id="fnref113"><sup>113</sup></a>
+In particular there are positions in the wall that are hit when the first slit is open, hit when the second gun is open, but are <em>not hit at all when both slits are open!</em>.</p>
+<div class="float" id="doubleslitfig">
+<img src="../figure/double-slit-setup.PNG" class="margin" width="300" height="300" alt="The setup of the double slit experiment in the case of photon or electron guns. We see also destructive interference in the sense that there are some positions on the wall that get fewer hits when both slits are open than they get when only one of the slits is open. Image credit: Wikipedia." />
+<div class="figcaption">The setup of the double slit experiment in the case of photon or electron guns. We see also <em>destructive</em> interference in the sense that there are some positions on the wall that get <em>fewer</em> hits when both slits are open than they get when only one of the slits is open. Image credit: Wikipedia.</div>
+</div>
+<p>It seems as if each photon coming out of the gun is aware of the global setup of the experiment, and behaves differently if two slits are open than if only one is.
+If we try to “catch the photon in the act” and place a detector right next to each slit so we can see exactly the path each photon takes then something even more bizarre happens.
+The mere fact that we <em>measure</em> the path changes the photon’s behavior, and now this “destructive interference” pattern is gone and the number of times a position is hit when two slits are open is the sum of the number of times it is hit when each slit is open.</p>
+<blockquote>
+<h1 id="section-97" class="pause"></h1>
+<p>You should read the paragraphs above more than once and make sure you appreciate how truly mind boggling these results are.</p>
+</blockquote>
+</div>
+<div id="quantum-amplitudes" class="section level2 hasAnchor" number="19.2">
+<h2><span class="header-section-number">19.2</span> Quantum amplitudes<a href="quantum-computing-and-cryptography-i.html#quantum-amplitudes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The double slit and other experiments ultimately forced scientists to accept a very counterintuitive picture of the world.
+It is not merely about nature being randomized, but rather it is about the probabilities in some sense “going negative” and cancelling each other!</p>
+<p>To see what we mean by this, let us go back to the baseball experiment.
+Suppose that the probability a ball passes through the left slit is <span class="math inline">\(p_L\)</span> and the probability that it passes through the right slit is <span class="math inline">\(p_R\)</span>. Then, if we shoot <span class="math inline">\(N\)</span> balls out of each gun, we expect the wall will be hit <span class="math inline">\((p_L+p_R)N\)</span> times.
+In contrast, in the quantum world of photons instead of baseballs, it can sometimes be the case that in both the first and second case the wall is hit with positive probabilities <span class="math inline">\(p_L\)</span> and <span class="math inline">\(p_R\)</span> respectively but somehow when both slits are open the wall (or a particular position in it) is not hit at all.
+It’s almost as if the probabilities can “cancel each other out”.</p>
+<p>To understand the way we model this in quantum mechanics, it is helpful to think of a “lazy evaluation” approach to probability.
+We can think of a probabilistic experiment such as shooting a baseball through two slits in two different ways:</p>
+<ul>
+<li><p>When a ball is shot, “nature” tosses a coin and decides if it will go through the left slit (which happens with probability <span class="math inline">\(p_L\)</span>), right slit (which happens with probability <span class="math inline">\(p_R\)</span>), or bounce back. If it passes through one of the slits then it will hit the wall.
+Later we can look at the wall and find out whether or not this event happened, but the fact that the event happened or not is determined independently of whether or not we look at the wall.</p></li>
+<li><p>The other viewpoint is that when a ball is shot, “nature” computes the probabilities <span class="math inline">\(p_L\)</span> and <span class="math inline">\(p_R\)</span> as before, but does <em>not</em> yet “toss the coin” and determines what happened.
+Only when we actually look at the wall, nature tosses a coin and with probability <span class="math inline">\(p_L+p_R\)</span> ensures we see a dent. That is, nature uses “lazy evaluation”, and only determines the result of a probabilistic experiment when we decide to <em>measure</em> it.</p></li>
+</ul>
+<p>While the first scenario seems much more natural, the end result in both is the same (the wall is hit with probability <span class="math inline">\(p_L+p_R\)</span>) and so the question of whether we should model nature as following the first scenario or second one seems like asking about the proverbial tree that falls in the forest with no one hearing about it.</p>
+<p>However, when we want to describe the double slit experiment with photons rather than baseballs, it is the second scenario that lends itself better to a quantum generalization.
+Quantum mechanics associates a number <span class="math inline">\(\alpha\)</span> known as an <em>amplitude</em> with each probabilistic experiment.
+This number <span class="math inline">\(\alpha\)</span> can be <em>negative</em>, and in fact even <em>complex</em>.
+We never observe the amplitudes directly, since whenever we <em>measure</em> an event with amplitude <span class="math inline">\(\alpha\)</span>, nature tosses a coin and determines that the event happens with probability <span class="math inline">\(|\alpha|^2\)</span>.
+However, the sign (or in the complex case, phase) of the amplitudes can affect whether two different events have <em>constructive</em> or <em>destructive</em> interference.</p>
+<p>Specifically, consider an event that can either occur or not (e.g. “detector number 17 was hit by a photon”).
+In classical probability, we model this by a probability distribution over the two outcomes: a pair of non-negative numbers <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> such that <span class="math inline">\(p+q=1\)</span>, where <span class="math inline">\(p\)</span> corresponds to the probability that the event occurs and <span class="math inline">\(q\)</span> corresponds to the probability that the event does not occur.
+In quantum mechanics, we model this also by pair of numbers, which we call <em>amplitudes</em>. This is a pair of (potentially negative or even complex) numbers <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> such that <span class="math inline">\(|\alpha|^2 + |\beta|^2 =1\)</span>.
+The probability that the event occurs is <span class="math inline">\(|\alpha|^2\)</span> and the probability that it does not occur is <span class="math inline">\(|\beta|^2\)</span>.
+In isolation, these negative or complex numbers don’t matter much, since we anyway square them to obtain probabilities.
+But the interaction of positive and negative amplitudes can result in surprising <em>cancellations</em> where somehow combining two scenarios where an event happens with positive probability results in a scenario where it never does.</p>
+<div class="pause">
+<p>If you don’t find the above description confusing and unintuitive, you probably didn’t get it.
+Please make sure to re-read the above paragraphs until you are thoroughly confused.</p>
+</div>
+<p>Quantum mechanics is a mathematical theory that allows us to calculate and predict the results of the double-slit and many other experiments.
+If you think of quantum mechanics as an explanation as to what “really” goes on in the world, it can be rather confusing.
+However, if you simply “shut up and calculate” then it works amazingly well at predicting experimental results.
+In particular, in the double slit experiment, for any position in the wall, we can compute numbers <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> such that photons from the first and second slit hit that position with probabilities <span class="math inline">\(|\alpha|^2\)</span> and <span class="math inline">\(|\beta|^2\)</span> respectively.
+When we open both slits, the probability that the position will be hit is proportional to <span class="math inline">\(|\alpha+\beta|^2\)</span>, and so in particular, if <span class="math inline">\(\alpha=-\beta\)</span> then it will be the case that, despite being hit when <em>either</em> slit one or slit two are open, the position is <em>not hit at all</em> when they both are.
+If you are confused by quantum mechanics, you are not alone: for decades people have been trying to come up with <a href="https://en.wikipedia.org/wiki/Interpretations_of_quantum_mechanics">explanations</a> for “the underlying reality” behind quantum mechanics, including <a href="https://en.wikipedia.org/wiki/De_Broglie%E2%80%93Bohm_theory">Bohmian Mechanics</a>, <a href="https://en.wikipedia.org/wiki/Many-worlds_interpretation">Many Worlds</a> and others.
+However, none of these interpretations have gained universal acceptance and all of those (by design) yield the same experimental predictions.
+Thus at this point many scientists prefer to just ignore the question of what is the “true reality” and go back to simply “shutting up and calculating”.</p>
+<p>Some of the counterintuitive properties that arise from amplitudes or “negative probabilities” include:</p>
+<ul>
+<li><strong>Interference</strong> - As we see here, probabilities can “cancel each other out”.</li>
+<li><strong>Measurement</strong> - The idea that probabilities are negative as long as “no one is looking” and “collapse” to positive probabilities when they are <em>measured</em> is deeply disturbing. Indeed, people have shown that it can yield to various strange outcomes such as “spooky actions at a distance”, where we can measure an object at one place and instantaneously (faster than the speed of light) cause a difference in the results of a measurements in a place far removed. Unfortunately (or fortunately?) these strange outcomes have been confirmed experimentally.</li>
+<li><strong>Entanglement</strong> - The notion that two parts of the system could be connected in this weird way where measuring one will affect the other is known as <em>quantum entanglement</em>.</li>
+</ul>
+<p>Again, as counter-intuitive as these concepts are, they have been experimentally confirmed, so we just have to live with them.</p>
+<div class="remark" title="Complex vs real, other simplifications">
+<p><span id="complexrem" class="remark"><em>Remark</em>. </span>If (like the author) you are a bit intimidated by complex numbers, don’t worry: you can think of all amplitudes as <em>real</em> (though potentially <em>negative</em>) numbers without loss of understanding.
+All the “magic” of quantum computing already arises in this case, and so we will often restrict attention to real amplitudes in this chapter.</p>
+<p>We will also only discuss so-called <em>pure</em> quantum states, and not the more general notion of <em>mixed</em> states.
+Pure states turn out to be sufficient for understanding the algorithmic aspects of quantum computing.</p>
+<p>More generally, this chapter is not meant to be a complete description of quantum mechanics, quantum information theory, or quantum computing, but rather illustrate the main points where these differ from classical computing.</p>
+</div>
+<div id="quantum-computing-and-computation---an-executive-summary." class="section level3 hasAnchor" number="19.2.1">
+<h3><span class="header-section-number">19.2.1</span> Quantum computing and computation - an executive summary.<a href="quantum-computing-and-cryptography-i.html#quantum-computing-and-computation---an-executive-summary." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One of the strange aspects of the quantum-mechanical picture of the world is that unlike in the billiard ball example, there is no obvious algorithm to simulate the evolution of <span class="math inline">\(n\)</span> particles over <span class="math inline">\(t\)</span> time periods in <span class="math inline">\(poly(n,t)\)</span> steps.
+In fact, the natural way to simulate <span class="math inline">\(n\)</span> quantum particles will require a number of steps that is <em>exponential</em> in <span class="math inline">\(n\)</span>.
+This is a huge headache for scientists that actually need to do these calculations in practice.</p>
+<p>In the 1981, physicist Richard Feynman proposed to “turn this lemon to lemonade” by making the following almost tautological observation:</p>
+<blockquote>
+<p><em>If a physical system cannot be simulated by a computer in <span class="math inline">\(T\)</span> steps, the system can be considered as performing a computation that would take more than <span class="math inline">\(T\)</span> steps</em></p>
+</blockquote>
+<p>So, he asked whether one could design a quantum system such that its outcome <span class="math inline">\(y\)</span> based on the initial condition <span class="math inline">\(x\)</span> would be some function <span class="math inline">\(y=f(x)\)</span> such that <strong>(a)</strong> we don’t know how to efficiently compute in any other way, and <strong>(b)</strong> is actually useful for something.<a href="#fn114" class="footnote-ref" id="fnref114"><sup>114</sup></a>
+In 1985, David Deutsch formally suggested the notion of a quantum Turing machine, and the model has been since refined in works of Detusch and Josza and Bernstein and Vazirani.
+Such a system is now known as a <em>quantum computer</em>.</p>
+<p>For a while these hypothetical quantum computers seemed useful for one of two things.
+First, to provide a general-purpose mechanism to simulate a variety of the real quantum systems that people care about.
+Second, as a challenge to the theory of computation’s approach to model efficient computation by Turing machines, though a challenge that has little bearing to practice, given that this theoretical “extra power” of quantum computer seemed to offer little advantage in the problems people actually want to solve such as combinatorial optimization, machine learning, data structures, etc..</p>
+<p>To a significant extent, this is still true today. We have no real evidence that quantum computers, when built, will offer truly significant<a href="#fn115" class="footnote-ref" id="fnref115"><sup>115</sup></a> advantage in 99 percent of the applications of computing.<a href="#fn116" class="footnote-ref" id="fnref116"><sup>116</sup></a>
+However, there is one cryptography-sized exception:
+In 1994 Peter Shor showed that quantum computers can solve the integer factoring and discrete logarithm in polynomial time.
+This result has captured the imagination of a great many people, and completely energized research into quantum computing.<br />
+This is both because the hardness of these particular problems provides the foundations for securing such a huge part of our communications (and these days, our economy), as well as it was a powerful demonstration that quantum computers could turn out to be useful for problems that a-priori seemed to have nothing to do with quantum physics.</p>
+<p>At the moment there are several intensive efforts to construct large scale quantum computers. It seems safe to say that, in the next five years or so there will not be a quantum computer large enough to factor, say, a <span class="math inline">\(1024\)</span> bit number.
+However, some quantum computers have been built that achieved tasks that are either not known to be achieved classically, or at least seem to require more resources classically than they do for these quantum computers.
+When and if such a computer is built that can break reasonable parameters of Diffie Hellman, RSA and elliptic curve cryptography is anybody’s guess.
+It could also be a “self destroying prophecy” whereby the existence of a small-scale quantum computer would cause everyone to shift away to lattice-based crypto which in turn will diminish the motivation to invest the huge resources needed to build a large scale quantum computer.<a href="#fn117" class="footnote-ref" id="fnref117"><sup>117</sup></a></p>
+<p>The above summary might be all that you need to know as a cryptographer, and enough motivation to study lattice-based cryptography as we do in this course.
+However, because quantum computing is such a beautiful and (like cryptography) counter-intuitive concept,
+we will try to give at least a hint of what it is about and how Shor’s algorithm works.</p>
+</div>
+</div>
+<div id="quantum-101" class="section level2 hasAnchor" number="19.3">
+<h2><span class="header-section-number">19.3</span> Quantum 101<a href="quantum-computing-and-cryptography-i.html#quantum-101" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We now present some of the basic notions in quantum information. It is very useful to contrast these notions to the setting of <em>probabilistic</em> systems and see how “negative probabilities” make a difference.
+This discussion is somewhat brief. The chapter on quantum computation in my <a href="http://theory.cs.princeton.edu/complexity/">book with Arora</a> (see <a href="http://theory.cs.princeton.edu/complexity/ab_quantumchap.pdf">draft here</a>) is one
+relatively short resource that contains essentially everything we discuss here.
+See also this <a href="http://www.scottaaronson.com/blog/?p=208">blog post of Aaronson</a> for a high level explanation of Shor’s algorithm which ends with links to several more detailed expositions.
+See also <a href="http://www.scottaaronson.com/democritus/lec14.html">this lecture</a> of Aaronson for a great discussion of the feasibility of quantum computing (Aaronson’s <a href="http://www.scottaaronson.com/democritus/default.html">course lecture notes</a> and the <a href="http://www.amazon.com/Quantum-Computing-since-Democritus-Aaronson/dp/0521199565">book</a> that they spawned are fantastic reads as well).</p>
+<p><strong>States:</strong> We will consider a simple quantum system that includes <span class="math inline">\(n\)</span> objects (e.g., electrons/photons/transistors/etc..) each of which can be in either an “on” or “off” state - i.e., each of them can encode a single <em>bit</em> of information, but to emphasize the “quantumness” we will call it a <em>qubit</em>.
+A <em>probability distribution</em> over such a system can be described as a <span class="math inline">\(2^n\)</span> dimensional vector <span class="math inline">\(v\)</span> with non-negative entries summing up to <span class="math inline">\(1\)</span>, where for every <span class="math inline">\(x\in\{0,1\}^n\)</span>, <span class="math inline">\(v_x\)</span> denotes the probability that the system is in state <span class="math inline">\(x\)</span>.
+As we mentioned, quantum mechanics allows negative (in fact even complex) probabilities and so a <em>quantum state</em> of the system can be described as a <span class="math inline">\(2^n\)</span> dimensional vector <span class="math inline">\(v\)</span> such that <span class="math inline">\(\|v\|^2 = \sum_x |v_x|^2 = 1\)</span>.</p>
+<p><strong>Measurement:</strong> Suppose that we were in the classical probabilistic setting, and that the <span class="math inline">\(n\)</span> bits are simply random coins.
+Thus we can describe the <em>state</em> of the system by the <span class="math inline">\(2^n\)</span>-dimensional vector <span class="math inline">\(v\)</span> such that <span class="math inline">\(v_x=2^{-n}\)</span> for all <span class="math inline">\(x\)</span>.
+If we <em>measure</em> the system and see what the coins came out, we will get the value <span class="math inline">\(x\)</span> with probability <span class="math inline">\(v_x\)</span>.
+Naturally, if we measure the system twice we will get the same result.
+Thus, after we see that the coin is <span class="math inline">\(x\)</span>, the new state of the system <em>collapses</em> to a vector <span class="math inline">\(v\)</span> such that <span class="math inline">\(v_y = 1\)</span> if <span class="math inline">\(y=x\)</span> and <span class="math inline">\(v_y=0\)</span> if <span class="math inline">\(y\neq x\)</span>.
+In a quantum state, we do the same thing: if we <em>measure</em> a vector <span class="math inline">\(v\)</span> corresponds to turning it with probability <span class="math inline">\(|v_x|^2\)</span> into a vector that has <span class="math inline">\(1\)</span> on coordinate <span class="math inline">\(x\)</span> and zero on all the other coordinates.</p>
+<p><strong>Operations:</strong> In the classical probabilistic setting, if we have a system in state <span class="math inline">\(v\)</span> and we apply some function <span class="math inline">\(f:\{0,1\}^n\rightarrow\{0,1\}^n\)</span> then this transforms <span class="math inline">\(v\)</span> to the state <span class="math inline">\(w\)</span> such that <span class="math inline">\(w_y = \sum_{x:f(x)=y} v_x\)</span>.<br />
+Another way to state this, is that <span class="math inline">\(w=M_f\)</span> where <span class="math inline">\(M_f\)</span> is the matrix such that <span class="math inline">\(M_{f(x),x}=1\)</span> for all <span class="math inline">\(x\)</span> and all other entries are <span class="math inline">\(0\)</span>.
+If we toss a coin and decide with probability <span class="math inline">\(1/2\)</span> to apply <span class="math inline">\(f\)</span> and with probability <span class="math inline">\(1/2\)</span> to apply <span class="math inline">\(g\)</span>, this corresponds to the matrix <span class="math inline">\((1/2)M_f + (1/2)M_g\)</span>.
+More generally, the set of operations that we can apply can be captured as the set of convex combinations of all such matrices- this is simply the set of non-negative matrices whose columns all sum up to <span class="math inline">\(1\)</span>- the <em>stochastic</em> matrices. In the quantum case, the operations we can apply to a quantum state are encoded as a <em>unitary</em> matrix, which is a matrix <span class="math inline">\(M\)</span> such that <span class="math inline">\(\|Mv\|=\|v\|\)</span> for all vectors <span class="math inline">\(v\)</span>.</p>
+<p><strong>Elementary operations:</strong> Of course, even in the probabilistic setting, not every function <span class="math inline">\(f:\{0,1\}^n\rightarrow\{0,1\}^n\)</span> is efficiently computable. We think of a function as efficiently computable if it is composed of polynomially many elementary operations, that involve at most <span class="math inline">\(2\)</span> or <span class="math inline">\(3\)</span> bits or so (i.e., Boolean <em>gates</em>).
+That is, we say that a matrix <span class="math inline">\(M\)</span> is <em>elementary</em> if it only modifies three bits.
+That is, <span class="math inline">\(M\)</span> is obtained by “lifting” some <span class="math inline">\(8\times 8\)</span> matrix <span class="math inline">\(M&#39;\)</span> that operates on three bits <span class="math inline">\(i,j,k\)</span>, leaving all the rest of the bits intact.
+Formally, given an <span class="math inline">\(8\times 8\)</span> matrix <span class="math inline">\(M&#39;\)</span> (indexed by strings in <span class="math inline">\(\{0,1\}^3\)</span>) and three distinct indices <span class="math inline">\(i&lt;j&lt;k \in \{1,\ldots,n\}\)</span> we define the <em><span class="math inline">\(n\)</span>-lift of <span class="math inline">\(M&#39;\)</span> with indices <span class="math inline">\(i,j,k\)</span></em> to be the <span class="math inline">\(2^n\times 2^n\)</span> matrix <span class="math inline">\(M\)</span> such that for every strings <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> that agree with each other on all coordinates except possibly <span class="math inline">\(i,j,k\)</span>, <span class="math inline">\(M_{x,y}=M&#39;_{x_ix_jx_k,y_iy_jy_k}\)</span> and otherwise <span class="math inline">\(M_{x,y}=0\)</span>.
+Note that if <span class="math inline">\(M&#39;\)</span> is of the form <span class="math inline">\(M&#39;_f\)</span> for some function <span class="math inline">\(f:\{0,1\}^3\rightarrow\{0,1\}^3\)</span> then <span class="math inline">\(M=M_g\)</span> where <span class="math inline">\(g:\{0,1\}^n\rightarrow\{0,1\}^n\)</span> is defined as <span class="math inline">\(g(x)=f(x_ix_jx_k)\)</span>.
+We define <span class="math inline">\(M\)</span> as an <em>elementary stochastic matrix</em> or a <em>probabilistic gate</em> if <span class="math inline">\(M\)</span> is equal to an <span class="math inline">\(n\)</span> lift of some stochastic <span class="math inline">\(8\times 8\)</span> matrix <span class="math inline">\(M&#39;\)</span>.
+The quantum case is similar: a <em>quantum gate</em> is a <span class="math inline">\(2^n\times 2^n\)</span> matrix that is an <span class="math inline">\(N\)</span> lift of some unitary <span class="math inline">\(8\times 8\)</span> matrix <span class="math inline">\(M&#39;\)</span>.
+It is an exercise to prove that lifting preserves stochasticity and unitarity. That is, every probabilistic gate is a stochastic matrix and every quantum gate is a unitary matrix.</p>
+<p><strong>Complexity:</strong> For every stochastic matrix <span class="math inline">\(M\)</span> we can define its <em>randomized complexity</em>, denoted as <span class="math inline">\(R(M)\)</span> to be the minimum number <span class="math inline">\(T\)</span> such that <span class="math inline">\(M\)</span> is can be (approximately) obtained by combining <span class="math inline">\(T\)</span> elementary probabilistic gates. To be concrete, we can define <span class="math inline">\(R(M)\)</span> to be the minimum <span class="math inline">\(T\)</span> such that there exists <span class="math inline">\(T\)</span> elementary matrices <span class="math inline">\(M_1,\ldots,M_T\)</span>
+such that for every <span class="math inline">\(x\)</span>, <span class="math inline">\(\sum_y |M_{y,x}-(M_T\cdots M_1)_{y,x}|&lt;0.1\)</span>.
+(It can be shown that <span class="math inline">\(R(M)\)</span> is finite and in fact at most <span class="math inline">\(10^n\)</span> for every <span class="math inline">\(M\)</span>; we can do so by writing <span class="math inline">\(M\)</span> as a convex combination of function and writing every function as a composition of functions that map a single string <span class="math inline">\(x\)</span> to <span class="math inline">\(y\)</span>, keeping all other inputs intact.)
+We will say that a probabilistic process <span class="math inline">\(M\)</span> mapping distributions on <span class="math inline">\(\{0,1\}^n\)</span> to distributions on <span class="math inline">\(\{0,1\}^n\)</span> is <em>efficiently classically computable</em> if <span class="math inline">\(R(M) \leq poly(n)\)</span>.
+If <span class="math inline">\(M\)</span> is a unitary matrix, then we define the <em>quantum complexity</em> of <span class="math inline">\(M\)</span>, denoted as <span class="math inline">\(Q(M)\)</span>, to be the minimum number <span class="math inline">\(T\)</span> such that there are quantum gates <span class="math inline">\(M_1,\ldots,M_T\)</span> satisfying that for every <span class="math inline">\(x\)</span>, <span class="math inline">\(\sum_y |M_{y,x}-(M_T \cdots M_1)_{y,x}|^2 &lt; 0.1\)</span>.<br />
+We say that <span class="math inline">\(M\)</span> is <em>efficiently quantumly computable</em> if <span class="math inline">\(Q(M)\leq poly(n)\)</span>.</p>
+<p><strong>Computing functions:</strong> We have defined what it means for an operator to be probabilistically or quantumly efficiently computable, but we typically are interested in computing some function <span class="math inline">\(f:\{0,1\}^m\rightarrow\{0,1\}^\ell\)</span>.
+The idea is that we say that <span class="math inline">\(f\)</span> is efficiently computable if the corresponding operator is efficiently computable, except that we also allow to use extra memory and so to embed <span class="math inline">\(f\)</span> in some <span class="math inline">\(n=poly(m)\)</span>.
+We define <span class="math inline">\(f\)</span> to be <em>efficiently classically computable</em> if there is some <span class="math inline">\(n=poly(m)\)</span> such that the operator <span class="math inline">\(M_g\)</span> is efficiently classically computable where <span class="math inline">\(g:\{0,1\}^n\rightarrow\{0,1\}^n\)</span> is defined such that <span class="math inline">\(g(x_1,\ldots,x_n)=f(x_1,\ldots,x_m)\)</span>.
+In the quantum case we have a slight twist since the operator <span class="math inline">\(M_g\)</span> is not necessarily a unitary matrix.<a href="#fn118" class="footnote-ref" id="fnref118"><sup>118</sup></a>
+Therefore we say that <span class="math inline">\(f\)</span> is <em>efficiently quantumly computable</em> if there is <span class="math inline">\(n=poly(m)\)</span> such that the operator <span class="math inline">\(M_q\)</span> is efficiently quantumly computable where <span class="math inline">\(g:\{0,1\}^n\rightarrow\{0,1\}^n\)</span> is defined as
+<span class="math inline">\(g(x_1,\ldots,x_n) = x_1\cdots x_m \|( f(x_1\cdots x_m)0^{n-m-\ell}\; \oplus \; x_{m+1}\cdots x_n)\)</span>.</p>
+<p><strong>Quantum and classical computation:</strong> The way we defined what it means for a function to be efficiently quantumly computable, it might not be clear that if <span class="math inline">\(f:\{0,1\}^m\rightarrow\{0,1\}^\ell\)</span> is a function that we can compute by a polynomial size Boolean circuit (e.g., combining polynomially many AND, OR and NOT gates) then it is also quantumly efficiently computable.
+The idea is that for every gate <span class="math inline">\(g:\{0,1\}^2\rightarrow\{0,1\}\)</span> we can define an <span class="math inline">\(8\times 8\)</span> unitary matrix <span class="math inline">\(M_h\)</span> where <span class="math inline">\(h:\{0,1\}^3\rightarrow\{0,1\}^3\)</span> has the form <span class="math inline">\(h(a,b,c)=a,b,c\oplus g(a,b)\)</span>.
+So, if <span class="math inline">\(f\)</span> has a circuit of <span class="math inline">\(s\)</span> gates, then we can dedicate an extra bit for every one of these gates and then run the corresponding <span class="math inline">\(s\)</span> unitary operations one by one, at the end of which we will get an operator that computes the mapping <span class="math inline">\(x_1,\ldots,x_{m+\ell+s} = x_1\cdots x_m \| x_{m+1}\cdots x_{m+s} \oplus f(x_1,\ldots,x_m)\|g(x_1\ldots x_m)\)</span> where
+the the <span class="math inline">\(\ell+i^{th}\)</span> bit of <span class="math inline">\(g(x_1,\ldots,x_n)\)</span> is the result of applying the <span class="math inline">\(i^{th}\)</span> gate in the calculation of <span class="math inline">\(f(x_1,\ldots,x_m)\)</span>.
+So this is “almost” what we wanted except that we have this “extra junk” that we need to get rid of. The idea is that we now simply run the same computation again which will basically we mean we XOR another copy of <span class="math inline">\(g(x_1,\ldots,x_m)\)</span> to the last <span class="math inline">\(s\)</span> bits, but since <span class="math inline">\(g(x)\oplus g(x) = 0^s\)</span> we get that we compute the map <span class="math inline">\(x \mapsto x_1\cdots x_m \| (f(x_1,\ldots,x_m)0^s \;\oplus\; x_{m+1}\cdots x_{m+\ell+s})\)</span> as desired.</p>
+<p><strong>The “obviously exponential” fallacy:</strong> A priori it might seem “obvious” that quantum computing is exponentially powerful, since to compute a quantum computation on <span class="math inline">\(n\)</span> bits we need to maintain the <span class="math inline">\(2^n\)</span> dimensional state vector and apply <span class="math inline">\(2^n\times 2^n\)</span> matrices to it.
+Indeed popular descriptions of quantum computing (too) often say something along the lines that the difference between quantum and classical computer is that a classic bit can either be zero or one while a qubit can be in both states at once, and so in many qubits a quantum computer can perform exponentially many computations at once.
+Depending on how you interpret this, this description is either false or would apply equally well to <em>probabilistic computation</em>.
+However, for probabilistic computation it is a not too hard exercise to show that if <span class="math inline">\(f:\{0,1\}^m\rightarrow\{0,1\}^n\)</span> is an efficiently computable function then it has a polynomial size circuit of AND, OR and NOT gates.<a href="#fn119" class="footnote-ref" id="fnref119"><sup>119</sup></a>
+Moreover, this “obvious” approach for simulating a quantum computation will take not just exponential time but <em>exponential space</em> as well, while it is not hard to show that using a simple recursive formula one can calculate the final quantum state using <em>polynomial space</em> (in physics parlance this is known as “Feynman path integrals”).
+So, the exponentially long vector description by itself does not imply that quantum computers are exponentially powerful.
+Indeed, we cannot <em>prove</em> that they are (since in particular we can’t prove that <em>every</em> polynomial space calculation can be done in polynomial time, in complexity parlance we don’t know how to rule out that <span class="math inline">\(P=PSPACE\)</span>), but we do have some problems (integer factoring most prominently) for which they do provide exponential speedup over the currently best <em>known</em> classical (deterministic or probabilistic) algorithms.</p>
+<div id="physically-realizing-quantum-computation" class="section level3 hasAnchor" number="19.3.1">
+<h3><span class="header-section-number">19.3.1</span> Physically realizing quantum computation<a href="quantum-computing-and-cryptography-i.html#physically-realizing-quantum-computation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To realize quantum computation one needs to create a system with <span class="math inline">\(n\)</span> independent binary states (i.e., “qubits”), and be able to manipulate small subsets of two or three of these qubits to change their state.
+While by the way we defined operations above it might seem that one needs to be able to perform arbitrary unitary operations on these two or three qubits, it turns out that there several choices for <em>universal sets</em> - a small constant number of gates that generate all others.
+The biggest challenge is how to keep the system from being measured and <em>collapsing</em> to a single classical combination of states.
+This is sometimes known as the <em>coherence time</em> of the system.
+The <a href="https://courses.cs.washington.edu/courses/cse599d/06wi/lecturenotes19.pdf">threshold theorem</a> says that there is some absolute constant level of errors <span class="math inline">\(\tau\)</span> so that if errors are created at every gate at rate smaller than <span class="math inline">\(\tau\)</span> then we can recover from those and perform arbitrary long computations. (Of course there are different ways to model the errors and so there are actually several threshold <em>theorems</em> corresponding to various noise models).</p>
+<p>There have been several proposals to build quantum computers:</p>
+<ul>
+<li><p><a href="https://arxiv.org/abs/1905.13641">Superconducting quantum computers</a> use super-conducting electric circuits to do quantum computation. These are currently the devices with largest number of fully controllable qubits.</p></li>
+<li><p>At Harvard, Lukin’s group is using <a href="https://lukin.physics.harvard.edu/arrays-cold-atoms">cold atoms</a> to implement quantum computers.</p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Trapped_ion_quantum_computer">Trapped ion quantum computers</a> Use the states of an ion to simulate a qubit. People have made some <a href="http://iontrap.umd.edu/wp-content/uploads/2016/02/1602.02840v1.pdf">recent advances</a> on these computers too. For example, an ion-trap computer was used to <a href="http://arxiv.org/abs/1507.08852">implement Shor’s algorithm to factor 15</a>. (It turns out that <span class="math inline">\(15=3\times 5\)</span> :) )</p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/Topological_quantum_computer">Topological quantum computers</a> use a different technology, which is more stable by design but arguably harder to manipulate to create quantum computers.</p></li>
+</ul>
+<p>These approaches are not mutually exclusive and it could be that ultimately quantum computers are built by combining all of them together.
+At the moment, we have devices with about <span class="math inline">\(100\)</span> qubits, and about <span class="math inline">\(1\%\)</span> error per gate.
+Such restricted machines are sometimes called “Noisy Intermediate-Scale Quantum Computers” or “NISQ”.
+See <a href="https://arxiv.org/abs/1801.00862">this article by John Preskil</a> for some of the progress and applications of such more restricted devices.
+If the number of qubits is increased and the error is decreased by one or two orders of magnitude, we could start seeing more applications.</p>
+<div class="float" id="googlequantumfig">
+<img src="../figure/googlequantum.jpg" class="margin" width="300" height="300" alt="Superconducting quantum computer prototype at Google. Image credit: Google / MIT Technology Review." />
+<div class="figcaption">Superconducting quantum computer prototype at Google. Image credit: Google / MIT Technology Review.</div>
+</div>
+</div>
+<div id="bra-ket-notation" class="section level3 hasAnchor" number="19.3.2">
+<h3><span class="header-section-number">19.3.2</span> Bra-ket notation<a href="quantum-computing-and-cryptography-i.html#bra-ket-notation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Quantum computing is very confusing and counterintuitive for many reasons.
+But there is also a “cultural” reason why people sometimes find quantum arguments hard to follow.
+Quantum folks follow their own special <a href="https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation">notation</a> for vectors.
+Many non quantum people find it ugly and confusing, while quantum folks secretly wish they people used it all the time, not just for non-quantum linear algebra, but also for restaurant bills and elemntary school math classes.</p>
+<p>The notation is actually not so confusing. If <span class="math inline">\(x\in\{0,1\}^n\)</span> then <span class="math inline">\(|x\rangle\)</span> denotes the <span class="math inline">\(x^{th}\)</span> standard basis vector in <span class="math inline">\(2^n\)</span> dimension.
+That is <span class="math inline">\(|x\rangle\)</span> <span class="math inline">\(2^n\)</span>-dimensional column vector that has <span class="math inline">\(1\)</span> in the <span class="math inline">\(x^{th}\)</span> coordinate and zero everywhere else.
+So, we can describe the column vector that has <span class="math inline">\(\alpha_x\)</span> in the <span class="math inline">\(x^{th}\)</span> entry as <span class="math inline">\(\sum_{x\in\{0,1\}^n} \alpha_x |x\rangle\)</span>.
+One more piece of notation that is useful is that if <span class="math inline">\(x\in\{0,1\}^n\)</span> and <span class="math inline">\(y\in\{0,1\}^m\)</span> then we identify <span class="math inline">\(|x\rangle|y\rangle\)</span> with <span class="math inline">\(|xy\rangle\)</span> (that is, the <span class="math inline">\(2^{n+m}\)</span> dimensional vector that has <span class="math inline">\(1\)</span> in the coordinate corresponding to the concatenation of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and zero everywhere else).
+This is more or less all you need to know about this notation to follow this lecture.<a href="#fn120" class="footnote-ref" id="fnref120"><sup>120</sup></a></p>
+<p>A quantum gate is an operation on at most three bits, and so it can be completely specified by what it does to the <span class="math inline">\(8\)</span> vectors <span class="math inline">\(|000\rangle,\ldots,|111\rangle\)</span>.
+Quantum states are always unit vectors and so we sometimes omit the normalization for convenience; for example we will identify the state <span class="math inline">\(|0\rangle+|1\rangle\)</span> with its normalized version <span class="math inline">\(\tfrac{1}{\sqrt{2}}|0\rangle + \tfrac{1}{\sqrt{2}}|1\rangle\)</span>.</p>
+</div>
+</div>
+<div id="bells-inequality" class="section level2 hasAnchor" number="19.4">
+<h2><span class="header-section-number">19.4</span> Bell’s Inequality<a href="quantum-computing-and-cryptography-i.html#bells-inequality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There is something weird about quantum mechanics.
+In 1935 <a href="http://plato.stanford.edu/entries/qt-epr/">Einstein, Podolsky and Rosen (EPR)</a> tried to pinpoint this issue by highlighting a previously unrealized corollary of this theory.
+They showed that the idea that nature does not determine the results of an experiment until it is measured results in so called “spooky action at a distance”.
+Namely, making a measurement of one object may instantaneously effect the state (i.e., the vector of amplitudes) of another object in the other end of the universe.</p>
+<p>Since the vector of amplitudes is just a mathematical abstraction, the EPR paper was considered to be merely a thought experiment for philosophers to be concerned about, without bearing on experiments.
+This changed when in 1965 John Bell showed an actual experiment to test the predictions of EPR and hence pit intuitive common sense against the quantum mechanics.
+Quantum mechanics won: it turns out that it <em>is</em> in fact possible to use measurements to create correlations between the states of objects far removed from one another that cannot be explained by any prior theory.
+Nonetheless, since the results of these experiments are so obviously wrong to anyone that has ever sat in an armchair, that there are still a number of <a href="http://www.scottaaronson.com/blog/?p=2464">Bell denialists</a> arguing that this can’t be true and quantum mechanics is wrong.</p>
+<p>So, what is this Bell’s Inequality?
+Suppose that Alice and Bob try to convince you they have telepathic ability, and they aim to prove it via the following experiment.
+Alice and Bob will be in separate closed rooms.<a href="#fn121" class="footnote-ref" id="fnref121"><sup>121</sup></a>
+You will interrogate Alice and your associate will interrogate Bob.
+You choose a random bit <span class="math inline">\(x\in\{0,1\}\)</span> and your associate chooses a random <span class="math inline">\(y\in\{0,1\}\)</span>.
+We let <span class="math inline">\(a\)</span> be Alice’s response and <span class="math inline">\(b\)</span> be Bob’s response.
+We say that Alice and Bob win this experiment if <span class="math inline">\(a \oplus b = x \wedge y\)</span>.
+In other words, Alice and Bob need to output two bits that <em>disagree</em> if <span class="math inline">\(x=y=1\)</span> and <em>agree</em> otherwise.<a href="#fn122" class="footnote-ref" id="fnref122"><sup>122</sup></a></p>
+<p>Now if Alice and Bob are not telepathic, then they need to agree in advance on some strategy.
+It’s not hard for Alice and Bob to succeed with probability <span class="math inline">\(3/4\)</span>: just always output the same bit.
+Moreover, by doing some case analysis, we can show that no matter what strategy they use, Alice and Bob cannot succeed with higher probability than that:<a href="#fn123" class="footnote-ref" id="fnref123"><sup>123</sup></a></p>
+<blockquote>
+<h1 id="bellthm" class="theorem" title="Bell&#39;s Inequality"></h1>
+<p>For every two functions <span class="math inline">\(f,g:\{0,1\}\rightarrow\{0,1\}\)</span>, <span class="math inline">\(\Pr_{x,y \in \{0,1\}}[  f(x) \oplus g(y) = x \wedge y] \leq 3/4\)</span>.</p>
+</blockquote>
+<div class="proof" data-ref="bellthm">
+<p><span id="unlabeled-div-44" class="proof"><em>Proof</em>. </span>Since the probability is taken over all four choices of <span class="math inline">\(x,y \in \{0,1\}\)</span>, the only way the theorem can be violated if if there exist two functions <span class="math inline">\(f,g\)</span> that satisfy</p>
+<p><span class="math display">\[f(x) \oplus g(y) = x \wedge y\]</span></p>
+<p>for all the four choices of <span class="math inline">\(x,y \in \{0,1\}^2\)</span>.
+Let’s plug in all these four choices and see what we get (below we use the equalities <span class="math inline">\(z \oplus 0 = z\)</span>, <span class="math inline">\(z \wedge 0=0\)</span> and <span class="math inline">\(z \wedge 1 = z\)</span>):</p>
+<p><span class="math display">\[
+\begin{aligned}
+f(0) &amp;\oplus g(0) &amp;= 0\;\;\;\; &amp;(\text{plugging in } x=0,y=0) \\
+f(0) &amp;\oplus g(1) &amp;= 0\;\;\;\; &amp;(\text{plugging in } x=0,y=1) \\
+f(1) &amp;\oplus g(0) &amp;= 0\;\;\;\; &amp;(\text{plugging in } x=1,y=0) \\
+f(1) &amp;\oplus g(1) &amp;= 1\;\;\;\; &amp;(\text{plugging in } x=1,y=1)
+\end{aligned}
+\]</span></p>
+<p>If we XOR together the first and second equalities we get <span class="math inline">\(g(0) \oplus g(1) = 0\)</span> while if we XOR together the third and fourth equalities we get <span class="math inline">\(g(0) \oplus g(1) = 1\)</span>, thus obtaining a contradiction.</p>
+</div>
+<p>An amazing <a href="http://arxiv.org/abs/1508.05949">experimentally verified</a> fact is that quantum mechanics allows for “telepathy”.<a href="#fn124" class="footnote-ref" id="fnref124"><sup>124</sup></a>
+Specifically, it has been shown that using the weirdness of quantum mechanics, there is in fact a strategy for Alice and Bob to succeed in this game with probability larger than <span class="math inline">\(3/4\)</span> (in fact, they can succeed with probability about <span class="math inline">\(0.85\)</span>, see <a href="" class="ref">bellstrategy</a>).</p>
+</div>
+<div id="analysis-of-bells-inequality" class="section level2 hasAnchor" number="19.5">
+<h2><span class="header-section-number">19.5</span> Analysis of Bell’s Inequality<a href="quantum-computing-and-cryptography-i.html#analysis-of-bells-inequality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now that we have the notation in place, we can show a strategy for Alice and Bob to display “quantum telepathy” in Bell’s Game.
+Recall that in the classical case, Alice and Bob can succeed in the “Bell Game” with probability at most <span class="math inline">\(3/4 = 0.75\)</span>.
+We now show that quantum mechanics allows them to succeed with probability at least <span class="math inline">\(0.8\)</span>.<a href="#fn125" class="footnote-ref" id="fnref125"><sup>125</sup></a></p>
+<blockquote>
+<h1 id="bellstrategy" class="lemma"></h1>
+<p>There is a 2-qubit quantum state <span class="math inline">\(\psi\in \mathbb{C}^4\)</span> so that if Alice has access to the first qubit of <span class="math inline">\(\psi\)</span>, can manipulate and measure it and output <span class="math inline">\(a\in \{0,1\}\)</span> and Bob has access to the second qubit of <span class="math inline">\(\psi\)</span> and can manipulate and measure it and output <span class="math inline">\(b\in \{0,1\}\)</span> then
+<span class="math inline">\(\Pr[ a \oplus b = x \wedge y ] \geq 0.8\)</span>.</p>
+</blockquote>
+<div class="proof" data-ref="bellstrategy">
+<p><span id="unlabeled-div-45" class="proof"><em>Proof</em>. </span>Alice and Bob will start by preparing a 2-qubit quantum system in the state</p>
+<p><span class="math display">\[\psi = \tfrac{1}{\sqrt{2}}|00\rangle + \tfrac{1}{\sqrt{2}}|11\rangle\]</span></p>
+<p>(this state is known as an <a href="https://en.wikipedia.org/wiki/EPR_paradox">EPR pair</a>).
+Alice takes the first qubit of the system to her room, and Bob takes the qubit to his room.
+Now, when Alice receives <span class="math inline">\(x\)</span> if <span class="math inline">\(x=0\)</span> she does nothing and if <span class="math inline">\(x=1\)</span> she applies the unitary map <span class="math inline">\(R_{-\pi/8}\)</span> to her qubit where <span class="math inline">\(R_\theta = \begin{pmatrix} cos \theta &amp; -\sin \theta \\ \sin \theta &amp; \cos \theta \end{pmatrix}\)</span> is the unitary operation corresponding to rotation in the plane with angle <span class="math inline">\(\theta\)</span>.
+When Bob receives <span class="math inline">\(y\)</span>, if <span class="math inline">\(y=0\)</span> he does nothing and if <span class="math inline">\(y=1\)</span> he applies the unitary map <span class="math inline">\(R_{\pi/8}\)</span> to his qubit.
+Then each one of them measures their qubit and sends this as their response.</p>
+<p>Recall that to win the game Bob and Alice want their outputs to be more likely to differ if <span class="math inline">\(x=y=1\)</span> and to be more likely to agree otherwise.
+We will split the analysis in one case for each of the four possible values of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
+<p><strong>Case 1: <span class="math inline">\(x=0\)</span> and <span class="math inline">\(y=0\)</span>.</strong> If <span class="math inline">\(x=y=0\)</span> then the state does not change.
+* Because the state <span class="math inline">\(\psi\)</span> is proportional to <span class="math inline">\(|00\rangle + |11\rangle\)</span>, the measurements of Bob and Alice will always agree (if Alice measures <span class="math inline">\(0\)</span> then the state collapses to <span class="math inline">\(|00 \rangle\)</span> and so Bob measures <span class="math inline">\(0\)</span> as well, and similarly for <span class="math inline">\(1\)</span>).
+Hence in the case <span class="math inline">\(x=y=1\)</span>, Alice and Bob always win.</p>
+<p><strong>Case 2: <span class="math inline">\(x=0\)</span> and <span class="math inline">\(y=1\)</span>.</strong> If <span class="math inline">\(x=0\)</span> and <span class="math inline">\(y=1\)</span> then after Alice measures her bit, if she gets <span class="math inline">\(0\)</span> then the system collapses to the state <span class="math inline">\(|00 \rangle\)</span>, in which case after Bob performs his rotation, his qubit is in the state <span class="math inline">\(\cos (\pi/8)|0\rangle+\sin(\pi/8)|1\rangle\)</span>.
+Thus, when Bob measures his qubit, he will get <span class="math inline">\(0\)</span> (and hence agree with Alice) with probability <span class="math inline">\(\cos^2 (\pi/8)  \geq 0.85\)</span>.
+Similarly, if Alice gets <span class="math inline">\(1\)</span> then the system collapses to <span class="math inline">\(|11 \rangle\)</span>, in which case after rotation Bob’s qubit will be in the state <span class="math inline">\(-\sin (\pi/8)|0\rangle+\cos(\pi/8)|1\rangle\)</span> and so once again he will agree with Alice with probability <span class="math inline">\(\cos^2(\pi/8)\)</span>.</p>
+<p>The analysis for <strong>Case 3</strong>, where <span class="math inline">\(x=1\)</span> and <span class="math inline">\(y=0\)</span>, is completely analogous to Case 2. Hence Alice and Bob will agree with probability <span class="math inline">\(\cos^2(\pi/8)\)</span> in this case as well.<a href="#fn126" class="footnote-ref" id="fnref126"><sup>126</sup></a></p>
+<p><strong>Case 4: <span class="math inline">\(x=1\)</span> and <span class="math inline">\(y=1\)</span>.</strong> For the case that <span class="math inline">\(x=1\)</span> and <span class="math inline">\(y=1\)</span>, after both Alice and Bob perform their rotations, the state will be proportional to</p>
+<p><span class="math display">\[R_{-\pi/8}|0\rangle R_{\pi/8}|0 \rangle + R_{-\pi/8}|1\rangle R_{\pi/8}|1 \rangle \;. \label{quantumbellcasefoureq}\]</span></p>
+<p>Intuitively, since we rotate one state by 45 degrees and the other state by -45 degrees, they will become orthogonal to each other, and the measurements will behave like independent coin tosses that agree with probability 1/2.
+However, for the sake of completeness, we now show the full calculation.</p>
+<p>Opening up the coefficients and using <span class="math inline">\(\cos(-x)=\cos(x)\)</span> and <span class="math inline">\(\sin(-x)=-\sin(x)\)</span>, we can see that <a href="" class="eqref">quantumbellcasefoureq</a> is proportional to</p>
+<p><span class="math display">\[
+\begin{aligned}
+\cos^2(\pi/8)|00 \rangle &amp;+ \cos(\pi/8)\sin(\pi/8)|01 \rangle \\
+- \sin(\pi/8)\cos(\pi/8)|10\rangle  &amp;+ \sin^2(\pi/8)|11 \rangle \\
+-  \sin^2(\pi/8)|00 \rangle &amp;+ \sin(\pi/8)\cos(\pi/8)|01 \rangle \\
+-  \cos(\pi/8)\sin(\pi/8)|10\rangle  &amp;+ \cos^2(\pi/8)|11 \rangle \;.
+\end{aligned}
+\]</span></p>
+<p>Using the trigonometric identities <span class="math inline">\(2\sin(\alpha)\cos(\alpha)= \sin(2\alpha)\)</span> and <span class="math inline">\(\cos^(\alpha) - \sin^2(\alpha) = \cos(2\alpha)\)</span>, we see that the probability of getting any one of <span class="math inline">\(|00\rangle,|10\rangle,|01\rangle,|11\rangle\)</span> is proportional to <span class="math inline">\(\cos(\pi/4)=\sin(\pi/4)=\tfrac{1}{\sqrt{2}}\)</span>.
+Hence all four options for <span class="math inline">\((a,b)\)</span> are equally likely, which mean that in this case <span class="math inline">\(a=b\)</span> with probability <span class="math inline">\(0.5\)</span>.</p>
+<p>Taking all the four cases together, the overall probability of winning the game is at least <span class="math inline">\(\tfrac{1}{4}\cdot 1 + \tfrac{1}{2}\cdot 0.85 + \tfrac{1}{4} \cdot 0.5 =0.8\)</span>.</p>
+</div>
+<blockquote>
+<h1 id="quantumprob" class="remark" title="Quantum vs probabilistic strategies"></h1>
+<p>It is instructive to understand what is it about quantum mechanics that enabled this gain in Bell’s Inequality. For this, consider the following analogous probabilistic strategy for Alice and Bob. They agree that each one of them output <span class="math inline">\(0\)</span> if he or she get <span class="math inline">\(0\)</span> as input and outputs <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> if they get <span class="math inline">\(1\)</span> as input. In this case one can see that their success probability would be <span class="math inline">\(\tfrac{1}{4}\cdot 1 + \tfrac{1}{2}(1-p)+\tfrac{1}{4}[2p(1-p)]=0.75 -0.5p^2 \leq 0.75\)</span>. The quantum strategy we described above can be thought of as a variant of the probabilistic strategy for parameter <span class="math inline">\(p\)</span> set to <span class="math inline">\(\sin^2 (\pi/8)=0.15\)</span>. But in the case <span class="math inline">\(x=y=1\)</span>, instead of disagreeing only with probability <span class="math inline">\(2p(1-p)=1/4\)</span>, because we can use these negative probabilities in the quantum world and rotate the state in opposite directions, and hence the probability of disagreement ends up being <span class="math inline">\(\sin^2 (\pi/4)=0.5\)</span>.</p>
+</blockquote>
+</div>
+<div id="grovers-algorithm" class="section level2 hasAnchor" number="19.6">
+<h2><span class="header-section-number">19.6</span> Grover’s Algorithm<a href="quantum-computing-and-cryptography-i.html#grovers-algorithm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Shor’s Algorithm, which we’ll see in the next lecture, is an amazing achievement, but it only applies to very particular problems.
+It does not seem to be relevant to breaking AES, lattice based cryptography, or problems not related to quantum computing at all such as scheduling, constraint satisfaction, traveling salesperson etc.. etc..
+Indeed, for the most general form of these search problems, classically we don’t how to do anything much better than brute force search, which takes <span class="math inline">\(2^n\)</span> time over an <span class="math inline">\(n\)</span>-bit domain. Lev Grover showed that quantum computers can obtain a quadratic improvement over this brute force search, solving SAT in <span class="math inline">\(2^{n/2}\)</span> time.
+The effect of Grover’s algorithm on cryptography is fairly mild: one essentially needs to double the key lengths of symmetric primitives.
+But beyond cryptography, if large scale quantum computers end up being built, Grover search and its variants might end up being some of the most useful computational problems they will tackle.
+Grover’s theorem is the following:</p>
+<p><strong>Theorem (Grover search , 1996):</strong> There is a quantum <span class="math inline">\(O(2^{n/2}poly(n))\)</span>-time algorithm that given a <span class="math inline">\(poly(n)\)</span>-sized circuit computing a function <span class="math inline">\(f:\{0,1\}^n\rightarrow\{0,1\}\)</span> outputs a string
+<span class="math inline">\(x^*\in\{0,1\}^n\)</span> such that <span class="math inline">\(f(x^*)=1\)</span>.</p>
+<p><strong>Proof sketch:</strong> The proof is not hard but we only sketch it here.
+The general idea can be illustrated in the case that there exists a single <span class="math inline">\(x^*\)</span> satisfying <span class="math inline">\(f(x^*)=1\)</span>.
+(There is a classical reduction from the general case to this problem.)
+As in Simon’s algorithm, we can efficiently initialize an <span class="math inline">\(n\)</span>-qubit system to the uniform state <span class="math inline">\(u = 2^{-n/2}\sum_{x\in\{0,1\}^n}|x\rangle\)</span> which has <span class="math inline">\(2^{-n/2}\)</span> dot product with <span class="math inline">\(|x^*\rangle\)</span>. Of course if we measure <span class="math inline">\(u\)</span>, we only have probability <span class="math inline">\((2^{-n/2})^2 = 2^{-n}\)</span> of obtaining the value <span class="math inline">\(x^*\)</span>.
+Our goal would be to use <span class="math inline">\(O(2^{n/2})\)</span> calls to the oracle to transform the system to a state <span class="math inline">\(v\)</span> with dot product at least some constant <span class="math inline">\(\epsilon&gt;0\)</span> with the state <span class="math inline">\(|x^*\rangle\)</span>.</p>
+<p>It is an exercise to show that using <span class="math inline">\(Had\)</span> gets we can efficiently compute the unitary operator <span class="math inline">\(U\)</span> such that <span class="math inline">\(Uu = u\)</span> and <span class="math inline">\(Uv = -v\)</span> for every <span class="math inline">\(v\)</span> orthogonal to <span class="math inline">\(u\)</span>.
+Also, using the circuit for <span class="math inline">\(f\)</span>, we can efficiently compute the unitary operator <span class="math inline">\(U^*\)</span> such that <span class="math inline">\(U^*|x\rangle=|x\rangle\)</span> for all <span class="math inline">\(x\neq x^*\)</span> and <span class="math inline">\(U^*|x^*\rangle=-|x^*\rangle\)</span>.
+It turns out that <span class="math inline">\(O(2^{n/2})\)</span> applications of <span class="math inline">\(UU^*\)</span> to <span class="math inline">\(u\)</span> yield a vector <span class="math inline">\(v\)</span> with <span class="math inline">\(\Omega(1)\)</span> inner product with <span class="math inline">\(|x^*\rangle\)</span>.
+To see why, consider what these operators do in the two dimensional linear subspace spanned by <span class="math inline">\(u\)</span> and <span class="math inline">\(|x^*\rangle\)</span>. (Note that the initial state <span class="math inline">\(u\)</span> is in this subspace and all our operators preserve this property.)
+Let <span class="math inline">\(u_\perp\)</span> be the unit vector orthogonal to <span class="math inline">\(u\)</span> in this subspace and let <span class="math inline">\(x^*_\perp\)</span> be the unit vector orthogonal to <span class="math inline">\(|x^*\rangle\)</span> in this subspace.
+Restricted to this subspace, <span class="math inline">\(U^*\)</span> is a reflection along the axis <span class="math inline">\(x^*_\perp\)</span> and <span class="math inline">\(U\)</span> is a reflection along the axis <span class="math inline">\(u\)</span>.</p>
+<p>Now, let <span class="math inline">\(\theta\)</span> be the angle between <span class="math inline">\(u\)</span> and <span class="math inline">\(x^*_\perp\)</span>.
+These vectors are very close to each other and so <span class="math inline">\(\theta\)</span> is very small but not zero - it is equal to <span class="math inline">\(\sin^{-1}( 2^{-n/2})\)</span> which is roughly <span class="math inline">\(2^{-n/2}\)</span>.
+Now if our state <span class="math inline">\(v\)</span> has angle <span class="math inline">\(\alpha \geq 0\)</span> with <span class="math inline">\(u\)</span>, then as long as <span class="math inline">\(\alpha\)</span> is not too large (say <span class="math inline">\(\alpha&lt;\pi/8\)</span>) then this means that <span class="math inline">\(v\)</span> has angle
+<span class="math inline">\(u+\theta\)</span> with <span class="math inline">\(x^*_\perp\)</span>.
+That means that <span class="math inline">\(U^*v\)</span> will have angle <span class="math inline">\(-\alpha-\theta\)</span> with <span class="math inline">\(x^*_\perp\)</span> or <span class="math inline">\(-\alpha-2\theta\)</span> with <span class="math inline">\(u\)</span>, and hence <span class="math inline">\(UU^*v\)</span> will have angle
+<span class="math inline">\(\alpha+2\theta\)</span> with <span class="math inline">\(u\)</span>.
+Hence in one application from <span class="math inline">\(UU^*\)</span> we move <span class="math inline">\(2\theta\)</span> radians away from <span class="math inline">\(u\)</span>, and in <span class="math inline">\(O(2^{-n/2})\)</span> steps the angle between <span class="math inline">\(u\)</span> and our state will be at least some constant <span class="math inline">\(\epsilon&gt;0\)</span>.
+Since we live in the two dimensional space spanned by <span class="math inline">\(u\)</span> and <span class="math inline">\(|x\rangle\)</span>, it would mean that the dot product of our state and <span class="math inline">\(|x\rangle\)</span> will be at least some constant as well. QED</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="113">
+<li id="fn113"><p>A nice illustrated description of the double slit experiment appears in <a href="https://www.youtube.com/watch?v=DfPeprQ7oGc">this video</a>.<a href="quantum-computing-and-cryptography-i.html#fnref113" class="footnote-back">↩︎</a></p></li>
+<li id="fn114"><p>As its title suggests, Feynman’s <a href="https://www.cs.berkeley.edu/~christos/classics/Feynman.pdf">lecture</a> was actually focused on the other side of simulating physics with a computer, but he mentioned that as a “side remark” one could wonder if it’s possible to simulate physics with a new kind of computer - a “quantum computer” which would “not [be] a Turing machine, but a machine of a different kind”. As far as I know, Feynman did not suggest that such a computer could be useful for computations completely outside the domain of quantum simulation, and in fact he found the question of whether quantum mechanics could be simulated by a classical computer to be more interesting.<a href="quantum-computing-and-cryptography-i.html#fnref114" class="footnote-back">↩︎</a></p></li>
+<li id="fn115"><p>I am using the theorist’ definition of conflating “significant” with “super-polynomial”. As we’ll see, Grover’s algorithm does offer a very generic <em>quadratic</em> advantage in computation. Whether that quadratic advantage will ever be good enough to offset in practice the significant overhead in building a quantum computer remains an open question. We also don’t have evidence that super-polynomial speedups <em>can’t</em> be achieved for some problems outside the Factoring/Dlog or quantum simulation domains, and there is at least <a href="http://www.dwavesys.com/">one company</a> banking on such speedups actually being feasible.<a href="quantum-computing-and-cryptography-i.html#fnref115" class="footnote-back">↩︎</a></p></li>
+<li id="fn116"><p>This “99 percent” is a figure of speech, but not completely so. It seems that for many web servers, the TLS protocol (which based on the current non-lattice based systems would be completely broken by quantum computing) is responsible <a href="https://goo.gl/Gekjrc">for about 1 percent of the CPU usage</a>.<a href="quantum-computing-and-cryptography-i.html#fnref116" class="footnote-back">↩︎</a></p></li>
+<li id="fn117"><p>Of course, given that “export grade” cryptography that was supposed to disappear with 1990’s <a href="http://blog.cryptographyengineering.com/2016/03/attack-of-week-drown.html">took a long time to die</a>, I imagine that we’ll still have products running 1024 bit RSA when everyone has a quantum laptop.<a href="quantum-computing-and-cryptography-i.html#fnref117" class="footnote-back">↩︎</a></p></li>
+<li id="fn118"><p>It is a good exercise to verify that for every <span class="math inline">\(g:\{0,1\}^n\rightarrow\{0,1\}^n\)</span>, <span class="math inline">\(M_g\)</span> is unitary if and only if <span class="math inline">\(g\)</span> is a permutation.<a href="quantum-computing-and-cryptography-i.html#fnref118" class="footnote-back">↩︎</a></p></li>
+<li id="fn119"><p>It is a good exercise to show that if <span class="math inline">\(M\)</span> is a probabilistic process with <span class="math inline">\(R(M) \leq T\)</span> then there exists a probabilistic circuit of size, say, <span class="math inline">\(100 T n^2\)</span> that approximately computes <span class="math inline">\(M\)</span> in the sense that for every input <span class="math inline">\(x\)</span>, <span class="math inline">\(\sum_{y\in\{0,1\}^n} \left| \Pr[C(x)=y] - M_{x,y} \right| &lt; 1/3\)</span>.<a href="quantum-computing-and-cryptography-i.html#fnref119" class="footnote-back">↩︎</a></p></li>
+<li id="fn120"><p>If you are curious, there is an analog notation for <em>row</em> vectors as <span class="math inline">\(\langle x|\)</span>. Generally if <span class="math inline">\(u\)</span> is a vector then <span class="math inline">\(|u\rangle\)</span> would be its form as a column vector and <span class="math inline">\(\langle u|\)</span> would be its form as a row product. Hence since <span class="math inline">\(u^\top v = \langle u,v \rangle\)</span> the inner product of <span class="math inline">\(u\)</span> and <span class="math inline">\(b\)</span> can be thought of as <span class="math inline">\(\langle u||v\rangle\)</span> . The <em>outer product</em> (the matrix whose <span class="math inline">\(i,j\)</span> entry is <span class="math inline">\(u_iv_j\)</span>) is denoted as <span class="math inline">\(|u\rangle\langle v|\)</span>.<a href="quantum-computing-and-cryptography-i.html#fnref120" class="footnote-back">↩︎</a></p></li>
+<li id="fn121"><p>If you are extremely paranoid about Alice and Bob communicating with one another, you can coordinate with your assistant to perform the experiment exactly at the same time, and make sure that the rooms are sufficiently far apart (e.g., are on two different continents, or maybe even one is on the moon and another is on earth) so that Alice and Bob couldn’t communicate to each other in time the results of their respective coins even if they do so at the speed of light.<a href="quantum-computing-and-cryptography-i.html#fnref121" class="footnote-back">↩︎</a></p></li>
+<li id="fn122"><p>This form of Bell’s game was shown by <a href="https://goo.gl/wvJGZU">Clauser, Horne, Shimony, and Holt</a>.<a href="quantum-computing-and-cryptography-i.html#fnref122" class="footnote-back">↩︎</a></p></li>
+<li id="fn123"><p><a href="" class="ref">bellthm</a> below assumes that Alice and Bob use <em>deterministic</em> strategies <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> respectively. More generally, Alice and Bob could use a <em>randomized</em> strategy, or equivalently, each could choose <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> from some <em>distributions</em> <span class="math inline">\(\mathcal{F}\)</span> and <span class="math inline">\(\mathcal{G}\)</span> respectively. However the <em>averaging principle</em> (<a href="" class="ref">averagingprinciplerem</a>) implies that if all possible deterministic strategies succeed with probability at most <span class="math inline">\(3/4\)</span>, then the same is true for all randomized strategies.<a href="quantum-computing-and-cryptography-i.html#fnref123" class="footnote-back">↩︎</a></p></li>
+<li id="fn124"><p>More accurately, one either has to give up on a “billiard ball type” theory of the universe or believe in telepathy (believe it or not, some scientists went for the <a href="https://en.wikipedia.org/wiki/Superdeterminism">latter option</a>).<a href="quantum-computing-and-cryptography-i.html#fnref124" class="footnote-back">↩︎</a></p></li>
+<li id="fn125"><p>The strategy we show is not the best one. Alice and Bob can in fact succeed with probability <span class="math inline">\(\cos^2(\pi/8) \sim 0.854\)</span>.<a href="quantum-computing-and-cryptography-i.html#fnref125" class="footnote-back">↩︎</a></p></li>
+<li id="fn126"><p>We are using the (not too hard) observation that the result of this experiment is the same regardless of the order in which Alice and Bob apply their rotations and measurements.<a href="quantum-computing-and-cryptography-i.html#fnref126" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sfetwochap.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="quantum-computing-and-cryptography-ii.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/18-quantum.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

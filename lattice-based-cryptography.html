@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>12 Lattice based cryptography | A Minimal Book Example</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="12 Lattice based cryptography | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="12 Lattice based cryptography | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="concrete-candidates-for-public-key-crypto.html"/>
+<link rel="next" href="establishing-secure-connections-over-insecure-channels.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="mathematical-background.html"><a href="mathematical-background.html"><i class="fa fa-check"></i><b>1</b> Mathematical Background</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="mathematical-background.html"><a href="mathematical-background.html#a-quick-overview-of-mathematical-prerequisites"><i class="fa fa-check"></i><b>1.1</b> A quick overview of mathematical prerequisites</a></li>
+<li class="chapter" data-level="1.2" data-path="mathematical-background.html"><a href="mathematical-background.html#mathematical-proofs"><i class="fa fa-check"></i><b>1.2</b> Mathematical Proofs</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="mathematical-background.html"><a href="mathematical-background.html#example-the-existence-of-infinitely-many-primes."><i class="fa fa-check"></i><b>1.2.1</b> Example: The existence of infinitely many primes.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="mathematical-background.html"><a href="mathematical-background.html#probability-and-sample-spaces"><i class="fa fa-check"></i><b>1.3</b> Probability and Sample spaces</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="mathematical-background.html"><a href="mathematical-background.html#random-variables"><i class="fa fa-check"></i><b>1.3.1</b> Random variables</a></li>
+<li class="chapter" data-level="1.3.2" data-path="mathematical-background.html"><a href="mathematical-background.html#distributions-over-strings"><i class="fa fa-check"></i><b>1.3.2</b> Distributions over strings</a></li>
+<li class="chapter" data-level="1.3.3" data-path="mathematical-background.html"><a href="mathematical-background.html#more-general-sample-spaces."><i class="fa fa-check"></i><b>1.3.3</b> More general sample spaces.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="mathematical-background.html"><a href="mathematical-background.html#correlations-and-independence"><i class="fa fa-check"></i><b>1.4</b> Correlations and independence</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="mathematical-background.html"><a href="mathematical-background.html#independent-random-variables"><i class="fa fa-check"></i><b>1.4.1</b> Independent random variables</a></li>
+<li class="chapter" data-level="1.4.2" data-path="mathematical-background.html"><a href="mathematical-background.html#collections-of-independent-random-variables."><i class="fa fa-check"></i><b>1.4.2</b> Collections of independent random variables.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="mathematical-background.html"><a href="mathematical-background.html#concentration-and-tail-bounds"><i class="fa fa-check"></i><b>1.5</b> Concentration and tail bounds</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="mathematical-background.html"><a href="mathematical-background.html#chebyshevs-inequality"><i class="fa fa-check"></i><b>1.5.1</b> Chebyshev’s Inequality</a></li>
+<li class="chapter" data-level="1.5.2" data-path="mathematical-background.html"><a href="mathematical-background.html#the-chernoff-bound"><i class="fa fa-check"></i><b>1.5.2</b> The Chernoff bound</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises"><i class="fa fa-check"></i><b>1.6</b> Exercises</a></li>
+<li class="chapter" data-level="1.7" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises-1"><i class="fa fa-check"></i><b>1.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#defining-encryptions"><i class="fa fa-check"></i><b>2.2</b> Defining encryptions</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#defining-security-of-encryption"><i class="fa fa-check"></i><b>2.3</b> Defining security of encryption</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction.html"><a href="introduction.html#generating-randomness-in-actual-cryptographic-systems"><i class="fa fa-check"></i><b>2.3.1</b> Generating randomness in actual cryptographic systems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#defining-the-secrecy-requirement."><i class="fa fa-check"></i><b>2.4</b> Defining the secrecy requirement.</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction.html"><a href="introduction.html#perfect-secrecy"><i class="fa fa-check"></i><b>2.5</b> Perfect Secrecy</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="introduction.html"><a href="introduction.html#achieving-perfect-secrecy"><i class="fa fa-check"></i><b>2.5.1</b> Achieving perfect secrecy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="introduction.html"><a href="introduction.html#necessity-of-long-keys"><i class="fa fa-check"></i><b>2.6</b> Necessity of long keys</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction.html"><a href="introduction.html#amplifying-success-probability"><i class="fa fa-check"></i><b>2.6.1</b> Amplifying success probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction.html"><a href="introduction.html#bibliographical-notes"><i class="fa fa-check"></i><b>2.7</b> Bibliographical notes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="computational-security.html"><a href="computational-security.html"><i class="fa fa-check"></i><b>3</b> Computational Security</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="computational-security.html"><a href="computational-security.html#proof-by-reduction"><i class="fa fa-check"></i><b>3.0.1</b> Proof by reduction</a></li>
+<li class="chapter" data-level="3.1" data-path="computational-security.html"><a href="computational-security.html#the-asymptotic-approach"><i class="fa fa-check"></i><b>3.1</b> The asymptotic approach</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="computational-security.html"><a href="computational-security.html#countoperation"><i class="fa fa-check"></i><b>3.1.1</b> Counting number of operations.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="computational-security.html"><a href="computational-security.html#our-first-conjecture"><i class="fa fa-check"></i><b>3.2</b> Our first conjecture</a></li>
+<li class="chapter" data-level="3.3" data-path="computational-security.html"><a href="computational-security.html#why-care-about-the-cipher-conjecture"><i class="fa fa-check"></i><b>3.3</b> Why care about the cipher conjecture?</a></li>
+<li class="chapter" data-level="3.4" data-path="computational-security.html"><a href="computational-security.html#prelude-computational-indistinguishability"><i class="fa fa-check"></i><b>3.4</b> Prelude: Computational Indistinguishability</a></li>
+<li class="chapter" data-level="3.5" data-path="computational-security.html"><a href="computational-security.html#the-length-extension-theorem-or-stream-ciphers"><i class="fa fa-check"></i><b>3.5</b> The Length Extension Theorem or Stream Ciphers</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="computational-security.html"><a href="computational-security.html#appendix-the-computational-model"><i class="fa fa-check"></i><b>3.5.1</b> Appendix: The computational model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pseudorandomness.html"><a href="pseudorandomness.html"><i class="fa fa-check"></i><b>4</b> Pseudorandomness</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#unpredictability-an-alternative-approach-for-proving-the-length-extension-theorem"><i class="fa fa-check"></i><b>4.0.1</b> Unpredictability: an alternative approach for proving the length extension theorem</a></li>
+<li class="chapter" data-level="4.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#stream-ciphers"><i class="fa fa-check"></i><b>4.1</b> Stream ciphers</a></li>
+<li class="chapter" data-level="4.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#what-do-pseudorandom-generators-actually-look-like"><i class="fa fa-check"></i><b>4.2</b> What do pseudorandom generators actually look like?</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-0-the-counter-generator"><i class="fa fa-check"></i><b>4.2.1</b> Attempt 0: The counter generator</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-1-the-linear-checksum-linear-feedback-shift-register-lfsr"><i class="fa fa-check"></i><b>4.2.2</b> Attempt 1: The linear checksum / linear feedback shift register (LFSR)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#from-insecurity-to-security"><i class="fa fa-check"></i><b>4.2.3</b> From insecurity to security</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-2-linear-congruential-generators-with-dropped-bits"><i class="fa fa-check"></i><b>4.2.4</b> Attempt 2: Linear Congruential Generators with dropped bits</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#successful-examples"><i class="fa fa-check"></i><b>4.3</b> Successful examples</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-1-subset-sum-generator"><i class="fa fa-check"></i><b>4.3.1</b> Case Study 1: Subset Sum Generator</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-2-rc4"><i class="fa fa-check"></i><b>4.3.2</b> Case Study 2: RC4</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-3-blum-blum-and-shub"><i class="fa fa-check"></i><b>4.3.3</b> Case Study 3: Blum, Blum and Shub</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#non-constructive-existence-of-pseudorandom-generators"><i class="fa fa-check"></i><b>4.4</b> Non-constructive existence of pseudorandom generators</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html"><i class="fa fa-check"></i><b>5</b> Pseudorandom functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#one-time-passwords-e.g.-google-authenticator-rsa-id-etc."><i class="fa fa-check"></i><b>5.1</b> One time passwords (e.g. Google Authenticator, RSA ID, etc.)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#how-do-pseudorandom-functions-help-in-the-login-problem"><i class="fa fa-check"></i><b>5.1.1</b> How do pseudorandom functions help in the login problem?</a></li>
+<li class="chapter" data-level="5.1.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#modifying-input-and-output-lengths-of-prfs"><i class="fa fa-check"></i><b>5.1.2</b> Modifying input and output lengths of PRFs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#message-authentication-codes"><i class="fa fa-check"></i><b>5.2</b> Message Authentication Codes</a></li>
+<li class="chapter" data-level="5.3" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#macs-from-prfs"><i class="fa fa-check"></i><b>5.3</b> MACs from PRFs</a></li>
+<li class="chapter" data-level="5.4" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#arbitrary-input-length-extension-for-macs-and-prfs"><i class="fa fa-check"></i><b>5.4</b> Arbitrary input length extension for MACs and PRFs</a></li>
+<li class="chapter" data-level="5.5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#aside-natural-proofs"><i class="fa fa-check"></i><b>5.5</b> Aside: natural proofs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><i class="fa fa-check"></i><b>6</b> Pseudorandom functions from pseudorandom generators and CPA security</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#securely-encrypting-many-messages---chosen-plaintext-security"><i class="fa fa-check"></i><b>6.1</b> Securely encrypting many messages - chosen plaintext security</a></li>
+<li class="chapter" data-level="6.2" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#pseudorandom-permutations-block-ciphers"><i class="fa fa-check"></i><b>6.2</b> Pseudorandom permutations / block ciphers</a></li>
+<li class="chapter" data-level="6.3" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#encryption-modes"><i class="fa fa-check"></i><b>6.3</b> Encryption modes</a></li>
+<li class="chapter" data-level="6.4" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#optional-aside-broadcast-encryption"><i class="fa fa-check"></i><b>6.4</b> Optional, Aside: Broadcast Encryption</a></li>
+<li class="chapter" data-level="6.5" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#reading-comprehension-exercises"><i class="fa fa-check"></i><b>6.5</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html"><i class="fa fa-check"></i><b>7</b> Chosen Ciphertext Security</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#short-recap"><i class="fa fa-check"></i><b>7.1</b> Short recap</a></li>
+<li class="chapter" data-level="7.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#going-beyond-cpa"><i class="fa fa-check"></i><b>7.2</b> Going beyond CPA</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#example-the-wired-equivalence-privacy-wep"><i class="fa fa-check"></i><b>7.2.1</b> Example: The Wired Equivalence Privacy (WEP)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-security-1"><i class="fa fa-check"></i><b>7.2.2</b> Chosen ciphertext security</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#constructing-cca-secure-encryption"><i class="fa fa-check"></i><b>7.3</b> Constructing CCA secure encryption</a></li>
+<li class="chapter" data-level="7.4" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#simplified-gcm-encryption"><i class="fa fa-check"></i><b>7.4</b> (Simplified) GCM encryption</a></li>
+<li class="chapter" data-level="7.5" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#padding-chopping-and-their-pitfalls-the-buffer-overflow-of-cryptography"><i class="fa fa-check"></i><b>7.5</b> Padding, chopping, and their pitfalls: the “buffer overflow” of cryptography</a></li>
+<li class="chapter" data-level="7.6" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-attack-as-implementing-metaphors"><i class="fa fa-check"></i><b>7.6</b> Chosen ciphertext attack as implementing metaphors</a></li>
+<li class="chapter" data-level="7.7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#reading-comprehension-exercises-1"><i class="fa fa-check"></i><b>7.7</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="hash-functions-random-oracles-and-bitcoin.html"><a href="hash-functions-random-oracles-and-bitcoin.html"><i class="fa fa-check"></i><b>8</b> Hash Functions, Random Oracles, and Bitcoin</a></li>
+<li class="chapter" data-level="9" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><i class="fa fa-check"></i><b>9</b> Key derivation, protecting passwords, slow hashes, Merkle trees</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#keys-from-passwords"><i class="fa fa-check"></i><b>9.1</b> Keys from passwords</a></li>
+<li class="chapter" data-level="9.2" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#merkle-trees-and-verifying-storage."><i class="fa fa-check"></i><b>9.2</b> Merkle trees and verifying storage.</a></li>
+<li class="chapter" data-level="9.3" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#proofs-of-retrievability"><i class="fa fa-check"></i><b>9.3</b> Proofs of Retrievability</a></li>
+<li class="chapter" data-level="9.4" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#entropy-extraction"><i class="fa fa-check"></i><b>9.4</b> Entropy extraction</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#forward-and-backward-secrecy"><i class="fa fa-check"></i><b>9.4.1</b> Forward and backward secrecy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html"><i class="fa fa-check"></i><b>10</b> Public key cryptography</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#private-key-crypto-recap"><i class="fa fa-check"></i><b>10.1</b> Private key crypto recap</a></li>
+<li class="chapter" data-level="10.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#public-key-encryptions-definition"><i class="fa fa-check"></i><b>10.2</b> Public Key Encryptions: Definition</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-obfuscation-paradigm"><i class="fa fa-check"></i><b>10.2.1</b> The obfuscation paradigm</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#some-concrete-candidates"><i class="fa fa-check"></i><b>10.3</b> Some concrete candidates:</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#diffie-hellman-encryption-aka-el-gamal"><i class="fa fa-check"></i><b>10.3.1</b> Diffie-Hellman Encryption (aka El-Gamal)</a></li>
+<li class="chapter" data-level="10.3.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#sampling-random-primes"><i class="fa fa-check"></i><b>10.3.2</b> Sampling random primes</a></li>
+<li class="chapter" data-level="10.3.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#a-little-bit-of-group-theory."><i class="fa fa-check"></i><b>10.3.3</b> A little bit of group theory.</a></li>
+<li class="chapter" data-level="10.3.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#digital-signatures"><i class="fa fa-check"></i><b>10.3.4</b> Digital Signatures</a></li>
+<li class="chapter" data-level="10.3.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-digital-signature-algorithm-dsa"><i class="fa fa-check"></i><b>10.3.5</b> The Digital Signature Algorithm (DSA)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#putting-everything-together---security-in-practice."><i class="fa fa-check"></i><b>10.4</b> Putting everything together - security in practice.</a></li>
+<li class="chapter" data-level="10.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#appendix-an-alternative-proof-of-the-density-of-primes"><i class="fa fa-check"></i><b>10.5</b> Appendix: An alternative proof of the density of primes</a></li>
+<li class="chapter" data-level="10.6" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#additional-group-theory-exercises-and-proofs"><i class="fa fa-check"></i><b>10.6</b> Additional Group Theory Exercises and Proofs</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#solved-exercises"><i class="fa fa-check"></i><b>10.6.1</b> Solved exercises:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html"><i class="fa fa-check"></i><b>11</b> Concrete candidates for public key crypto</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#some-number-theory."><i class="fa fa-check"></i><b>11.1</b> Some number theory.</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#primaliy-testing"><i class="fa fa-check"></i><b>11.1.1</b> Primaliy testing</a></li>
+<li class="chapter" data-level="11.1.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#fields"><i class="fa fa-check"></i><b>11.1.2</b> Fields</a></li>
+<li class="chapter" data-level="11.1.3" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#chinese-remainder-theorem"><i class="fa fa-check"></i><b>11.1.3</b> Chinese remainder theorem</a></li>
+<li class="chapter" data-level="11.1.4" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#the-rsa-and-rabin-functions"><i class="fa fa-check"></i><b>11.1.4</b> The RSA and Rabin functions</a></li>
+<li class="chapter" data-level="11.1.5" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#abstraction-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.5</b> Abstraction: trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.6" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#public-key-encryption-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.6</b> Public key encryption from trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.7" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#digital-signatures-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.7</b> Digital signatures from trapdoor permutations</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#hardcore-bits-and-security-without-random-oracles"><i class="fa fa-check"></i><b>11.2</b> Hardcore bits and security without random oracles</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#extending-to-more-than-one-hardcore-bit"><i class="fa fa-check"></i><b>11.2.1</b> Extending to more than one hardcore bit</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html"><i class="fa fa-check"></i><b>12</b> Lattice based cryptography</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#quick-linear-algebra-recap"><i class="fa fa-check"></i><b>12.0.1</b> Quick linear algebra recap</a></li>
+<li class="chapter" data-level="12.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#a-world-without-gaussian-elimination"><i class="fa fa-check"></i><b>12.1</b> A world without Gaussian elimination</a></li>
+<li class="chapter" data-level="12.2" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#security-in-the-real-world."><i class="fa fa-check"></i><b>12.2</b> Security in the real world.</a></li>
+<li class="chapter" data-level="12.3" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#search-to-decision"><i class="fa fa-check"></i><b>12.3</b> Search to decision</a></li>
+<li class="chapter" data-level="12.4" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#lweencsec"><i class="fa fa-check"></i><b>12.4</b> An LWE based encryption scheme</a></li>
+<li class="chapter" data-level="12.5" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#but-what-are-lattices"><i class="fa fa-check"></i><b>12.5</b> But what are lattices?</a></li>
+<li class="chapter" data-level="12.6" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#ring-based-lattices"><i class="fa fa-check"></i><b>12.6</b> Ring based lattices</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html"><i class="fa fa-check"></i><b>13</b> Establishing secure connections over insecure channels</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cryptographys-obsession-with-adjectives."><i class="fa fa-check"></i><b>13.1</b> Cryptography’s obsession with adjectives.</a></li>
+<li class="chapter" data-level="13.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#basic-key-exchange-protocol"><i class="fa fa-check"></i><b>13.2</b> Basic Key Exchange protocol</a></li>
+<li class="chapter" data-level="13.3" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#authenticated-key-exchange"><i class="fa fa-check"></i><b>13.3</b> Authenticated key exchange</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#bleichenbachers-attack-on-rsa-pkcs-v1.5-and-ssl-v3.0"><i class="fa fa-check"></i><b>13.3.1</b> Bleichenbacher’s attack on RSA PKCS V1.5 and SSL V3.0</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#chosen-ciphertext-attack-security-for-public-key-cryptography"><i class="fa fa-check"></i><b>13.4</b> Chosen ciphertext attack security for public key cryptography</a></li>
+<li class="chapter" data-level="13.5" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cca-secure-public-key-encryption-in-the-random-oracle-model"><i class="fa fa-check"></i><b>13.5</b> CCA secure public key encryption in the Random Oracle Model</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#defining-secure-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.1</b> Defining secure authenticated key exchange</a></li>
+<li class="chapter" data-level="13.5.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#the-compiler-approach-for-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.2</b> The compiler approach for authenticated key exchange</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#password-authenticated-key-exchange."><i class="fa fa-check"></i><b>13.6</b> Password authenticated key exchange.</a></li>
+<li class="chapter" data-level="13.7" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#client-to-client-key-exchange-for-secure-text-messaging---zrtp-otr-textsecure"><i class="fa fa-check"></i><b>13.7</b> Client to client key exchange for secure text messaging - ZRTP, OTR, TextSecure</a></li>
+<li class="chapter" data-level="13.8" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#heartbleed-and-logjam-attacks"><i class="fa fa-check"></i><b>13.8</b> Heartbleed and logjam attacks</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html"><i class="fa fa-check"></i><b>14</b> Zero knowledge proofs</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#applications-for-zero-knowledge-proofs."><i class="fa fa-check"></i><b>14.1</b> Applications for zero knowledge proofs.</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#nuclear-disarmament"><i class="fa fa-check"></i><b>14.1.1</b> Nuclear disarmament</a></li>
+<li class="chapter" data-level="14.1.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#voting"><i class="fa fa-check"></i><b>14.1.2</b> Voting</a></li>
+<li class="chapter" data-level="14.1.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#more-applications"><i class="fa fa-check"></i><b>14.1.3</b> More applications</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-and-constructing-zero-knowledge-proofs"><i class="fa fa-check"></i><b>14.2</b> Defining and constructing zero knowledge proofs</a></li>
+<li class="chapter" data-level="14.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-zero-knowledge"><i class="fa fa-check"></i><b>14.3</b> Defining zero knowledge</a></li>
+<li class="chapter" data-level="14.4" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#zero-knowledge-proof-for-hamiltonicity."><i class="fa fa-check"></i><b>14.4</b> Zero knowledge proof for Hamiltonicity.</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#why-is-this-interesting"><i class="fa fa-check"></i><b>14.4.1</b> Why is this interesting?</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#parallel-repetition-and-turning-zero-knowledge-proofs-to-signatures."><i class="fa fa-check"></i><b>14.5</b> Parallel repetition and turning zero knowledge proofs to signatures.</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#bonus-features-of-zero-knowledge"><i class="fa fa-check"></i><b>14.5.1</b> “Bonus features” of zero knowledge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="chapfheone.html"><a href="chapfheone.html"><i class="fa fa-check"></i><b>15</b> Fully homomorphic encryption: Introduction and bootstrapping</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="chapfheone.html"><a href="chapfheone.html#defining-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>15.1</b> Defining fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="chapfheone.html"><a href="chapfheone.html#another-application-fully-homomorphic-encryption-for-verifying-computation"><i class="fa fa-check"></i><b>15.1.1</b> Another application: fully homomorphic encryption for verifying computation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="chapfheone.html"><a href="chapfheone.html#example-an-xor-homomorphic-encryption"><i class="fa fa-check"></i><b>15.2</b> Example: An XOR homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="chapfheone.html"><a href="chapfheone.html#abstraction-a-trapdoor-pseudorandom-generator."><i class="fa fa-check"></i><b>15.2.1</b> Abstraction: A trapdoor pseudorandom generator.</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="chapfheone.html"><a href="chapfheone.html#from-linear-homomorphism-to-full-homomorphism"><i class="fa fa-check"></i><b>15.3</b> From linear homomorphism to full homomorphism</a></li>
+<li class="chapter" data-level="15.4" data-path="chapfheone.html"><a href="chapfheone.html#bootstrapping-fully-homomorphic-escape-velocity"><i class="fa fa-check"></i><b>15.4</b> Bootstrapping: Fully Homomorphic “escape velocity”</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="chapfheone.html"><a href="chapfheone.html#radioactive-legos-analogy"><i class="fa fa-check"></i><b>15.4.1</b> Radioactive legos analogy</a></li>
+<li class="chapter" data-level="15.4.2" data-path="chapfheone.html"><a href="chapfheone.html#proving-the-bootstrapping-theorem"><i class="fa fa-check"></i><b>15.4.2</b> Proving the bootstrapping theorem</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="chapfhetwo.html"><a href="chapfhetwo.html"><i class="fa fa-check"></i><b>16</b> Fully homomorphic encryption: Construction</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#prelude-from-vectors-to-matrices"><i class="fa fa-check"></i><b>16.1</b> Prelude: from vectors to matrices</a></li>
+<li class="chapter" data-level="16.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#real-world-partially-homomorphic-encryption"><i class="fa fa-check"></i><b>16.2</b> Real world partially homomorphic encryption</a></li>
+<li class="chapter" data-level="16.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#noise-management-via-encoding"><i class="fa fa-check"></i><b>16.3</b> Noise management via encoding</a></li>
+<li class="chapter" data-level="16.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#putting-it-all-together"><i class="fa fa-check"></i><b>16.4</b> Putting it all together</a></li>
+<li class="chapter" data-level="16.5" data-path="chapfhetwo.html"><a href="chapfhetwo.html#analysis-of-our-scheme"><i class="fa fa-check"></i><b>16.5</b> Analysis of our scheme</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#correctness"><i class="fa fa-check"></i><b>16.5.1</b> Correctness</a></li>
+<li class="chapter" data-level="16.5.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#cpa-security"><i class="fa fa-check"></i><b>16.5.2</b> CPA Security</a></li>
+<li class="chapter" data-level="16.5.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#homomorphism"><i class="fa fa-check"></i><b>16.5.3</b> Homomorphism</a></li>
+<li class="chapter" data-level="16.5.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#shallow-decryption-circuit"><i class="fa fa-check"></i><b>16.5.4</b> Shallow decryption circuit</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="chapfhetwo.html"><a href="chapfhetwo.html#advanced-topics"><i class="fa fa-check"></i><b>16.6</b> Advanced topics:</a>
+<ul>
+<li class="chapter" data-level="16.6.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#fully-homomorphic-encryption-for-approximate-computation-over-the-real-numbers-ckks"><i class="fa fa-check"></i><b>16.6.1</b> Fully homomorphic encryption for approximate computation over the real numbers: CKKS</a></li>
+<li class="chapter" data-level="16.6.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#bandwidth-efficient-fully-homomorphic-encryption-gh"><i class="fa fa-check"></i><b>16.6.2</b> Bandwidth efficient fully homomorphic encryption GH</a></li>
+<li class="chapter" data-level="16.6.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#using-fully-homomorphic-encryption-to-achieve-private-information-retrieval."><i class="fa fa-check"></i><b>16.6.3</b> Using fully homomorphic encryption to achieve private information retrieval.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sfeonechap.html"><a href="sfeonechap.html"><i class="fa fa-check"></i><b>17</b> Multiparty secure computation I: Definition and Honest-But-Curious to Malicious complier</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sfeonechap.html"><a href="sfeonechap.html#ideal-vs.-real-model-security."><i class="fa fa-check"></i><b>17.1</b> Ideal vs. Real Model Security.</a></li>
+<li class="chapter" data-level="17.2" data-path="sfeonechap.html"><a href="sfeonechap.html#formally-defining-secure-multiparty-computation"><i class="fa fa-check"></i><b>17.2</b> Formally defining secure multiparty computation</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="sfeonechap.html"><a href="sfeonechap.html#first-attempt-a-slightly-too-ideal-definition"><i class="fa fa-check"></i><b>17.2.1</b> First attempt: a slightly “too ideal” definition</a></li>
+<li class="chapter" data-level="17.2.2" data-path="sfeonechap.html"><a href="sfeonechap.html#allowing-for-aborts"><i class="fa fa-check"></i><b>17.2.2</b> Allowing for aborts</a></li>
+<li class="chapter" data-level="17.2.3" data-path="sfeonechap.html"><a href="sfeonechap.html#some-comments"><i class="fa fa-check"></i><b>17.2.3</b> Some comments:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="sfeonechap.html"><a href="sfeonechap.html#example-second-price-auction-using-bitcoin"><i class="fa fa-check"></i><b>17.3</b> Example: Second price auction using bitcoin</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="sfeonechap.html"><a href="sfeonechap.html#another-example-distributed-and-threshold-cryptography"><i class="fa fa-check"></i><b>17.3.1</b> Another example: distributed and threshold cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="sfeonechap.html"><a href="sfeonechap.html#proving-the-fundamental-theorem"><i class="fa fa-check"></i><b>17.4</b> Proving the fundamental theorem:</a></li>
+<li class="chapter" data-level="17.5" data-path="sfeonechap.html"><a href="sfeonechap.html#hbctomalred"><i class="fa fa-check"></i><b>17.5</b> Malicious to honest but curious reduction</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="sfeonechap.html"><a href="sfeonechap.html#handling-probabilistic-strategies"><i class="fa fa-check"></i><b>17.5.1</b> Handling probabilistic strategies:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sfetwochap.html"><a href="sfetwochap.html"><i class="fa fa-check"></i><b>18</b> Multiparty secure computation II: Construction using Fully Homomorphic Encryption</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sfetwochap.html"><a href="sfetwochap.html#constructing-2-party-honest-but-curious-computation-from-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.1</b> Constructing 2 party honest but curious computation from fully homomorphic encryption</a></li>
+<li class="chapter" data-level="18.2" data-path="sfetwochap.html"><a href="sfetwochap.html#achieving-circuit-privacy-in-a-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.2</b> Achieving circuit privacy in a fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="sfetwochap.html"><a href="sfetwochap.html#bottom-line-a-two-party-secure-computation-protocol"><i class="fa fa-check"></i><b>18.2.1</b> Bottom line: A two party secure computation protocol</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="sfetwochap.html"><a href="sfetwochap.html#beyond-two-parties"><i class="fa fa-check"></i><b>18.3</b> Beyond two parties</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html"><i class="fa fa-check"></i><b>19</b> Quantum computing and cryptography I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#the-double-slit-experiment"><i class="fa fa-check"></i><b>19.1</b> The double slit experiment</a></li>
+<li class="chapter" data-level="19.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-amplitudes"><i class="fa fa-check"></i><b>19.2</b> Quantum amplitudes</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-computing-and-computation---an-executive-summary."><i class="fa fa-check"></i><b>19.2.1</b> Quantum computing and computation - an executive summary.</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-101"><i class="fa fa-check"></i><b>19.3</b> Quantum 101</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#physically-realizing-quantum-computation"><i class="fa fa-check"></i><b>19.3.1</b> Physically realizing quantum computation</a></li>
+<li class="chapter" data-level="19.3.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bra-ket-notation"><i class="fa fa-check"></i><b>19.3.2</b> Bra-ket notation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bells-inequality"><i class="fa fa-check"></i><b>19.4</b> Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.5" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#analysis-of-bells-inequality"><i class="fa fa-check"></i><b>19.5</b> Analysis of Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.6" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#grovers-algorithm"><i class="fa fa-check"></i><b>19.6</b> Grover’s Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html"><i class="fa fa-check"></i><b>20</b> Quantum computing and cryptography II</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-order-finding-to-factoring-and-discrete-log"><i class="fa fa-check"></i><b>20.1</b> From order finding to factoring and discrete log</a></li>
+<li class="chapter" data-level="20.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#finding-periods-of-a-function-simons-algorithm"><i class="fa fa-check"></i><b>20.2</b> Finding periods of a function: Simon’s Algorithm</a></li>
+<li class="chapter" data-level="20.3" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-simon-to-shor"><i class="fa fa-check"></i><b>20.3</b> From Simon to Shor</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#the-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.1</b> The Fourier transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+<li class="chapter" data-level="20.3.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.2</b> Quantum Fourier Transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#shor鈥檚-order-finding-algorithm."><i class="fa fa-check"></i><b>20.4</b> Shor鈥檚 Order-Finding Algorithm.</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#analysis-the-case-that-rm"><i class="fa fa-check"></i><b>20.4.1</b> Analysis: the case that <span class="math inline">\(r|m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.5" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#rational-approximation-of-real-numbers"><i class="fa fa-check"></i><b>20.5</b> Rational approximation of real numbers</a>
+<ul>
+<li class="chapter" data-level="20.5.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-cryptography"><i class="fa fa-check"></i><b>20.5.1</b> Quantum cryptography</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="software-obfuscation.html"><a href="software-obfuscation.html"><i class="fa fa-check"></i><b>21</b> Software Obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#witness-encryption"><i class="fa fa-check"></i><b>21.1</b> Witness encryption</a></li>
+<li class="chapter" data-level="21.2" data-path="software-obfuscation.html"><a href="software-obfuscation.html#deniable-encryption"><i class="fa fa-check"></i><b>21.2</b> Deniable encryption</a></li>
+<li class="chapter" data-level="21.3" data-path="software-obfuscation.html"><a href="software-obfuscation.html#functional-encryption"><i class="fa fa-check"></i><b>21.3</b> Functional encryption</a></li>
+<li class="chapter" data-level="21.4" data-path="software-obfuscation.html"><a href="software-obfuscation.html#the-software-patch-problem"><i class="fa fa-check"></i><b>21.4</b> The software patch problem</a></li>
+<li class="chapter" data-level="21.5" data-path="software-obfuscation.html"><a href="software-obfuscation.html#software-obfuscation-1"><i class="fa fa-check"></i><b>21.5</b> Software obfuscation</a></li>
+<li class="chapter" data-level="21.6" data-path="software-obfuscation.html"><a href="software-obfuscation.html#applications-of-obfuscation"><i class="fa fa-check"></i><b>21.6</b> Applications of obfuscation</a></li>
+<li class="chapter" data-level="21.7" data-path="software-obfuscation.html"><a href="software-obfuscation.html#impossibility-of-obfuscation"><i class="fa fa-check"></i><b>21.7</b> Impossibility of obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.7.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#proof-of-impossibility-of-vbb-obfuscation"><i class="fa fa-check"></i><b>21.7.1</b> Proof of impossibility of VBB obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="21.8" data-path="software-obfuscation.html"><a href="software-obfuscation.html#indistinguishability-obfuscation"><i class="fa fa-check"></i><b>21.8</b> Indistinguishability obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html"><i class="fa fa-check"></i><b>22</b> More obfuscation, exotic encryptions</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#slower-weaker-less-securer"><i class="fa fa-check"></i><b>22.1</b> Slower, weaker, less securer</a></li>
+<li class="chapter" data-level="22.2" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#how-to-get-ibe-from-pairing-based-assumptions."><i class="fa fa-check"></i><b>22.2</b> How to get IBE from pairing based assumptions.</a></li>
+<li class="chapter" data-level="22.3" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#beyond-pairing-based-cryptography"><i class="fa fa-check"></i><b>22.3</b> Beyond pairing based cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="anonymous-communication.html"><a href="anonymous-communication.html"><i class="fa fa-check"></i><b>23</b> Anonymous communication</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="anonymous-communication.html"><a href="anonymous-communication.html#steganography"><i class="fa fa-check"></i><b>23.1</b> Steganography</a></li>
+<li class="chapter" data-level="23.2" data-path="anonymous-communication.html"><a href="anonymous-communication.html#anonymous-routing"><i class="fa fa-check"></i><b>23.2</b> Anonymous routing</a></li>
+<li class="chapter" data-level="23.3" data-path="anonymous-communication.html"><a href="anonymous-communication.html#tor"><i class="fa fa-check"></i><b>23.3</b> Tor</a></li>
+<li class="chapter" data-level="23.4" data-path="anonymous-communication.html"><a href="anonymous-communication.html#telex"><i class="fa fa-check"></i><b>23.4</b> Telex</a></li>
+<li class="chapter" data-level="23.5" data-path="anonymous-communication.html"><a href="anonymous-communication.html#riposte"><i class="fa fa-check"></i><b>23.5</b> Riposte</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html"><i class="fa fa-check"></i><b>24</b> Ethical, moral, and policy dimensions to cryptography</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#reading-prior-to-lecture"><i class="fa fa-check"></i><b>24.1</b> Reading prior to lecture:</a></li>
+<li class="chapter" data-level="24.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#case-studies."><i class="fa fa-check"></i><b>24.2</b> Case studies.</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#the-snowden-revelations"><i class="fa fa-check"></i><b>24.2.1</b> The Snowden revelations</a></li>
+<li class="chapter" data-level="24.2.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#fbi-vs-apple-case"><i class="fa fa-check"></i><b>24.2.2</b> FBI vs Apple case</a></li>
+<li class="chapter" data-level="24.2.3" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#juniper-backdoor-case-and-the-opm-break-in"><i class="fa fa-check"></i><b>24.2.3</b> Juniper backdoor case and the OPM break-in</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="course-recap.html"><a href="course-recap.html"><i class="fa fa-check"></i><b>25</b> Course recap</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="course-recap.html"><a href="course-recap.html#some-things-we-did-not-cover"><i class="fa fa-check"></i><b>25.1</b> Some things we did not cover</a></li>
+<li class="chapter" data-level="25.2" data-path="course-recap.html"><a href="course-recap.html#what-i-hope-you-learned"><i class="fa fa-check"></i><b>25.2</b> What I hope you learned</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="lattice-based-cryptography" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">12</span> Lattice based cryptography<a href="lattice-based-cryptography.html#lattice-based-cryptography" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Lattice based public key encryption (and its cousins known as knapsack and coding based encryption) have almost as long a history as discrete logarithm
+and factoring based schemes.
+Already in 1976, right after the Diffie-Hellman key exchange was discovered (and before RSA), Ralph Merkle was working on building public key encryption from the
+NP hard <em>knapsack</em> problem (see <a href="http://cr.yp.to/bib/1988/diffie.pdf">Diffie’s recollection</a>). This can be thought of as the task of solving a linear equation of the
+form <span class="math inline">\(Ax = y\)</span> (where <span class="math inline">\(A\)</span> is a given matrix, <span class="math inline">\(y\)</span> is a given vector, and the unknown are <span class="math inline">\(x\)</span>) over the real numbers but with the additional constraint that <span class="math inline">\(x\)</span> must be either <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>.
+His proposal evolved into the Merkle-Hellman system proposed in 1978 (which was broken in 1984).</p>
+<p>McEliece proposed in 1978 a system based on the difficulty of the decoding problem for general linear codes. This is the task of solving <em>noisy linear equations</em> where one is given <span class="math inline">\(A\)</span> and <span class="math inline">\(y\)</span> such that <span class="math inline">\(y=Ax+e\)</span> for a “small” error vector <span class="math inline">\(e\)</span>, and needs to recover <span class="math inline">\(x\)</span>.
+Crucially, here we work in a finite field, such as working modulo <span class="math inline">\(q\)</span> for some prime <span class="math inline">\(q\)</span> (that can even be <span class="math inline">\(2\)</span>) rather than over the reals or rationals.
+There are special matrices <span class="math inline">\(A^*\)</span> for which we know how to solve this problem efficiently: these are known as efficiently decodable <a href="https://goo.gl/vM7Pvv">error correcting codes</a>.
+McEliece suggested a scheme where the key generator lets <span class="math inline">\(A\)</span> be a “scrambled” version of a special <span class="math inline">\(A^*\)</span> (based on the <a href="https://goo.gl/Vd4yye">Goppa algebraic geometric code</a>).
+So, someone that knows the scrambling could solve the problem, but (hopefully) someone that doesn’t know it wouldn’t.
+McEliece’s system has so far not been broken.</p>
+<p>In a 1996 breakthrough, Ajtai showed a <em>private key</em> scheme based on integer lattices that had a very curious property- its security could be based on the assumption that certain problems were only hard in the <em>worst case</em>, and moreover variants of these problems were known to be NP hard.
+This re-ignited the hope that we could perhaps realize the old dream of basing crypto on the mere assumption that <span class="math inline">\(P\neq NP\)</span>.
+Alas, we now understand that there are fundamental barriers to this approach.</p>
+<p>Nevertheless, Ajtai’s work attracted significant interest, and within a year both Ajtai and Dwork, as well as Goldreich, Goldwasser and Halevi came up with lattice based constructions for <em>public key</em> encryption (the former based also on <em>worst case</em> assumptions).
+At about the same time, Hoffstein, Pipher, and Silverman came up with their NTRU public key system which is based on stronger assumptions but offers better performance, and they started a company around it together with Daniel Lieman.</p>
+<p>You may note that I haven’t yet said what <em>lattices</em> are; we will do so later, but for now if you simply think of questions involving linear equations modulo some prime <span class="math inline">\(q\)</span>, you will get enough of the intuition that you need.
+(The lattice viewpoint is more geometric, and we’ll discuss it more below; it was first used to <em>attack</em> cryptosystems and in particular break the Merkle-Hellman knapsack scheme and many of its variants.)</p>
+<p>Lattice based cryptography has captured a lot of attention recently from both theory and practice.
+In the theory side, many cool new constructions are now based on lattice based cryptography, and chief among them fully homomorphic encryption,
+as well as indistinguishability obfuscation (though the latter’s security’s foundations are still far less solid).
+On the applied side, the steady advances in the technology of quantum computers have finally gotten practitioners worried about RSA, Diffie Hellman and Elliptic Curves.
+While current constructions for quantum computers are nowhere near being able to, say, factor larger numbers that can be done classically (or even than can be done by hand), given that it takes many years to develop new standards and get them deployed, many believe the effort to transition away from these factoring/dlog based schemes should start today (or perhaps should have started several years ago).
+Based on this, the National Institute of Standards and Technology has started a <a href="https://csrc.nist.gov/projects/post-quantum-cryptography">process to identify “post quantum” public key encryption scheme</a>. All the finalist for public-key encryption are based on lattices/codes.</p>
+<p>Cryptography has the peculiar/unfortunate feature that if a machine is built that can factor large integers in 20 years, it can still be used to break the communication we transmit <em>today</em>, provided this communication was recorded.
+So, if you have some data that you expect you’d want still kept secret in 20 years (as many government and commercial entities do), you might have reasons to worry.
+Currently lattice based cryptography is the only real “game in town” for potentially quantum-resistant public key encryption schemes.</p>
+<p>Lattice based cryptography is a huge area, and in this lecture and this course we only touch on few aspects of it.
+I highly recommend <a href="https://web.eecs.umich.edu/~cpeikert/pubs/lattice-survey.pdf">Chris Peikert’s Survey</a> for a much more in depth treatment of this area.</p>
+<div id="quick-linear-algebra-recap" class="section level3 hasAnchor" number="12.0.1">
+<h3><span class="header-section-number">12.0.1</span> Quick linear algebra recap<a href="lattice-based-cryptography.html#quick-linear-algebra-recap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A <em>field</em> <span class="math inline">\(\mathbb{F}\)</span> is a set that supports the operations <span class="math inline">\(+,\cdot\)</span> and contains the numbers <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span> (more formally the additive identity and multiplicative identity) with the usual properties that the real numbers have. (That is associative, commutative, and distributive law, the fact that for every <span class="math inline">\(x \in \mathbb{F}\)</span> there is an element <span class="math inline">\(-x\)</span> such that <span class="math inline">\(x + (-x) = 0\)</span> and that if <span class="math inline">\(x \neq 0\)</span> there is an element <span class="math inline">\(x^{-1}\)</span> such that <span class="math inline">\(x \cdot x^{-1} = 1\)</span>.)
+Apart from the real numbers, the main field we will be interested in this section is the field <span class="math inline">\(\mathbb{Z}_q\)</span> of the numbers <span class="math inline">\(\{0,1,\ldots,q-1\}\)</span> with addition and multiplication done modulo <span class="math inline">\(q\)</span>, where <span class="math inline">\(q\)</span> is a prime number.<a href="#fn72" class="footnote-ref" id="fnref72"><sup>72</sup></a></p>
+<p>You should be comfortable with the following notions (these are covered in a number of sources, including the appendix of Katz-Lindell and <a href="https://shoup.net/ntb/">Shoup’s online-available book</a>):</p>
+<ul>
+<li><p>A vector <span class="math inline">\(v \in \mathbb{F}^n\)</span> and a <em>matrix</em> <span class="math inline">\(M \in \mathbb{F}^{m \times n}\)</span>. An <span class="math inline">\(m\times n\)</span> matrix has <span class="math inline">\(m\)</span> rows and <span class="math inline">\(n\)</span> columns. We think of vectors as <em>column vectors</em> and so we can think of a vector <span class="math inline">\(v \in \mathbb{F}^n\)</span> as an <span class="math inline">\(n\times 1\)</span> matrix. We write the <span class="math inline">\(i\)</span>-th coordinate of <span class="math inline">\(v\)</span> as <span class="math inline">\(v_i\)</span> and the <span class="math inline">\((i,j)\)</span>-th coordinate of <span class="math inline">\(M\)</span> as <span class="math inline">\(M_{i,j}\)</span> (i.e. the coordinate in the <span class="math inline">\(i\)</span>-th row and the <span class="math inline">\(j\)</span>-th column.) We often write a vector <span class="math inline">\(v\)</span> as <span class="math inline">\((v_1,\ldots,v_n)\)</span> but we still mean that it’s a column vector unless we say otherwise.</p></li>
+<li><p>If <span class="math inline">\(\alpha \in \mathbb{F}\)</span> is a <em>scalar</em> (i.e., a number) and <span class="math inline">\(v \in \mathbb{F}^n\)</span> is a vector then <span class="math inline">\(\alpha v\)</span> is the vector <span class="math inline">\((\alpha v_1 ,\ldots, \alpha v_n)\)</span>. If <span class="math inline">\(u,v\)</span> are <span class="math inline">\(n\)</span> dimensional vectors then <span class="math inline">\(u+v\)</span> is the vector <span class="math inline">\((u_1+v_1,\ldots,u_n+v_n)\)</span>.</p></li>
+<li><p>A <em>linear subspace</em> <span class="math inline">\(V \subseteq \mathbb{F}^n\)</span> is a non-empty set of vectors such that for every vectors <span class="math inline">\(u,v \in V\)</span> and <span class="math inline">\(\alpha,\beta \in \mathbb{F}\)</span>, <span class="math inline">\(\alpha u + \beta v \in V\)</span>. In particular this means that <span class="math inline">\(V\)</span> contains the all zero vector <span class="math inline">\(0^n\)</span> (can you see why?). A subset <span class="math inline">\(A \subseteq V\)</span> is <em>linearly independent</em> if there is no collection <span class="math inline">\(a_1,\ldots,a_k \in A\)</span> and scalars <span class="math inline">\(\alpha_1,\ldots,\alpha_k\)</span> such that <span class="math inline">\(\sum \alpha_i a_i = 0^n\)</span>. It is known (and not hard to prove) that if <span class="math inline">\(A\)</span> is linearly independent then <span class="math inline">\(|A| \leq n\)</span>. It is known that for every such linear subspace there is a linearly independent set <span class="math inline">\(B = \{ b_1,\ldots,b_d \}\)</span> of vectors, with <span class="math inline">\(d \leq n\)</span>, such that for every <span class="math inline">\(u \in V\)</span> there exist <span class="math inline">\(\alpha_1,\ldots,\alpha_d\)</span> such that <span class="math inline">\(v = \sum \alpha_i b_i\)</span>. Such a set is known as a <em>basis</em> for <span class="math inline">\(V\)</span>. A subspace <span class="math inline">\(V\)</span> has many bases, but all of them have the same size <span class="math inline">\(d\)</span> which is known as the <em>dimension</em> of <span class="math inline">\(V\)</span>. An <em>affine subspace</em> is a set <span class="math inline">\(U\)</span> of the form <span class="math inline">\(\{ u_0 + v : v\in V \}\)</span> where <span class="math inline">\(V\)</span> is a linear subspace. We can also write <span class="math inline">\(U\)</span> as <span class="math inline">\(u_0 + V\)</span>. We denote the dimension of <span class="math inline">\(U\)</span> as the dimension of <span class="math inline">\(V\)</span> in such a case.</p></li>
+<li><p>The inner product (also known as “dot product”) <span class="math inline">\(\langle u,v \rangle\)</span> between two vectors of the same dimension <span class="math inline">\(n\)</span> is defined as <span class="math inline">\(\sum u_i v_i\)</span> (addition done in the field <span class="math inline">\(\mathbb{F}\)</span>).<a href="#fn73" class="footnote-ref" id="fnref73"><sup>73</sup></a></p></li>
+<li><p>The <em>matrix product</em> <span class="math inline">\(AB\)</span> of an <span class="math inline">\(m \times k\)</span> and a <span class="math inline">\(k\times n\)</span> matrix results in an <span class="math inline">\(m\times n\)</span> matrix. If we think of the rows of <span class="math inline">\(A\)</span> as the vectors <span class="math inline">\(A_1,\ldots,A_m \in \mathbb{F}^k\)</span> and the columns of <span class="math inline">\(B\)</span> as <span class="math inline">\(B_1,\ldots,B_n \in \mathbb{F}^k\)</span>, then the <span class="math inline">\((i,j)\)</span>-th coordinate of <span class="math inline">\(AB\)</span> is <span class="math inline">\(\langle A_i , B_j \rangle\)</span>. Matrix product is associative and satisfies the distributive law but is <em>not commutative</em>: there are pairs of square matrices <span class="math inline">\(A,B\)</span> such that <span class="math inline">\(AB \neq BA\)</span>.</p></li>
+<li><p>The <em>transpose</em> of an <span class="math inline">\(n\times m\)</span> matrix <span class="math inline">\(A\)</span> is the <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(A^\top\)</span> such that <span class="math inline">\((A^\top)_{i,j} = A_{j,i}\)</span>.</p></li>
+<li><p>The <em>inverse</em> of a square <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(A\)</span> is the matrix <span class="math inline">\(A^{-1}\)</span> such that <span class="math inline">\(AA^{-1} = I\)</span> where <span class="math inline">\(I\)</span> is the <span class="math inline">\(n\times n\)</span> <em>identity matrix</em> such that <span class="math inline">\(I_{i,j}=1\)</span> if <span class="math inline">\(i=j\)</span> and <span class="math inline">\(I_{i,j}=0\)</span> otherwise.</p></li>
+<li><p>The <em>rank</em> of an <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(A\)</span> is the minimum number <span class="math inline">\(r\)</span> such that we can write <span class="math inline">\(A\)</span> as <span class="math inline">\(\sum_{i=1}^r u_i(v_i)^\top\)</span> where <span class="math inline">\(u_i \in \mathbb{F}^m\)</span> and <span class="math inline">\(v_i \in \mathbb{F}^n\)</span>. We can think of the <span class="math inline">\(u_i\)</span>’s as the columns of an <span class="math inline">\(m\times r\)</span> matrix <span class="math inline">\(U\)</span> and the <span class="math inline">\(v_i\)</span>’s as the rows of an <span class="math inline">\(r\times n\)</span> matrix <span class="math inline">\(V\)</span>, and hence the rank of <span class="math inline">\(A\)</span> is the minimum <span class="math inline">\(r\)</span> such that <span class="math inline">\(A=UV\)</span> where <span class="math inline">\(U\)</span> is <span class="math inline">\(m\times r\)</span> and <span class="math inline">\(V\)</span> is <span class="math inline">\(r\times n\)</span>. It can be shown that an <span class="math inline">\(n\times n\)</span> matrix is full rank if and only if it has an inverse.</p></li>
+<li><p>Solving <em>linear equations</em> can be thought of as the task of given an <span class="math inline">\(m \times n\)</span> matrix <span class="math inline">\(A\)</span> and <span class="math inline">\(m\)</span>-dimensional vector <span class="math inline">\(y\)</span>, finding the <span class="math inline">\(n\)</span>-dimensional vector <span class="math inline">\(x\)</span> such that <span class="math inline">\(Ax = y\)</span>. If the rank of <span class="math inline">\(A\)</span> is at least <span class="math inline">\(n\)</span> (which in particular means that <span class="math inline">\(m \geq n\)</span>) then by dropping <span class="math inline">\(m-n\)</span> rows of <span class="math inline">\(A\)</span> and coordinates of <span class="math inline">\(y\)</span> we can obtain the equation <span class="math inline">\(A&#39;x = y&#39;\)</span> where <span class="math inline">\(A&#39;\)</span> is an <span class="math inline">\(n\times n\)</span> matrix that has an inverse. In this case a solution (if it exists) will be equal to <span class="math inline">\((A&#39;)^{-1}y\)</span>. If for a set of equations we have <span class="math inline">\(m&gt;n\)</span> and we can find two such matrices <span class="math inline">\(A&#39;,A&#39;&#39;\)</span> such that <span class="math inline">\((A&#39;)^{-1}y \neq (A&#39;&#39;)^{-1}y\)</span> then we say it is <em>over determined</em> and in such a case it has no solutions. If a set of equations has more variables <span class="math inline">\(n\)</span> than equations <span class="math inline">\(m\)</span> we say it’s <em>under-determined</em>. In such a case it either has no solutions or the solutions form an affine subspace of dimension at least <span class="math inline">\(n-m\)</span>.</p></li>
+<li><p>The <em>gaussian elimination</em> algorithm can be used to obtain, given a set of equations <span class="math inline">\(Ax = y\)</span> a solution to <span class="math inline">\(x\)</span> if such exists or a certification that no solution exists. It can be executed in time polynomial in the dimensions and the bit complexity of the numbers involved. This algorithm can also be used to obtain an inverse of a given matrix <span class="math inline">\(A\)</span>, if such an inverse exists.</p></li>
+</ul>
+<div class="remark" title="Keep track of dimensions!">
+<p><span id="dimensionsrem" class="remark"><em>Remark</em>. </span>Throughout this chapter, and while working in lattice based cryptography in general, it is crucial to keep track of the dimensions. Whenever you see a symbol such as <span class="math inline">\(v,A,x,y\)</span> ask yourself:</p>
+<ul>
+<li><p>Is it a <em>scalar</em>, a <em>vector</em> or a <em>matrix</em>?</p></li>
+<li><p>If it is a vector or a matrix, what are its dimensions?</p></li>
+<li><p>If it’s a matrix, is it “square” (i.e., <span class="math inline">\(m=n\)</span>), “short and fat” (i.e., <span class="math inline">\(m \ll n\)</span>) or “tall and skinny”? (<span class="math inline">\(m\gg n\)</span>)?</p></li>
+</ul>
+</div>
+</div>
+<div id="a-world-without-gaussian-elimination" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> A world without Gaussian elimination<a href="lattice-based-cryptography.html#a-world-without-gaussian-elimination" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The general approach people use to get a public key encryption is to obtain a hard computational problem with some mathematical <em>structure</em>.
+We’ve seen this in the <em>discrete logarithm</em> problem, where the task is to invert the map <span class="math inline">\(a \mapsto g^a \pmod{p}\)</span>, and the integer factoring problem,
+where the task is to invert the map <span class="math inline">\(a,b \mapsto a\cdot b\)</span>.
+Perhaps the simplest structure to consider is the task of solving linear equations.</p>
+<p>Pretend that we didn’t know of Gaussian elimination,<a href="#fn74" class="footnote-ref" id="fnref74"><sup>74</sup></a> and that if we picked a “generic” matrix <span class="math inline">\(A\)</span> then the map <span class="math inline">\(x \mapsto Ax\)</span> would be hard to invert.
+(Here and elsewhere, our default interpretation of a vector <span class="math inline">\(x\)</span> is as a <em>column</em> vector, and hence if <span class="math inline">\(x\)</span> is <span class="math inline">\(n\)</span> dimensional and <span class="math inline">\(A\)</span> is <span class="math inline">\(m\times n\)</span> then <span class="math inline">\(Ax\)</span> is <span class="math inline">\(m\)</span> dimensional. We use <span class="math inline">\(x^\top\)</span> to denote the row vector obtained by <em>transposing</em> <span class="math inline">\(x\)</span>.)
+Could we use that to get a public key encryption scheme?</p>
+<p>Here is a concrete approach.
+Let us fix some prime <span class="math inline">\(q\)</span> (think of it as polynomial size, e.g., <span class="math inline">\(q\)</span> is smaller than <span class="math inline">\(1024\)</span> or so, though people can and sometimes do consider <span class="math inline">\(q\)</span> of exponential size),
+and all computation below will be done modulo <span class="math inline">\(q\)</span>.
+The secret key is a vector <span class="math inline">\(x\in\mathbb{Z}_q^n\)</span>, and the public key is <span class="math inline">\((A,y)\)</span> where <span class="math inline">\(A\)</span> is a random <span class="math inline">\(m\times n\)</span> matrix with entries in <span class="math inline">\(\mathbb{Z}_q\)</span> and <span class="math inline">\(y=Ax\)</span>.
+Under our assumption, it is hard to recover the secret key from the public key, but how do we use the public key to encrypt?</p>
+<p>The crucial observation is that even if we don’t know how to solve linear equations, we can still combine several equations to get new ones.
+To keep things simple, let’s consider the case of encrypting a single bit.</p>
+<blockquote>
+<h1 id="section-68" class="pause"></h1>
+<p>If you have a CPA secure public key encryption scheme for single bit messages then you can extend it to a CPA secure encryption scheme for messages of any length.
+Can you see why?</p>
+</blockquote>
+<p>If <span class="math inline">\(a_1,\ldots,a_m\)</span> are the rows of <span class="math inline">\(A\)</span>, we can think of the public key as the set of equations <span class="math inline">\(\langle a_1,x \rangle=y_1,\ldots, \langle a_m,x \rangle=y_m\)</span> in the unknown variables <span class="math inline">\(x\)</span>.
+The idea is that to encrypt the value <span class="math inline">\(0\)</span> we will generate a new <em>correct</em> equation on <span class="math inline">\(x\)</span>, while to encrypt the value <span class="math inline">\(1\)</span> we will generate an <em>incorrect</em> equation.
+To decrypt a ciphertext <span class="math inline">\((a,\sigma)\in \mathbb{Z}_q^{n+1}\)</span>, we think of it as an equation of the form <span class="math inline">\(\langle a,x \rangle=\sigma\)</span> and output <span class="math inline">\(1\)</span> if and only if the equation is incorrect.</p>
+<p>How does the encrypting algorithm, that does not know <span class="math inline">\(x\)</span>, get a correct or incorrect equation on demand?
+One way would be to simply take two equations <span class="math inline">\(\langle a_i,x \rangle=y_i\)</span> and <span class="math inline">\(\langle a_j,x \rangle=y_j\)</span> and add them together to get the equation <span class="math inline">\(\langle a_i+a_j,x \rangle=y_i+y_j\)</span>.
+This equation is correct and so one can use it to encrypt <span class="math inline">\(0\)</span>, while to encrypt <span class="math inline">\(1\)</span> we simply add some fixed nonzero number <span class="math inline">\(\alpha\in\mathbb{Z}_q\)</span> to the right hand side to get the incorrect equation <span class="math inline">\(\langle a_i+a_j,x \rangle= y_i+y_j + \alpha\)</span>.
+However, even if it’s hard to solve for <span class="math inline">\(x\)</span> given the equations, an attacker (who also knows the public key <span class="math inline">\((A,y)\)</span>) can try itself all pairs of equations and do the same thing.</p>
+<p>Our solution for this is simple- just add more equations! If the encryptor adds a random subset of equations then there are <span class="math inline">\(2^m\)</span> possibilities for that, and an attacker can’t guess them all.
+That is, if the rows of <span class="math inline">\(A\)</span> are <span class="math inline">\(a_1,\ldots,a_m\)</span>, then we can pick a vector <span class="math inline">\(w \in \{0,1\}^m\)</span> at random, and consider the equation <span class="math inline">\(\langle a ,x \rangle = y\)</span> where <span class="math inline">\(a = \sum w_i a_i\)</span> and <span class="math inline">\(y = \sum w_i y_i\)</span>.
+In other words, we can think of this as the equation <span class="math inline">\(w^\top A x = \langle w,y \rangle\)</span> (note that <span class="math inline">\(\langle w,y \rangle = w^\top y\)</span> and so we can think of this as the equation that we obtain from <span class="math inline">\(Ax = y\)</span> by multiplying both sides on the left by the row vector <span class="math inline">\(w^\top\)</span>).</p>
+<p>Thus, at least intuitively, the following encryption scheme would be “secure” in the Gaussian elimination-free world of attackers that haven’t taken freshman linear algebra:</p>
+<div class="quote">
+<p><strong>Scheme “LwoE-ENC”:</strong> Public key encryption under the hardness of “learning linear equations without errors”.</p>
+<ul>
+<li><p><em>Key generation</em>: Pick random <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(A\)</span> over <span class="math inline">\(\mathbb{Z}_q\)</span>, and <span class="math inline">\(x\leftarrow_R\mathbb{Z}_q^n\)</span>, the secret key is <span class="math inline">\(x\)</span> and the public key is <span class="math inline">\((A,y)\)</span> where <span class="math inline">\(y=Ax\)</span>.</p></li>
+<li><p><em>Encryption</em>: To encrypt a message <span class="math inline">\(b\in\{0,1\}\)</span>, pick <span class="math inline">\(w\in\{0,1\}^m\)</span> and output <span class="math inline">\(w^\top A,\langle w,y \rangle+\alpha b\)</span> for some fixed nonzero <span class="math inline">\(\alpha\in\mathbb{Z}_q\)</span>.</p></li>
+<li><p><em>Decryption:</em> To decrypt a ciphertext <span class="math inline">\((a,\sigma)\)</span>, output <span class="math inline">\(0\)</span> iff <span class="math inline">\(\langle a,x \rangle=\sigma\)</span>.</p></li>
+</ul>
+</div>
+<blockquote>
+<h1 id="section-69" class="pause"></h1>
+<p>Please stop here and make sure that you see why this is a valid encryption (not in the sense that it is secure - it’s not - but in the sense that decryption of an encryption of <span class="math inline">\(b\)</span> returns the bit <span class="math inline">\(b\)</span>), and this description corresponds to the previous one; as usual all calculations are done modulo <span class="math inline">\(q\)</span>.</p>
+</blockquote>
+</div>
+<div id="security-in-the-real-world." class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Security in the real world.<a href="lattice-based-cryptography.html#security-in-the-real-world." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Like it or not (and cryptographers typically don’t) Gaussian elimination <em>is</em> possible in the real world and the scheme above is completely insecure.
+However, the Gaussian elimination algorithm is extremely <em>brittle</em>.<br />
+Errors tend to be amplified when you combine equations.
+This is usually thought of as a bad thing, and numerical analysis is much about dealing with this issue.
+However, from the cryptographic point of view, these errors can be our saving grace and enable us to salvage the security of the ridiculous scheme above.</p>
+<p>To see why Gaussian elimination is brittle, let us recall how it works.
+Think of <span class="math inline">\(m=n\)</span> for simplicity.
+Given equations <span class="math inline">\(Ax=y\)</span> in the unknown variables <span class="math inline">\(x\)</span>, the goal of Gaussian elimination is to transform them into the equations <span class="math inline">\(Ix = y&#39;\)</span> where <span class="math inline">\(I\)</span> is the identity matrix (and hence the solution is simply <span class="math inline">\(x=y&#39;\)</span>).
+Recall how we do it: by rearranging and scaling, we can assume that the top left corner of <span class="math inline">\(A\)</span> is equal to <span class="math inline">\(1\)</span>, and then we add the first equation to the other equations (scaled appropriately) to zero out the first entry in all the other rows of <span class="math inline">\(A\)</span> (i.e., make the first column of <span class="math inline">\(A\)</span> equal to <span class="math inline">\((1,0,\ldots,0)\)</span>) and continue onwards to the second column and so on and so forth.</p>
+<p>Now, suppose that the equations were <em>noisy</em>, in the sense that we added to <span class="math inline">\(y\)</span> a vector <span class="math inline">\(e\in\mathbb{Z}_q^m\)</span> such that <span class="math inline">\(|e_i|&lt;\delta q\)</span> for every <span class="math inline">\(i\)</span>.<a href="#fn75" class="footnote-ref" id="fnref75"><sup>75</sup></a>
+Even ignoring the effect of the scaling step, simply adding the first equation to the rest of the equations would typically tend to increase the relative error of equations <span class="math inline">\(2,\ldots,m\)</span> from <span class="math inline">\(\approx \delta\)</span> to <span class="math inline">\(\approx 2\delta\)</span>.
+Now, when we repeat the process, we increase the error of equations <span class="math inline">\(3,\ldots,m\)</span> from <span class="math inline">\(\approx 2\delta\)</span> to <span class="math inline">\(\approx 4\delta\)</span>, and we see that by the time we’re done dealing with about <span class="math inline">\(n/2\)</span> variables, the remaining equations have error level roughly <span class="math inline">\(2^{n/2}\delta\)</span>.
+So, unless <span class="math inline">\(\delta\)</span> was truly tiny (and <span class="math inline">\(q\)</span> truly big, in which case the difference between working in <span class="math inline">\(\mathbb{Z}_q\)</span> and simply working with integers or rationals disappears), the resulting equations have the form <span class="math inline">\(Ix = y&#39; + e&#39;\)</span> where <span class="math inline">\(e&#39;\)</span> is so big that we get no information on <span class="math inline">\(x\)</span>.</p>
+<p>The <em>Learning With Errors (LWE)</em> conjecture is that this is <em>inherent</em>:</p>
+<div class="quote">
+<p><strong>Conjecture (Learning with Errors, Regev 2005):</strong> Let <span class="math inline">\(q=q(n)\)</span> and <span class="math inline">\(\delta=\delta(n)\)</span> be some functions.
+The <em>Learning with Error (LWE) conjecture with respect to <span class="math inline">\(q,\delta\)</span></em>,denoted as <span class="math inline">\(LWE_{q,\delta}\)</span>, is the following conjecture: for every polynomial <span class="math inline">\(m(n)\)</span> and polynomial-time adversary <span class="math inline">\(R\)</span>,</p>
+<p><span class="math display">\[\Pr[ R(A,Ax+e) = x ] &lt; negl(n)\]</span>
+where for <span class="math inline">\(q=q(n)\)</span> and <span class="math inline">\(\delta = \delta(n)\)</span>, this probability is taken over <span class="math inline">\(A\)</span> a random <span class="math inline">\(m\times n\)</span> matrix over <span class="math inline">\(\mathbb{Z}_q\)</span>, <span class="math inline">\(x\)</span> a random vector in <span class="math inline">\(\mathbb{Z}_q^n,\)</span> and <span class="math inline">\(e\)</span> a random “noise vector” in <span class="math inline">\(\mathbb{Z}_q^m\)</span> where <span class="math inline">\(|e_i| &lt; \delta q\)</span> for every <span class="math inline">\(i \in [m]\)</span>.<a href="#fn76" class="footnote-ref" id="fnref76"><sup>76</sup></a></p>
+<p>The <em>LWE conjecture</em> (without any parameters) is that there is some absolute constant <span class="math inline">\(c\)</span> such that for every polynomial <span class="math inline">\(p(n)\)</span> there, if <span class="math inline">\(q(n) &gt; p(n)^c\)</span> then LWE holds with respect to <span class="math inline">\(q(n)\)</span> and <span class="math inline">\(\delta(n)=1/p(n)\)</span>.<a href="#fn77" class="footnote-ref" id="fnref77"><sup>77</sup></a></p>
+</div>
+<p>It is important to note the order of quantifiers in the learning with error conjecture.
+If we want to handle a noise of low enough magnitude (say <span class="math inline">\(\delta(n) = 1/n^2\)</span>) then we need to choose the modulos <span class="math inline">\(q\)</span> to be large enough (for example it is believed that <span class="math inline">\(q &gt; n^4\)</span> will be good enough for this case) and then the adversary can choose <span class="math inline">\(m(n)\)</span> to be as big a polynomial as they like, and of course run in time which is an arbitrary polynomial in <span class="math inline">\(n\)</span>.
+Therefore we can think of such an adversary <span class="math inline">\(R\)</span> as getting access to a “magic box” that they can use <span class="math inline">\(m=poly(n)\)</span> number of times to get “noisy equations on <span class="math inline">\(x\)</span>” of the form <span class="math inline">\((a_i,y_i)\)</span> with <span class="math inline">\(a_i\in \mathbb{Z}_q^n\)</span>, <span class="math inline">\(y_i \in \mathbb{Z}_q\)</span> where <span class="math inline">\(y_i = \langle a_i, x \rangle + e_i\)</span>.</p>
+<div class="pause">
+<p>The LWE conjecture posits that no <em>efficient</em> algorithm can recover <span class="math inline">\(x\)</span> given <span class="math inline">\(A\)</span> and <span class="math inline">\(Ax + e\)</span>. But you might wonder whether it’s possible to do this is <em>inefficiently</em>. The answer is yes. Intuitively the reason is that if we have more equations than unknown (i.e., if <span class="math inline">\(m&gt;n\)</span>) then these equations contain enough information to determine the unknown variables even if they are noisy. It can be shown that if <span class="math inline">\(m\)</span> is sufficiently large (<span class="math inline">\(m&gt;10n\)</span> will do) then with high probability over <span class="math inline">\(A,x,e\)</span>, given <span class="math inline">\(A\)</span> and <span class="math inline">\(y=x +e\)</span>, if we enumerate over all <span class="math inline">\(\tilde{x} \in \mathbb{Z}_q^n\)</span> and output the string minimizing <span class="math inline">\(| A\tilde{x} - y|\)</span> (where we define <span class="math inline">\(|v| =\sum |v_i|\)</span> for a vector <span class="math inline">\(v\)</span>), then <span class="math inline">\(\tilde{x}\)</span> will equal <span class="math inline">\(x\)</span>.</p>
+<p>It is a good exercise to work out the details, but a hint is this can be proven by showing that for every <span class="math inline">\(\tilde{x}\neq x\)</span>, with high probability over <span class="math inline">\(A\)</span>, <span class="math inline">\(|A\tilde{x} - Ax| &gt; \delta q m\)</span>. The latter fact holds because <span class="math inline">\(v = A(x-\tilde{x})\)</span> is a random vector in <span class="math inline">\(\mathbb{Z}_q^m\)</span>, and the probability that <span class="math inline">\(|v|&lt;\delta q m\)</span> is much smaller than <span class="math inline">\(q^{-0.1 m} &lt; q^{-n}\)</span>.
+Hence we can take a union bound over all possible <span class="math inline">\(\tilde{x} \in \mathbb{Z}_q^n\)</span>.</p>
+</div>
+</div>
+<div id="search-to-decision" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Search to decision<a href="lattice-based-cryptography.html#search-to-decision" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>It turns out that if the LWE is hard, then it is even hard to distinguish between random equations and nearly correct ones:</p>
+<div class="float" id="lwesearchtodecisionfig">
+<img src="../figure/lwevecindist.png" alt="The search to decision reduction (LWEsearchtodecthm) implies that under the LWE conjecture, for every m=poly(n), if we choose and fix a random m\times n matrix A over \mathbb{Z}_q, the distribution Ax+e is indistinguishable from a random vector in \mathbb{Z}_q^m, where x is a random vector in \mathbb{Z}_q^n and e is a random “short” vector in \mathbb{Z}_q^m. The two distributions are indistinguishable even to an adversary that knows A." />
+<div class="figcaption">The search to decision reduction (<a href="" class="ref">LWEsearchtodecthm</a>) implies that under the LWE conjecture, for every <span class="math inline">\(m=poly(n)\)</span>, if we choose and fix a random <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(A\)</span> over <span class="math inline">\(\mathbb{Z}_q\)</span>, the distribution <span class="math inline">\(Ax+e\)</span> is indistinguishable from a random vector in <span class="math inline">\(\mathbb{Z}_q^m\)</span>, where <span class="math inline">\(x\)</span> is a random vector in <span class="math inline">\(\mathbb{Z}_q^n\)</span> and <span class="math inline">\(e\)</span> is a random “short” vector in <span class="math inline">\(\mathbb{Z}_q^m\)</span>. The two distributions are indistinguishable even to an adversary that knows <span class="math inline">\(A\)</span>.</div>
+</div>
+<div class="theorem" title="Search to decision reduction for LWE">
+<p><span id="thm:LWEsearchtodecthm" class="theorem"><strong>Theorem 12.1  </strong></span>If the LWE conjecture is true then for every <span class="math inline">\(q=poly(n)\)</span> and <span class="math inline">\(\delta=1/poly(n)\)</span> and <span class="math inline">\(m=poly(n)\)</span>, the following two distributions are computationally
+indistinguishable:</p>
+<ul>
+<li><p><span class="math inline">\(\{ (A,Ax+e) \}\)</span> where <span class="math inline">\(A\)</span> is random <span class="math inline">\(m\times n\)</span> matrix in <span class="math inline">\(\mathbb{Z}_q\)</span>, <span class="math inline">\(x\)</span> is random in <span class="math inline">\(\mathbb{Z}_q^n\)</span> and <span class="math inline">\(e\in \mathbb{Z}_q^m\)</span> is random noise vector of magnitude <span class="math inline">\(\delta\)</span>.</p></li>
+<li><p><span class="math inline">\(\{ (A,y) \}\)</span> where <span class="math inline">\(A\)</span> is random <span class="math inline">\(m\times n\)</span> matrix in <span class="math inline">\(\mathbb{Z}_q\)</span> and <span class="math inline">\(y\)</span> is random in <span class="math inline">\(\mathbb{Z}_q^m\)</span>.</p></li>
+</ul>
+</div>
+<div class="proof" data-ref="LWEsearchtodecthm">
+<p><span id="unlabeled-div-35" class="proof"><em>Proof</em>. </span>Suppose that we had a decisional adversary <span class="math inline">\(D\)</span> that succeeds in distinguishing the two distributions above with bias <span class="math inline">\(\epsilon\)</span>.
+For example, suppose that <span class="math inline">\(D\)</span> outputs <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p+\epsilon\)</span> on inputs from the first distribution, and outputs <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span>
+on inputs from the second distribution.</p>
+<p>We will show how we can use this to obtain a polynomial-time algorithm <span class="math inline">\(S\)</span> that on input <span class="math inline">\(m\)</span> noisy equations on <span class="math inline">\(x\)</span> and a value <span class="math inline">\(a\in\ Z_q\)</span>, will learn with high probability whether or not the first coordinate of <span class="math inline">\(x\)</span> equals <span class="math inline">\(a\)</span>.
+Clearly, we can repeat this for all the possible <span class="math inline">\(q\)</span> values of <span class="math inline">\(a\)</span> to learn the first coordinate exactly, and then continue in this way to learn all coordinates.</p>
+<p>Our algorithm <span class="math inline">\(S\)</span> gets as input the pair <span class="math inline">\((A,y)\)</span> where <span class="math inline">\(y=Ax+e\)</span> and we need to decide whether <span class="math inline">\(x_1 = a\)</span>.
+Now consider the instance <span class="math inline">\((A+(r\|0^m\|\cdots \|0^m),y+ar)\)</span>, where <span class="math inline">\(r\)</span> is a random vector in <span class="math inline">\(\mathbb{Z}_q^m\)</span> and the matrix <span class="math inline">\((r\|0^m\|\cdots \|0^m)\)</span> is simply the matrix with first column equal to <span class="math inline">\(r\)</span> and all other columns equal to <span class="math inline">\(0\)</span>.
+If <span class="math inline">\(A\)</span> is random then <span class="math inline">\(A+(r\|0^m\|\cdots \|0^m)\)</span> is random as well.
+Now note that <span class="math inline">\(Ax + (r\|0^m\cdots \|0^m)x = Ax + x_1 r\)</span> and hence if <span class="math inline">\(x_1 = a\)</span> then we still have an input of the same form <span class="math inline">\((A&#39;,A&#39;x+e)\)</span>.</p>
+<p>In contrast, we claim that if if <span class="math inline">\(x_1 \neq a\)</span> then the distribution <span class="math inline">\((A&#39;,y&#39;)\)</span> where <span class="math inline">\(A&#39;=A+(r\|0^m\|\cdots \|0^m)\)</span> and <span class="math inline">\(y&#39;= Ax + e + ar\)</span> is identical to the uniform distribution over a random uniformly chosen matrix <span class="math inline">\(A&#39;\)</span> and a random and independent uniformly chosen vector <span class="math inline">\(y&#39;\)</span>.
+Indeed, we can write this distribution as <span class="math inline">\((A&#39;,y&#39;)\)</span> where <span class="math inline">\(A&#39;\)</span> is chosen uniformly at random, and <span class="math inline">\(y&#39;= A&#39;x + e + (a-x_1)r\)</span> where <span class="math inline">\(r\)</span> is a random and independent vector. (Can you see why?)
+Since <span class="math inline">\(a-x_1 \neq 0\)</span>, this amounts to adding a random and independent vector <span class="math inline">\(r\)</span> to <span class="math inline">\(y&#39;\)</span>, which means that the distribution <span class="math inline">\((A&#39;,y&#39;)\)</span> is uniform and independent.</p>
+<p>Hence if we send the input <span class="math inline">\((A&#39;,y&#39;)\)</span> to our the decision algorithm <span class="math inline">\(D\)</span>, then we would get <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p+\epsilon\)</span> if <span class="math inline">\(x_1=a\)</span> and an output of <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> otherwise.</p>
+<p>Now the crucial observation is that if our decision algorithm <span class="math inline">\(D\)</span> requires <span class="math inline">\(m\)</span> equations to succeed with bias <span class="math inline">\(\epsilon\)</span>, we can use <span class="math inline">\(100mn/\epsilon^2\)</span> equations (which is still polynomial) to invoke it <span class="math inline">\(100n/\epsilon^2\)</span> times.
+This allows us to distinguish with probability <span class="math inline">\(1-2^{-n}\)</span> between the case that <span class="math inline">\(D\)</span> outputs <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p+\epsilon\)</span> and the case that it outputs <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> (this follows from the Chernoff bound; can you see why?).
+Hence by using polynomially more samples than the decision algorithm <span class="math inline">\(D\)</span>, we get a search algorithm <span class="math inline">\(S\)</span> that can actually recover <span class="math inline">\(x\)</span>.</p>
+</div>
+</div>
+<div id="lweencsec" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> An LWE based encryption scheme<a href="lattice-based-cryptography.html#lweencsec" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can now show the secure variant of our original encryption scheme:</p>
+<div class="quote">
+<p><strong>LWE-based encryption LWE-ENC:</strong></p>
+<ul>
+<li><p><em>Parameters:</em> Let <span class="math inline">\(\delta(n)=1/n^4\)</span> and let <span class="math inline">\(q=poly(n)\)</span> be a prime such that LWE holds w.r.t. <span class="math inline">\(q,\delta\)</span>. We let <span class="math inline">\(m = n^2\log q\)</span>.</p></li>
+<li><p><em>Key generation:</em> Pick <span class="math inline">\(x\in\mathbb{Z}_q^n\)</span>. The private key is <span class="math inline">\(x\)</span> and the public key is <span class="math inline">\((A,y)\)</span> with <span class="math inline">\(y=Ax+e\)</span> with <span class="math inline">\(e\)</span> a <span class="math inline">\(\delta\)</span>-noise vector and <span class="math inline">\(A\)</span> a random <span class="math inline">\(m\times n\)</span> matrix.</p></li>
+<li><p><em>Encrypt:</em> To encrypt <span class="math inline">\(b\in\{0,1\}\)</span> given the key <span class="math inline">\((A,y)\)</span>, pick <span class="math inline">\(w\in\{0,1\}^m\)</span> and output <span class="math inline">\(w^\top A, \langle w,y \rangle+b\lfloor q/2 \rfloor\)</span> (all computations are done in <span class="math inline">\(\mathbb{Z}_q\)</span>).</p></li>
+<li><p><em>Decrypt:</em> To decrypt <span class="math inline">\((a,\sigma)\)</span>, output <span class="math inline">\(0\)</span> iff <span class="math inline">\(|\langle a,x \rangle-\sigma|&lt;q/10\)</span>.</p></li>
+</ul>
+</div>
+<blockquote>
+<h1 id="section-70" class="pause"></h1>
+<p>The scheme LWEENC is also described in <a href="" class="ref">lweencdescfig</a> with slightly different notation. I highly recommend you stop and verify you understand why the two descriptions are equivalent.</p>
+</blockquote>
+<div class="float" id="lweencdescfig">
+<img src="../figure/lweencdesc.png" alt="In the encryption scheme LWEENC, the public key is a matrix A&#39;=(A|y), where y=As+e and s is the secret key. To encrypt a bit b we choose a random w \leftarrow_R \{0,1\}^m, and output w^\top A&#39; + (0,\ldots,0,b\lfloor \tfrac{q}{2} \rfloor). We decrypt c \in \mathbb{Z}_q^{n+1} to zero with key s iff |\langle c,(s,-1) \rangle| \leq q/10 where the inner product is done modulo q." />
+<div class="figcaption">In the encryption scheme LWEENC, the public key is a matrix <span class="math inline">\(A&#39;=(A|y)\)</span>, where <span class="math inline">\(y=As+e\)</span> and <span class="math inline">\(s\)</span> is the secret key. To encrypt a bit <span class="math inline">\(b\)</span> we choose a random <span class="math inline">\(w \leftarrow_R \{0,1\}^m\)</span>, and output <span class="math inline">\(w^\top A&#39; + (0,\ldots,0,b\lfloor \tfrac{q}{2} \rfloor)\)</span>. We decrypt <span class="math inline">\(c \in \mathbb{Z}_q^{n+1}\)</span> to zero with key <span class="math inline">\(s\)</span> iff <span class="math inline">\(|\langle c,(s,-1) \rangle| \leq q/10\)</span> where the inner product is done modulo <span class="math inline">\(q\)</span>.</div>
+</div>
+<p>Unlike our typical schemes, here it is not immediately clear that this encryption is valid,
+in the sense that the decrypting an encryption of <span class="math inline">\(b\)</span> returns the value <span class="math inline">\(b\)</span>. But this is the case:</p>
+<blockquote>
+<h1 id="LWEcorrectlem" class="lemma"></h1>
+<p>With high probability, the decryption of the encryption of <span class="math inline">\(b\)</span> equals <span class="math inline">\(b\)</span>.</p>
+</blockquote>
+<div class="proof" data-ref="LWEcorrectlem">
+<p><span id="unlabeled-div-36" class="proof"><em>Proof</em>. </span><span class="math inline">\(\langle w^\top A,x \rangle = \langle w,Ax \rangle\)</span>. Hence, if <span class="math inline">\(y=Ax+e\)</span> then <span class="math inline">\(\langle w,y \rangle = \langle w^\top A,x \rangle + \langle w,e \rangle\)</span>.
+But since every coordinate of <span class="math inline">\(w\)</span> is either <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, <span class="math inline">\(|\langle w,e \rangle|&lt;\delta m q &lt; q/10\)</span> for our choice of parameters.<a href="#fn78" class="footnote-ref" id="fnref78"><sup>78</sup></a>
+So, we get that if <span class="math inline">\(a= w^\top A\)</span> and <span class="math inline">\(\sigma = \langle w,y \rangle+b\lfloor q/2 \rfloor\)</span> then <span class="math inline">\(\sigma - \langle a,x \rangle = \langle w,e \rangle + b\lfloor q/2 \rfloor\)</span> which will be smaller than
+<span class="math inline">\(q/10\)</span> iff <span class="math inline">\(b=0\)</span>.</p>
+</div>
+<p>We now prove security of the LWE based encryption:</p>
+<blockquote>
+<h1 id="LWEENCthm" class="theorem" title="CPA security of LWEENC"></h1>
+<p>If the LWE conjecture is true then LWEENC is CPA secure.</p>
+</blockquote>
+<p>For a public key encryption scheme with messages that are just bits, CPA security means that an encryption of <span class="math inline">\(0\)</span> is indistinguishable from an encryption of <span class="math inline">\(1\)</span>, even given the public key.
+Thus <a href="" class="ref">LWEENCthm</a> will follow from the following lemma:</p>
+<div class="lemma">
+<p><span id="lem:LWEENClem" class="lemma"><strong>Lemma 12.1  </strong></span>Let <span class="math inline">\(q,m,\delta\)</span> be set as in LWEENC.
+Then, assuming the LWE conjecture, the following distributions are computationally indistinguishable:</p>
+<ul>
+<li><p><span class="math inline">\(D\)</span>: The distribution over four-tuples of the form <span class="math inline">\((A,y,w^\top A,\langle w,y \rangle)\)</span> where <span class="math inline">\(A\)</span> is uniform in <span class="math inline">\(\mathbb{Z}_q^{m\times n}\)</span>, <span class="math inline">\(x\)</span> is uniform in <span class="math inline">\(\mathbb{Z}_q^n\)</span>, <span class="math inline">\(e \in \mathbb{Z}_q^m\)</span> is chosen with <span class="math inline">\(e_i \in \{-\delta q,\ldots,+\delta q\}\)</span>, <span class="math inline">\(y=Ax+e\)</span>, and <span class="math inline">\(w\)</span> is uniform in <span class="math inline">\(\{0,1\}^m\)</span>.</p></li>
+<li><p><span class="math inline">\(\overline{D}\)</span>: The distribution over four-tuples <span class="math inline">\((A,y&#39;,a,\sigma)\)</span> where all entries are uniform: <span class="math inline">\(A\)</span> is uniform in <span class="math inline">\(\mathbb{Z}_q^{m\times n}\)</span>, <span class="math inline">\(y&#39;\)</span> is uniform in <span class="math inline">\(\mathbb{Z}_q^m\)</span>, <span class="math inline">\(a\)</span> is uniform in <span class="math inline">\(\mathbb{Z}_q^n\)</span> and <span class="math inline">\(\sigma\)</span> is uniform in <span class="math inline">\(\mathbb{Z}_q\)</span>.</p></li>
+</ul>
+</div>
+<blockquote>
+<h1 id="section-71" class="pause"></h1>
+<p>You should stop here and verify that <strong>(i)</strong> You understand the statement of <a href="" class="ref">LWEENClem</a> and <strong>(ii)</strong> you understand why this lemma implies <a href="" class="ref">LWEENCthm</a>.
+The idea is that <a href="" class="ref">LWEENClem</a> shows that the concatenation of the public key and encryption of <span class="math inline">\(0\)</span> is indistinguishable from something that is completely random.
+You can then use it to show that the concatenation of the public key and encryption of <span class="math inline">\(1\)</span> is indistinguishable from the same thing, and then finish using the hybrid argument.</p>
+</blockquote>
+<p>We now prove <a href="" class="ref">LWEENClem</a>, which will complete the proof of <a href="" class="ref">LWEENCthm</a>.</p>
+<div class="proof" data-ref="LWEENClem">
+<p><span id="unlabeled-div-37" class="proof"><em>Proof</em>. </span>Define <span class="math inline">\(D\)</span> to be the distribution <span class="math inline">\((A,y,w^\top A,\langle w,y \rangle)\)</span> as in the lemma’s statement (i.e., <span class="math inline">\(y=Ax+e\)</span> for some <span class="math inline">\(x\)</span>, <span class="math inline">\(e\)</span> chosen as above).
+Define <span class="math inline">\(D&#39;\)</span> to be the distribution <span class="math inline">\((A,y&#39;,w^\top A, \langle w,y&#39; \rangle)\)</span> where <span class="math inline">\(y&#39;\)</span> is chosen uniformly in <span class="math inline">\(\mathbb{Z}_q^m\)</span>.</p>
+<p>We claim that <span class="math inline">\(D&#39;\)</span> is computationally indistinguishable from <span class="math inline">\(D\)</span> under the LWE conjecture.
+Indeed by <a href="" class="ref">LWEsearchtodecthm</a> (search to decision reduction) this conjecture implies that the distribution <span class="math inline">\(X\)</span> over pairs <span class="math inline">\((A,y)\)</span> with <span class="math inline">\(y=Ax+e\)</span> is indistinguishable from the distribution <span class="math inline">\(X&#39;\)</span> over pairs <span class="math inline">\((A,y&#39;)\)</span> where <span class="math inline">\(y&#39;\)</span> is uniform.
+But if there was some polynomial-time algorithm <span class="math inline">\(T\)</span> distinguishing <span class="math inline">\(D\)</span> from <span class="math inline">\(D&#39;\)</span> then we can design a randomized polynomial-time algorithm <span class="math inline">\(T&#39;\)</span> distinguishing <span class="math inline">\(X\)</span> from <span class="math inline">\(X&#39;\)</span> with the same advantage by setting <span class="math inline">\(T&#39;(A,y)=T(A,y,w^\top A,\langle w,y \rangle)\)</span> for random <span class="math inline">\(w \leftarrow_R \{0,1\}^m\)</span>.</p>
+<p>We will finish the proof by showing that the distribution <span class="math inline">\(D&#39;\)</span> is <em>statistically indistinguishable</em> (i.e., has negligible total variation distance) from <span class="math inline">\(\overline{D}\)</span>.
+This follows from the following claim:</p>
+<p><strong>CLAIM</strong>: Suppose that <span class="math inline">\(m &gt; 100 n \log q\)</span>. If <span class="math inline">\(A&#39;\)</span> is a random <span class="math inline">\(m\times n+1\)</span> matrix over <span class="math inline">\(\mathbb{Z}_q\)</span>, then with probability at least <span class="math inline">\(1-2^{-n}\)</span> over the choice of <span class="math inline">\(A&#39;\)</span>, the distribution <span class="math inline">\(Z_{A&#39;}\)</span> over <span class="math inline">\(\mathbb{Z}_q^{n+1}\)</span> which is obtained by choosing <span class="math inline">\(w\)</span> at random in <span class="math inline">\(\{0,1\}^m\)</span> and outputting <span class="math inline">\(w^\top A&#39;\)</span> has at most <span class="math inline">\(2^{-n}\)</span> statistical distance from the uniform distribution over <span class="math inline">\(\mathbb{Z}_q^{n+1}\)</span>.</p>
+<p>Note that the randomness used for the distribution <span class="math inline">\(Z_{A&#39;}\)</span> is only obtained by the choice of <span class="math inline">\(w\)</span>, and <em>not</em> by the choice of <span class="math inline">\(A&#39;\)</span> that is fixed.
+(This passes a basic “sanity check” since <span class="math inline">\(w\)</span> has <span class="math inline">\(m\)</span> random bits, while the uniform distribution over <span class="math inline">\(\mathbb{Z}_q^n\)</span> requires <span class="math inline">\(n \log q \ll m\)</span> random bits, and hence <span class="math inline">\(Z_{A&#39;}\)</span> at least has a “fighting chance” in being statistically close to it.)
+Another way to state the same claim is that the pair <span class="math inline">\((A&#39;,w^\top A&#39;)\)</span> is statistically indistinguishable from the uniform distribution <span class="math inline">\((A&#39;,z)\)</span> where <span class="math inline">\(z\)</span> is a vector chosen independently at random from <span class="math inline">\(\mathbb{Z}_q^{n+1}\)</span>.</p>
+<p>The claim completes the proof of the lemma, since letting <span class="math inline">\(A&#39;\)</span> be the matrix <span class="math inline">\((A|y)\)</span> and <span class="math inline">\(z=(a,\sigma)\)</span>, we see that the distribution <span class="math inline">\(D&#39;\)</span>, as the form <span class="math inline">\((A&#39;,z)\)</span> where <span class="math inline">\(A&#39;\)</span> is a uniformly random <span class="math inline">\(m\times (n+1)\)</span> matrix and <span class="math inline">\(z\)</span> is sampled from <span class="math inline">\(Z_{A&#39;}\)</span> (i.e., <span class="math inline">\(z=w^\top A&#39;\)</span> where <span class="math inline">\(w\)</span> is uniformly chosen in <span class="math inline">\(\{0,1\}^m\)</span>).
+Hence this means that the statistical distance of <span class="math inline">\(D&#39;\)</span> from <span class="math inline">\(\overline{D}\)</span> (where all elements are uniform) is <span class="math inline">\(O(2^{-n})\)</span>.
+(Please make sure you understand this reasoning!)</p>
+<p><strong>Proof of claim:</strong> The proof of this claim relies on the <a href="https://goo.gl/KXpccP">leftover hash lemma</a>.</p>
+<p>First, the basic idea of the proof: For every <span class="math inline">\(m\times (n+1)\)</span> matrix <span class="math inline">\(A&#39;\)</span> over <span class="math inline">\(\mathbb{Z}_q\)</span>, define <span class="math inline">\(h_{A&#39;}:\mathbb{Z}_q^m \rightarrow \mathbb{Z}_q^{n+1}\)</span> to be the map <span class="math inline">\(h_{A&#39;}(w)=w^\top A&#39;\)</span>.
+This collection can be shown to be a “good” hash function collection in some specific technical sense, which in particular implies that for every distribution <span class="math inline">\(D\)</span> with much more than <span class="math inline">\(n\log q\)</span> bits of min-entropy, with all but negligible probability over the choice of <span class="math inline">\(A&#39;\)</span>, <span class="math inline">\(h_{A&#39;}(D)\)</span> is statistically indistinguishable from the uniform distribution.
+Now when we choose <span class="math inline">\(w\)</span> at random in <span class="math inline">\(\{0,1\}^m\)</span>, it is coming from a distribution with <span class="math inline">\(m\)</span> bits of entropy.
+If <span class="math inline">\(m \gg (n+1)\log q\)</span>, then because the output of this function is so much smaller than <span class="math inline">\(m\)</span>, we expect it to be completely uniform, and this is what’s shown by the leftover hash lemma.</p>
+<p>Now we’ll formalize this blueprint. First we need the leftover hash lemma.</p>
+<div class="lemma">
+<p><span id="lem:Leftoverhashlem" class="lemma"><strong>Lemma 12.2  </strong></span>Fix <span class="math inline">\(\epsilon&gt;0\)</span>. Let <span class="math inline">\(\mathcal{H}\)</span> be a universal hash family with functions <span class="math inline">\(h:\mathcal{W}\to\mathcal{V}\)</span>. Let <span class="math inline">\(W\)</span> be a random variable with output in <span class="math inline">\(\mathcal{W}\)</span> with <span class="math inline">\(H_{\infty}(W)\ge \log|\mathcal{V}|+2\log(1/\epsilon)-2\)</span>. Then <span class="math inline">\((H(W),H)\)</span> where <span class="math inline">\(H\)</span> follows a uniform distribution over <span class="math inline">\(\mathcal{H}\)</span> has statistical difference less than <span class="math inline">\(\epsilon\)</span> from <span class="math inline">\((V,H)\)</span> where <span class="math inline">\(V\)</span> is uniform over <span class="math inline">\(\mathcal{V}\)</span>.</p>
+</div>
+<p>To explain what a <em>universal hash family</em> is, a family <span class="math inline">\(\mathcal{H}\)</span> of functions <span class="math inline">\(h:\mathcal{W}\to\mathcal{V}\)</span> is a universal hash family if <span class="math inline">\(\Pr_{h\gets_R\mathcal{H}}[h(x)=h(x&#39;)]\le\frac{1}{|\mathcal{V}|}\)</span> for all <span class="math inline">\(x\neq x&#39;\)</span>.</p>
+<p>First, let’s see why <a href="" class="ref">Leftoverhashlem</a> implies the claim. Consider the hash family <span class="math inline">\(\mathcal{H}=\{h_{A&#39;}\}\)</span>, where <span class="math inline">\(h_{A&#39;}:\mathbb{Z}_q^m \rightarrow \mathbb{Z}_q^{n+1}\)</span> is defined by <span class="math inline">\(h_{A&#39;}(w)=w^\top A&#39;\)</span>. For this hash family, the probability over <span class="math inline">\(A&#39;\)</span> of <span class="math inline">\(w\neq w&#39;\)</span> colliding is <span class="math inline">\(\Pr_{A&#39;}[w^\top A&#39;=w&#39;^\top A&#39;]=\Pr_{A&#39;}[(w-w&#39;)^\top A&#39;=0]\)</span>. Since <span class="math inline">\(A&#39;\)</span> is random, this is <span class="math inline">\(1/(q^{n+1})\)</span>. So <span class="math inline">\(\mathcal{H}\)</span> is a universal hash family.</p>
+<p>The min entropy of <span class="math inline">\(w\gets_R\{0,1\}^m\)</span> is the same as the entropy (because it is uniform) which is <span class="math inline">\(m\)</span>. The output of the hash family is in <span class="math inline">\(\mathbb{Z}_q^{n+1}\)</span>, and <span class="math inline">\(\log|\mathbb{Z}_q^{n+1}|=(n+1)\log q\)</span>. Since <span class="math inline">\(m\ge(n+1)\log q+20n-2\)</span> by assumption, <a href="" class="ref">Leftoverhashlem</a> implies that <span class="math inline">\((w^\top A&#39;,A&#39;)\)</span> is <span class="math inline">\(2^{-10n}\)</span> close in terms of statistical distance to <span class="math inline">\((z,A&#39;)\)</span> where <span class="math inline">\(z\)</span> is chosen uniformly in <span class="math inline">\(\mathbb{Z}_q^{n+1}\)</span>.</p>
+<p>Now, we’ll show this implies that for probability <span class="math inline">\(\ge 1-2^{-n}\)</span> over the selection of <span class="math inline">\(A&#39;\)</span>, the statistical distance between <span class="math inline">\(w^\top A&#39;\)</span> and <span class="math inline">\(z\)</span> is less than <span class="math inline">\(2^{-n}\)</span>. If not, the distance between <span class="math inline">\((w^\top A&#39;,A&#39;)\)</span> and <span class="math inline">\((z,A&#39;)\)</span> would be at least <span class="math inline">\(2^{-n}\cdot 2^{-n}&gt;2^{-10n}\)</span>.</p>
+<p><strong>Proof of <a href="" class="ref">Leftoverhashlem</a>:</strong><a href="#fn79" class="footnote-ref" id="fnref79"><sup>79</sup></a></p>
+<p>Let <span class="math inline">\(Z\)</span> be the random variable <span class="math inline">\((H(W),H)\)</span>, where the probability is over <span class="math inline">\(H\)</span> and <span class="math inline">\(W\)</span>. Let <span class="math inline">\(Z&#39;\)</span> be an independent copy of <span class="math inline">\(Z\)</span>.</p>
+<p><strong>Step 1:</strong> <span class="math inline">\(\Pr[Z=Z&#39;]\le\frac{1}{|\mathcal{H}|\cdot|\mathcal{V}|}(1+4\epsilon^2)\)</span>. Indeed,</p>
+<p><span class="math display">\[\begin{aligned} \Pr[Z=Z&#39;]&amp;=\Pr[(H(W),H)=(H&#39;(W&#39;),H&#39;)]\\&amp;=\Pr[H=H&#39;]\cdot\Pr[H(W)=H(W&#39;)]\\&amp;=\frac{1}{|\mathcal{H}|}\left(\Pr[W=W&#39;]+\Pr[H(W)=H(W&#39;)\wedge W\neq W&#39;]\right)\\&amp;\le\frac{1}{|\mathcal{H}|}\left(\frac{1}{|\mathcal{V}|}\epsilon^2\cdot 4+\frac{1}{|\mathcal{V}|}\right)\\&amp;=\frac{1}{|\mathcal{H}|\cdot|\mathcal{V}|}(1+4\epsilon^2).\end{aligned}\]</span></p>
+<p><strong>Step 2:</strong> The statistical difference between <span class="math inline">\((H(W),H)\)</span> and <span class="math inline">\((V,H)\)</span> is less than <span class="math inline">\(\epsilon\)</span>. Denote the statistical difference by <span class="math inline">\(\Delta((H(W),H),(V,H))\)</span>, then</p>
+<p><span class="math display">\[\begin{aligned} \Delta((H(W),H),(V,H))&amp;=\frac{1}{2}\sum_{h,w}\left|\Pr[Z=(h(w),w)]-\frac{1}{|\mathcal{H}|\cdot|\mathcal{V}|}\right|.\end{aligned} \]</span> Define <span class="math inline">\(x_{h,w}=\Pr[Z=(h(w),h)]-\frac{1}{|\mathcal{H}|\cdot|\mathcal{V}|}\)</span> and <span class="math inline">\(s_{h,w}=\text{sign}(x_{h,w})\)</span>. Write <span class="math inline">\(x\)</span> for the vector of all the <span class="math inline">\(x_{h,w}\)</span> and <span class="math inline">\(s\)</span> for the vector of all the <span class="math inline">\(s_{h,w}\)</span>. Then <span class="math display">\[\begin{aligned}\Delta((H(W),H),(V,H))&amp;=\frac{1}{2}\langle x,s\rangle\\&amp;\le\frac{1}{2}\|x\|_2\cdot\|s\|_2&amp;\text{Cauchy-Schwarz}\\
+&amp;=\frac{\sqrt{|\mathcal{H}|\cdot|\mathcal{V}|}}{2}\|x\|_2.\end{aligned}\]</span></p>
+<p>Let’s expand <span class="math inline">\(\|x\|_2\)</span>:</p>
+<p><span class="math display">\[\begin{aligned} \|x\|_2^2&amp;=\sum_{h,w}\left(\Pr[Z=(h(w),h)]-\frac{1}{|\mathcal{H}|\cdot|\mathcal{V}|}\right)^2\\&amp;=\sum_{h,w}\left(\Pr[Z=(h(w),h)]^2-\frac{2\Pr[Z=(h(w),h)]}{|\mathcal{H}|\cdot|\mathcal{V}|}+\frac{1}{(|\mathcal{H}|\cdot|\mathcal{V}|)^2}\right)\\&amp;\le\frac{1+4\epsilon^2}{|\mathcal{H}|\cdot|\mathcal{V}|}-\frac{2}{|\mathcal{H}|\cdot|\mathcal{V}|}+\frac{|\mathcal{H}|\cdot|\mathcal{V}|}{(|\mathcal{H}|\cdot|\mathcal{V}|)^2}\\&amp;=\frac{4\epsilon^2}{|\mathcal{H}|\cdot|\mathcal{V}|}.\end{aligned}\]</span></p>
+<p>When we plug this in to our expression for the statistical distance, we get
+<span class="math display">\[\begin{aligned}\Delta((H(W),H),(V,H))&amp;\le\frac{\sqrt{|\mathcal{H}|\cdot|\mathcal{V}|}}{2}\|x\|_2\\&amp;\le \epsilon.\end{aligned}\]</span></p>
+<p>This completes the proof of <a href="" class="ref">Leftoverhashlem</a> and hence the theorem.</p>
+</div>
+<blockquote>
+<h1 id="section-72" class="pause"></h1>
+<p>The proof of <a href="" class="ref">LWEENCthm</a> is quite subtle and requires some re-reading and thought.
+To read more about this, you can look at the survey of Oded Regev, <a href="http://www.cims.nyu.edu/~regev/papers/lwesurvey.pdf">“On the Learning with Error Problem”</a> Sections 3 and 4.</p>
+</blockquote>
+</div>
+<div id="but-what-are-lattices" class="section level2 hasAnchor" number="12.5">
+<h2><span class="header-section-number">12.5</span> But what are lattices?<a href="lattice-based-cryptography.html#but-what-are-lattices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You can think of a lattice as a discrete version of a subspace.
+A lattice <span class="math inline">\(L\)</span> is simply a discrete subset of <span class="math inline">\(\mathbb{R}^n\)</span> such that if <span class="math inline">\(u,v\in L\)</span> and <span class="math inline">\(a,b\)</span> are integers then <span class="math inline">\(au+bv\in L\)</span>.<a href="#fn80" class="footnote-ref" id="fnref80"><sup>80</sup></a>
+A lattice is given by a basis which simply a matrix <span class="math inline">\(B\)</span> such that every vector <span class="math inline">\(u\in L\)</span> is obtained as <span class="math inline">\(u=Bx\)</span> for some vector of integers <span class="math inline">\(x\)</span>.
+It can be shown that we can assume without loss of generality that <span class="math inline">\(B\)</span> is full dimensional and hence it’s an <span class="math inline">\(n\)</span> by <span class="math inline">\(n\)</span> invertible matrix.
+Note that given a basis <span class="math inline">\(B\)</span> we can generate vectors in <span class="math inline">\(L\)</span>, as well as test whether a vector <span class="math inline">\(v\)</span> is in <span class="math inline">\(L\)</span> by testing if <span class="math inline">\(B^{-1}v\)</span> is an integer vector.
+There can be many different bases for the same lattice, and some of them are easier to work with than others (see <a href="" class="ref">latticebasesfig</a>).</p>
+<div class="float" id="latticebasesfig">
+<img src="../figure/Lattice-reduction.png" alt="A lattice is a discrete subspace L \subseteq \mathbb{R}^n that is closed under integer combinations. A basis for the lattice is a minimal set b_1,\ldots,b_m (typically m=n) such that every u \in L is an integer combination of b_1,\ldots,b_m. The same lattice can have different bases. In this figure the lattice is a set of points in \mathbb{R}^2, and the black vectors v_1,v_2 and the ref vectors u_1,u_2 are two alternative bases for it. Generally we consider the basis u_1,u_2 “better” since the vectors are shorter and it is less “skewed”." />
+<div class="figcaption">A <em>lattice</em> is a discrete subspace <span class="math inline">\(L \subseteq \mathbb{R}^n\)</span> that is closed under <em>integer</em> combinations. A <em>basis</em> for the lattice is a minimal set <span class="math inline">\(b_1,\ldots,b_m\)</span> (typically <span class="math inline">\(m=n\)</span>) such that every <span class="math inline">\(u \in L\)</span> is an integer combination of <span class="math inline">\(b_1,\ldots,b_m\)</span>. The same lattice can have different bases. In this figure the lattice is a set of points in <span class="math inline">\(\mathbb{R}^2\)</span>, and the black vectors <span class="math inline">\(v_1,v_2\)</span> and the ref vectors <span class="math inline">\(u_1,u_2\)</span> are two alternative bases for it. Generally we consider the basis <span class="math inline">\(u_1,u_2\)</span> “better” since the vectors are shorter and it is less “skewed”.</div>
+</div>
+<p>Some classical computational questions on lattices are:</p>
+<ul>
+<li><p><em>Shortest vector problem:</em> Given a basis <span class="math inline">\(B\)</span> for <span class="math inline">\(L\)</span>, find the nonzero vector <span class="math inline">\(v\)</span> with smallest norm in <span class="math inline">\(L\)</span>.</p></li>
+<li><p><em>Closest vector problem:</em> Given a basis <span class="math inline">\(B\)</span> for <span class="math inline">\(L\)</span> and a vector <span class="math inline">\(u\)</span> that is <em>not</em> in <span class="math inline">\(L\)</span>, find the closest vector to <span class="math inline">\(u\)</span> in <span class="math inline">\(L\)</span>.</p></li>
+<li><p><em>Bounded distance decoding:</em> Given a basis <span class="math inline">\(B\)</span> for <span class="math inline">\(L\)</span> and a vector <span class="math inline">\(u\)</span> of the form <span class="math inline">\(u=v+e\)</span> where <span class="math inline">\(v\)</span> is in <span class="math inline">\(L\)</span>, and <span class="math inline">\(e\)</span> is a particularly short “error” vector (so in particular no other vector in the lattice is within distance <span class="math inline">\(\|e\|\)</span> to <span class="math inline">\(u\)</span>), recover <span class="math inline">\(v\)</span>. Note that this is a special case of the closest vector problem.</p></li>
+</ul>
+<p>In particular, if <span class="math inline">\(V\)</span> is a linear subspace of <span class="math inline">\(\mathbb{Z}_q^n\)</span>, we can think of it also as a lattice <span class="math inline">\(\hat{V}\)</span> of <span class="math inline">\(\mathbb{R}^n\)</span> where we simply say that
+that a vector <span class="math inline">\(\hat{u}\)</span> is in <span class="math inline">\(\hat{V}\)</span> if all of <span class="math inline">\(\hat{u}\)</span>’s coordinates are integers and if we let <span class="math inline">\(u_i = \hat{u}_i \pmod{q}\)</span> then <span class="math inline">\(u\in V\)</span>.
+The learning with error task of recovering <span class="math inline">\(x\)</span> from <span class="math inline">\(Ax+e\)</span> can then be thought of as an instance of the bounded distance decoding problem for <span class="math inline">\(\hat{V}\)</span>.</p>
+<p>A natural algorithm to try to solve the <em>closest vector</em> and <em>bounded distance decoding</em> problems is that to take the vector <span class="math inline">\(u\)</span>, express it in the basis <span class="math inline">\(B\)</span> by computing <span class="math inline">\(w = B^{-1}u\)</span>, and then round all the coordinates of <span class="math inline">\(w\)</span> to obtain an integer vector <span class="math inline">\(\tilde{w}\)</span> and let <span class="math inline">\(v=B\tilde{w}\)</span> be a vector in the lattice.
+If we have an extremely good basis <span class="math inline">\(L\)</span> for the lattice then <span class="math inline">\(v\)</span> may indeed be the closest vector in the lattice, but in other more “skewed” bases it can be extremely far from it.</p>
+</div>
+<div id="ring-based-lattices" class="section level2 hasAnchor" number="12.6">
+<h2><span class="header-section-number">12.6</span> Ring based lattices<a href="lattice-based-cryptography.html#ring-based-lattices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One of the biggest issues with lattice based cryptosystem is the key size. In particular, the scheme above uses an <span class="math inline">\(m\times n\)</span> matrix where each entry takes <span class="math inline">\(\log q\)</span> bits to describe.
+(It also encrypts a single bit using a whole vector, but more efficient “multi-bit” variants are known.)
+Schemes using <em>ideal lattices</em> are an attempt to get more practical variants. These have very similar structure except that the matrix <span class="math inline">\(A\)</span> chosen is not completely random but rather can be described by a single vector.
+One common variant is the following: we fix some polynomial <span class="math inline">\(p\)</span> over <span class="math inline">\(\mathbb{Z}_q\)</span> with degree <span class="math inline">\(n\)</span> and then treat vectors in <span class="math inline">\(\mathbb{Z}_q^n\)</span> as the coefficients of <span class="math inline">\(n-1\)</span> degree polynomials and always work modulo this polynomial <span class="math inline">\(p()\)</span>.
+(By this I mean that for every polynomial <span class="math inline">\(t\)</span> of degree at least <span class="math inline">\(n\)</span> we write <span class="math inline">\(t\)</span> as <span class="math inline">\(ps+r\)</span> where <span class="math inline">\(p\)</span> is the polynomial above, <span class="math inline">\(s\)</span> is some polynomial and <span class="math inline">\(r\)</span> is the “remainder” polynomial of degree <span class="math inline">\(&lt;n\)</span>;
+then <span class="math inline">\(t \pmod{p} = r\)</span>.)
+Now for every fixed polynomial <span class="math inline">\(t\)</span>, the operation <span class="math inline">\(A_t\)</span> which is defined as <span class="math inline">\(s \mapsto ts \pmod{p}\)</span> is a linear operation mapping polynomials of degree at most <span class="math inline">\(n-1\)</span> to polynomials of degree at most <span class="math inline">\(n-1\)</span>, or put another way, it is a linear map over <span class="math inline">\(\mathbb{Z}_q^n\)</span>.
+However, the map <span class="math inline">\(A_d\)</span> can be described using the <span class="math inline">\(n\)</span> coefficients of <span class="math inline">\(t\)</span> as opposed to the <span class="math inline">\(n^2\)</span> description of a matrix.
+It also turns out that by using the Fast Fourier Transform we can evaluate this operation in roughly <span class="math inline">\(n\)</span> steps as opposed to <span class="math inline">\(n^2\)</span>.
+The ideal lattice based cryptosystem use matrices of this form to save on key size and computation time.
+It is still unclear if this structure can be used for attacks; recent papers attacking principal ideal lattices have shown that one needs to be careful about this.</p>
+<p>One ideal-lattice based system is the <a href="https://newhopecrypto.org/">“New Hope” cryptosystem</a> (see also <a href="https://eprint.iacr.org/2015/1092.pdf">paper</a>) that has been experimented with by Google.
+People have also made highly optimized general (non ideal) lattice based constructions, see in particular the <a href="https://frodokem.org/">“Frodo” system</a> (paper <a href="https://eprint.iacr.org/2016/659">here</a>, can you guess what’s behind the name?).
+Both New Hope and Frodo have been submitted to the <a href="https://csrc.nist.gov/Projects/Post-Quantum-Cryptography">NIST competition</a> to select a “post quantum” public key encryption standard.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="72">
+<li id="fn72"><p>While this won’t be of interest for us in this chapter, one can also define finite fields whose size is a <em>prime power</em> of the form <span class="math inline">\(q^k\)</span> where <span class="math inline">\(q\)</span> is a prime and <span class="math inline">\(k\)</span> is an integer; this is sometimes useful and in particular fields of size <span class="math inline">\(2^k\)</span> are sometimes used in practice. In such fields we usually think of the elements as <em>vector</em> <span class="math inline">\(v \in (\mathbb{Z}_q)^k\)</span> with addition done component-wise but multiplication is not defined component-wise (since otherwise a vector with a single coordinate zero would not have an inverse) but in a different way, via interpreting these vectors as coefficients of a degree <span class="math inline">\(k-1\)</span> polynomial.<a href="lattice-based-cryptography.html#fnref72" class="footnote-back">↩︎</a></p></li>
+<li id="fn73"><p>Inner products can be defined more generally, and in particular over fields such as the complex numbers we would define the inner product as <span class="math inline">\(\sum \overline{u}_i v_i\)</span> where for <span class="math inline">\(a\in \mathbb{C}\)</span>, <span class="math inline">\(\overline{a}\)</span> denotes the <em>complex conjugate</em> of <span class="math inline">\(a\)</span>. However, we stick to this simple case for this chapter.<a href="lattice-based-cryptography.html#fnref73" class="footnote-back">↩︎</a></p></li>
+<li id="fn74"><p>Despite the name, <a href="https://goo.gl/3HNb5U">Gaussian elimination</a> has been known to Chinese mathematicians since 150BC or so, and was popularized in the west through the 1670 notes of Isaac Newton, more than 100 years before Gauss was born.<a href="lattice-based-cryptography.html#fnref74" class="footnote-back">↩︎</a></p></li>
+<li id="fn75"><p>Over <span class="math inline">\(\mathbb{Z}_q\)</span>, we can think of <span class="math inline">\(q-1\)</span> also as the number <span class="math inline">\(-1\)</span>, and so on. Thus if <span class="math inline">\(a\in\mathbb{Z}_q\)</span>, we define <span class="math inline">\(|a|\)</span> to be the minimum of <span class="math inline">\(a\)</span> and <span class="math inline">\(q-a\)</span>. This ensures the absolute value satisfies the natural property of <span class="math inline">\(|a|=|-a|\)</span>.<a href="lattice-based-cryptography.html#fnref75" class="footnote-back">↩︎</a></p></li>
+<li id="fn76"><p>One can think of <span class="math inline">\(e\)</span> as chosen by simply letting every coordinate be chosen at random in <span class="math inline">\(\{ -\delta q, -\delta q + 1 , \ldots, +\delta q \}\)</span>. For technical reasons, we sometimes consider other distributions and in particular the <em>discrete Gaussian</em> distribution which is obtained by letting every coordinate of <span class="math inline">\(e\)</span> be an independent Gaussian random variable with standard deviation <span class="math inline">\(\delta q\)</span>, conditioned on it being an integer. (A closely related distribution is obtained by picking such a Gaussian random variable and then rounding it to the nearest integer.)<a href="lattice-based-cryptography.html#fnref76" class="footnote-back">↩︎</a></p></li>
+<li id="fn77"><p>People sometimes also consider variants where both <span class="math inline">\(p(n)\)</span> and <span class="math inline">\(q(n)\)</span> can be as large as exponential.<a href="lattice-based-cryptography.html#fnref77" class="footnote-back">↩︎</a></p></li>
+<li id="fn78"><p>In fact, due to the fact that the <em>signs</em> of the error vector’s entries are different, we expect the errors to have significant cancellations and hence we would expect <span class="math inline">\(|\langle w,e \rangle|\)</span> to only be roughly of magnitude <span class="math inline">\(\sqrt{m}\delta q\)</span>, but this is not crucial for our discussions.<a href="lattice-based-cryptography.html#fnref78" class="footnote-back">↩︎</a></p></li>
+<li id="fn79"><p>This is based on notes from <a href="http://www.ccs.neu.edu/home/wichs/class/crypto-fall15/">Daniel Wichs’s class</a><a href="lattice-based-cryptography.html#fnref79" class="footnote-back">↩︎</a></p></li>
+<li id="fn80"><p>By discrete we mean that points in <span class="math inline">\(L\)</span> are isolated. One formal way to define it is that there is some <span class="math inline">\(\epsilon&gt;0\)</span> such that every distinct <span class="math inline">\(u,v \in L\)</span> are of distance at least <span class="math inline">\(\epsilon\)</span> from one another.<a href="lattice-based-cryptography.html#fnref80" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="concrete-candidates-for-public-key-crypto.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="establishing-secure-connections-over-insecure-channels.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/11-lattices.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

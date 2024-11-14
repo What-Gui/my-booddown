@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>16 Fully homomorphic encryption: Construction | A Minimal Book Example</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="16 Fully homomorphic encryption: Construction | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="16 Fully homomorphic encryption: Construction | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chapfheone.html"/>
+<link rel="next" href="sfeonechap.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="mathematical-background.html"><a href="mathematical-background.html"><i class="fa fa-check"></i><b>1</b> Mathematical Background</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="mathematical-background.html"><a href="mathematical-background.html#a-quick-overview-of-mathematical-prerequisites"><i class="fa fa-check"></i><b>1.1</b> A quick overview of mathematical prerequisites</a></li>
+<li class="chapter" data-level="1.2" data-path="mathematical-background.html"><a href="mathematical-background.html#mathematical-proofs"><i class="fa fa-check"></i><b>1.2</b> Mathematical Proofs</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="mathematical-background.html"><a href="mathematical-background.html#example-the-existence-of-infinitely-many-primes."><i class="fa fa-check"></i><b>1.2.1</b> Example: The existence of infinitely many primes.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="mathematical-background.html"><a href="mathematical-background.html#probability-and-sample-spaces"><i class="fa fa-check"></i><b>1.3</b> Probability and Sample spaces</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="mathematical-background.html"><a href="mathematical-background.html#random-variables"><i class="fa fa-check"></i><b>1.3.1</b> Random variables</a></li>
+<li class="chapter" data-level="1.3.2" data-path="mathematical-background.html"><a href="mathematical-background.html#distributions-over-strings"><i class="fa fa-check"></i><b>1.3.2</b> Distributions over strings</a></li>
+<li class="chapter" data-level="1.3.3" data-path="mathematical-background.html"><a href="mathematical-background.html#more-general-sample-spaces."><i class="fa fa-check"></i><b>1.3.3</b> More general sample spaces.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="mathematical-background.html"><a href="mathematical-background.html#correlations-and-independence"><i class="fa fa-check"></i><b>1.4</b> Correlations and independence</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="mathematical-background.html"><a href="mathematical-background.html#independent-random-variables"><i class="fa fa-check"></i><b>1.4.1</b> Independent random variables</a></li>
+<li class="chapter" data-level="1.4.2" data-path="mathematical-background.html"><a href="mathematical-background.html#collections-of-independent-random-variables."><i class="fa fa-check"></i><b>1.4.2</b> Collections of independent random variables.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="mathematical-background.html"><a href="mathematical-background.html#concentration-and-tail-bounds"><i class="fa fa-check"></i><b>1.5</b> Concentration and tail bounds</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="mathematical-background.html"><a href="mathematical-background.html#chebyshevs-inequality"><i class="fa fa-check"></i><b>1.5.1</b> Chebyshev’s Inequality</a></li>
+<li class="chapter" data-level="1.5.2" data-path="mathematical-background.html"><a href="mathematical-background.html#the-chernoff-bound"><i class="fa fa-check"></i><b>1.5.2</b> The Chernoff bound</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises"><i class="fa fa-check"></i><b>1.6</b> Exercises</a></li>
+<li class="chapter" data-level="1.7" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises-1"><i class="fa fa-check"></i><b>1.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#defining-encryptions"><i class="fa fa-check"></i><b>2.2</b> Defining encryptions</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#defining-security-of-encryption"><i class="fa fa-check"></i><b>2.3</b> Defining security of encryption</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction.html"><a href="introduction.html#generating-randomness-in-actual-cryptographic-systems"><i class="fa fa-check"></i><b>2.3.1</b> Generating randomness in actual cryptographic systems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#defining-the-secrecy-requirement."><i class="fa fa-check"></i><b>2.4</b> Defining the secrecy requirement.</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction.html"><a href="introduction.html#perfect-secrecy"><i class="fa fa-check"></i><b>2.5</b> Perfect Secrecy</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="introduction.html"><a href="introduction.html#achieving-perfect-secrecy"><i class="fa fa-check"></i><b>2.5.1</b> Achieving perfect secrecy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="introduction.html"><a href="introduction.html#necessity-of-long-keys"><i class="fa fa-check"></i><b>2.6</b> Necessity of long keys</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction.html"><a href="introduction.html#amplifying-success-probability"><i class="fa fa-check"></i><b>2.6.1</b> Amplifying success probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction.html"><a href="introduction.html#bibliographical-notes"><i class="fa fa-check"></i><b>2.7</b> Bibliographical notes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="computational-security.html"><a href="computational-security.html"><i class="fa fa-check"></i><b>3</b> Computational Security</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="computational-security.html"><a href="computational-security.html#proof-by-reduction"><i class="fa fa-check"></i><b>3.0.1</b> Proof by reduction</a></li>
+<li class="chapter" data-level="3.1" data-path="computational-security.html"><a href="computational-security.html#the-asymptotic-approach"><i class="fa fa-check"></i><b>3.1</b> The asymptotic approach</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="computational-security.html"><a href="computational-security.html#countoperation"><i class="fa fa-check"></i><b>3.1.1</b> Counting number of operations.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="computational-security.html"><a href="computational-security.html#our-first-conjecture"><i class="fa fa-check"></i><b>3.2</b> Our first conjecture</a></li>
+<li class="chapter" data-level="3.3" data-path="computational-security.html"><a href="computational-security.html#why-care-about-the-cipher-conjecture"><i class="fa fa-check"></i><b>3.3</b> Why care about the cipher conjecture?</a></li>
+<li class="chapter" data-level="3.4" data-path="computational-security.html"><a href="computational-security.html#prelude-computational-indistinguishability"><i class="fa fa-check"></i><b>3.4</b> Prelude: Computational Indistinguishability</a></li>
+<li class="chapter" data-level="3.5" data-path="computational-security.html"><a href="computational-security.html#the-length-extension-theorem-or-stream-ciphers"><i class="fa fa-check"></i><b>3.5</b> The Length Extension Theorem or Stream Ciphers</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="computational-security.html"><a href="computational-security.html#appendix-the-computational-model"><i class="fa fa-check"></i><b>3.5.1</b> Appendix: The computational model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pseudorandomness.html"><a href="pseudorandomness.html"><i class="fa fa-check"></i><b>4</b> Pseudorandomness</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#unpredictability-an-alternative-approach-for-proving-the-length-extension-theorem"><i class="fa fa-check"></i><b>4.0.1</b> Unpredictability: an alternative approach for proving the length extension theorem</a></li>
+<li class="chapter" data-level="4.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#stream-ciphers"><i class="fa fa-check"></i><b>4.1</b> Stream ciphers</a></li>
+<li class="chapter" data-level="4.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#what-do-pseudorandom-generators-actually-look-like"><i class="fa fa-check"></i><b>4.2</b> What do pseudorandom generators actually look like?</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-0-the-counter-generator"><i class="fa fa-check"></i><b>4.2.1</b> Attempt 0: The counter generator</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-1-the-linear-checksum-linear-feedback-shift-register-lfsr"><i class="fa fa-check"></i><b>4.2.2</b> Attempt 1: The linear checksum / linear feedback shift register (LFSR)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#from-insecurity-to-security"><i class="fa fa-check"></i><b>4.2.3</b> From insecurity to security</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-2-linear-congruential-generators-with-dropped-bits"><i class="fa fa-check"></i><b>4.2.4</b> Attempt 2: Linear Congruential Generators with dropped bits</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#successful-examples"><i class="fa fa-check"></i><b>4.3</b> Successful examples</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-1-subset-sum-generator"><i class="fa fa-check"></i><b>4.3.1</b> Case Study 1: Subset Sum Generator</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-2-rc4"><i class="fa fa-check"></i><b>4.3.2</b> Case Study 2: RC4</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-3-blum-blum-and-shub"><i class="fa fa-check"></i><b>4.3.3</b> Case Study 3: Blum, Blum and Shub</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#non-constructive-existence-of-pseudorandom-generators"><i class="fa fa-check"></i><b>4.4</b> Non-constructive existence of pseudorandom generators</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html"><i class="fa fa-check"></i><b>5</b> Pseudorandom functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#one-time-passwords-e.g.-google-authenticator-rsa-id-etc."><i class="fa fa-check"></i><b>5.1</b> One time passwords (e.g. Google Authenticator, RSA ID, etc.)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#how-do-pseudorandom-functions-help-in-the-login-problem"><i class="fa fa-check"></i><b>5.1.1</b> How do pseudorandom functions help in the login problem?</a></li>
+<li class="chapter" data-level="5.1.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#modifying-input-and-output-lengths-of-prfs"><i class="fa fa-check"></i><b>5.1.2</b> Modifying input and output lengths of PRFs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#message-authentication-codes"><i class="fa fa-check"></i><b>5.2</b> Message Authentication Codes</a></li>
+<li class="chapter" data-level="5.3" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#macs-from-prfs"><i class="fa fa-check"></i><b>5.3</b> MACs from PRFs</a></li>
+<li class="chapter" data-level="5.4" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#arbitrary-input-length-extension-for-macs-and-prfs"><i class="fa fa-check"></i><b>5.4</b> Arbitrary input length extension for MACs and PRFs</a></li>
+<li class="chapter" data-level="5.5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#aside-natural-proofs"><i class="fa fa-check"></i><b>5.5</b> Aside: natural proofs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><i class="fa fa-check"></i><b>6</b> Pseudorandom functions from pseudorandom generators and CPA security</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#securely-encrypting-many-messages---chosen-plaintext-security"><i class="fa fa-check"></i><b>6.1</b> Securely encrypting many messages - chosen plaintext security</a></li>
+<li class="chapter" data-level="6.2" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#pseudorandom-permutations-block-ciphers"><i class="fa fa-check"></i><b>6.2</b> Pseudorandom permutations / block ciphers</a></li>
+<li class="chapter" data-level="6.3" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#encryption-modes"><i class="fa fa-check"></i><b>6.3</b> Encryption modes</a></li>
+<li class="chapter" data-level="6.4" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#optional-aside-broadcast-encryption"><i class="fa fa-check"></i><b>6.4</b> Optional, Aside: Broadcast Encryption</a></li>
+<li class="chapter" data-level="6.5" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#reading-comprehension-exercises"><i class="fa fa-check"></i><b>6.5</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html"><i class="fa fa-check"></i><b>7</b> Chosen Ciphertext Security</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#short-recap"><i class="fa fa-check"></i><b>7.1</b> Short recap</a></li>
+<li class="chapter" data-level="7.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#going-beyond-cpa"><i class="fa fa-check"></i><b>7.2</b> Going beyond CPA</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#example-the-wired-equivalence-privacy-wep"><i class="fa fa-check"></i><b>7.2.1</b> Example: The Wired Equivalence Privacy (WEP)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-security-1"><i class="fa fa-check"></i><b>7.2.2</b> Chosen ciphertext security</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#constructing-cca-secure-encryption"><i class="fa fa-check"></i><b>7.3</b> Constructing CCA secure encryption</a></li>
+<li class="chapter" data-level="7.4" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#simplified-gcm-encryption"><i class="fa fa-check"></i><b>7.4</b> (Simplified) GCM encryption</a></li>
+<li class="chapter" data-level="7.5" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#padding-chopping-and-their-pitfalls-the-buffer-overflow-of-cryptography"><i class="fa fa-check"></i><b>7.5</b> Padding, chopping, and their pitfalls: the “buffer overflow” of cryptography</a></li>
+<li class="chapter" data-level="7.6" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-attack-as-implementing-metaphors"><i class="fa fa-check"></i><b>7.6</b> Chosen ciphertext attack as implementing metaphors</a></li>
+<li class="chapter" data-level="7.7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#reading-comprehension-exercises-1"><i class="fa fa-check"></i><b>7.7</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="hash-functions-random-oracles-and-bitcoin.html"><a href="hash-functions-random-oracles-and-bitcoin.html"><i class="fa fa-check"></i><b>8</b> Hash Functions, Random Oracles, and Bitcoin</a></li>
+<li class="chapter" data-level="9" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><i class="fa fa-check"></i><b>9</b> Key derivation, protecting passwords, slow hashes, Merkle trees</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#keys-from-passwords"><i class="fa fa-check"></i><b>9.1</b> Keys from passwords</a></li>
+<li class="chapter" data-level="9.2" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#merkle-trees-and-verifying-storage."><i class="fa fa-check"></i><b>9.2</b> Merkle trees and verifying storage.</a></li>
+<li class="chapter" data-level="9.3" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#proofs-of-retrievability"><i class="fa fa-check"></i><b>9.3</b> Proofs of Retrievability</a></li>
+<li class="chapter" data-level="9.4" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#entropy-extraction"><i class="fa fa-check"></i><b>9.4</b> Entropy extraction</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#forward-and-backward-secrecy"><i class="fa fa-check"></i><b>9.4.1</b> Forward and backward secrecy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html"><i class="fa fa-check"></i><b>10</b> Public key cryptography</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#private-key-crypto-recap"><i class="fa fa-check"></i><b>10.1</b> Private key crypto recap</a></li>
+<li class="chapter" data-level="10.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#public-key-encryptions-definition"><i class="fa fa-check"></i><b>10.2</b> Public Key Encryptions: Definition</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-obfuscation-paradigm"><i class="fa fa-check"></i><b>10.2.1</b> The obfuscation paradigm</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#some-concrete-candidates"><i class="fa fa-check"></i><b>10.3</b> Some concrete candidates:</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#diffie-hellman-encryption-aka-el-gamal"><i class="fa fa-check"></i><b>10.3.1</b> Diffie-Hellman Encryption (aka El-Gamal)</a></li>
+<li class="chapter" data-level="10.3.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#sampling-random-primes"><i class="fa fa-check"></i><b>10.3.2</b> Sampling random primes</a></li>
+<li class="chapter" data-level="10.3.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#a-little-bit-of-group-theory."><i class="fa fa-check"></i><b>10.3.3</b> A little bit of group theory.</a></li>
+<li class="chapter" data-level="10.3.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#digital-signatures"><i class="fa fa-check"></i><b>10.3.4</b> Digital Signatures</a></li>
+<li class="chapter" data-level="10.3.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-digital-signature-algorithm-dsa"><i class="fa fa-check"></i><b>10.3.5</b> The Digital Signature Algorithm (DSA)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#putting-everything-together---security-in-practice."><i class="fa fa-check"></i><b>10.4</b> Putting everything together - security in practice.</a></li>
+<li class="chapter" data-level="10.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#appendix-an-alternative-proof-of-the-density-of-primes"><i class="fa fa-check"></i><b>10.5</b> Appendix: An alternative proof of the density of primes</a></li>
+<li class="chapter" data-level="10.6" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#additional-group-theory-exercises-and-proofs"><i class="fa fa-check"></i><b>10.6</b> Additional Group Theory Exercises and Proofs</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#solved-exercises"><i class="fa fa-check"></i><b>10.6.1</b> Solved exercises:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html"><i class="fa fa-check"></i><b>11</b> Concrete candidates for public key crypto</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#some-number-theory."><i class="fa fa-check"></i><b>11.1</b> Some number theory.</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#primaliy-testing"><i class="fa fa-check"></i><b>11.1.1</b> Primaliy testing</a></li>
+<li class="chapter" data-level="11.1.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#fields"><i class="fa fa-check"></i><b>11.1.2</b> Fields</a></li>
+<li class="chapter" data-level="11.1.3" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#chinese-remainder-theorem"><i class="fa fa-check"></i><b>11.1.3</b> Chinese remainder theorem</a></li>
+<li class="chapter" data-level="11.1.4" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#the-rsa-and-rabin-functions"><i class="fa fa-check"></i><b>11.1.4</b> The RSA and Rabin functions</a></li>
+<li class="chapter" data-level="11.1.5" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#abstraction-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.5</b> Abstraction: trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.6" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#public-key-encryption-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.6</b> Public key encryption from trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.7" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#digital-signatures-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.7</b> Digital signatures from trapdoor permutations</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#hardcore-bits-and-security-without-random-oracles"><i class="fa fa-check"></i><b>11.2</b> Hardcore bits and security without random oracles</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#extending-to-more-than-one-hardcore-bit"><i class="fa fa-check"></i><b>11.2.1</b> Extending to more than one hardcore bit</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html"><i class="fa fa-check"></i><b>12</b> Lattice based cryptography</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#quick-linear-algebra-recap"><i class="fa fa-check"></i><b>12.0.1</b> Quick linear algebra recap</a></li>
+<li class="chapter" data-level="12.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#a-world-without-gaussian-elimination"><i class="fa fa-check"></i><b>12.1</b> A world without Gaussian elimination</a></li>
+<li class="chapter" data-level="12.2" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#security-in-the-real-world."><i class="fa fa-check"></i><b>12.2</b> Security in the real world.</a></li>
+<li class="chapter" data-level="12.3" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#search-to-decision"><i class="fa fa-check"></i><b>12.3</b> Search to decision</a></li>
+<li class="chapter" data-level="12.4" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#lweencsec"><i class="fa fa-check"></i><b>12.4</b> An LWE based encryption scheme</a></li>
+<li class="chapter" data-level="12.5" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#but-what-are-lattices"><i class="fa fa-check"></i><b>12.5</b> But what are lattices?</a></li>
+<li class="chapter" data-level="12.6" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#ring-based-lattices"><i class="fa fa-check"></i><b>12.6</b> Ring based lattices</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html"><i class="fa fa-check"></i><b>13</b> Establishing secure connections over insecure channels</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cryptographys-obsession-with-adjectives."><i class="fa fa-check"></i><b>13.1</b> Cryptography’s obsession with adjectives.</a></li>
+<li class="chapter" data-level="13.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#basic-key-exchange-protocol"><i class="fa fa-check"></i><b>13.2</b> Basic Key Exchange protocol</a></li>
+<li class="chapter" data-level="13.3" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#authenticated-key-exchange"><i class="fa fa-check"></i><b>13.3</b> Authenticated key exchange</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#bleichenbachers-attack-on-rsa-pkcs-v1.5-and-ssl-v3.0"><i class="fa fa-check"></i><b>13.3.1</b> Bleichenbacher’s attack on RSA PKCS V1.5 and SSL V3.0</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#chosen-ciphertext-attack-security-for-public-key-cryptography"><i class="fa fa-check"></i><b>13.4</b> Chosen ciphertext attack security for public key cryptography</a></li>
+<li class="chapter" data-level="13.5" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cca-secure-public-key-encryption-in-the-random-oracle-model"><i class="fa fa-check"></i><b>13.5</b> CCA secure public key encryption in the Random Oracle Model</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#defining-secure-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.1</b> Defining secure authenticated key exchange</a></li>
+<li class="chapter" data-level="13.5.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#the-compiler-approach-for-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.2</b> The compiler approach for authenticated key exchange</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#password-authenticated-key-exchange."><i class="fa fa-check"></i><b>13.6</b> Password authenticated key exchange.</a></li>
+<li class="chapter" data-level="13.7" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#client-to-client-key-exchange-for-secure-text-messaging---zrtp-otr-textsecure"><i class="fa fa-check"></i><b>13.7</b> Client to client key exchange for secure text messaging - ZRTP, OTR, TextSecure</a></li>
+<li class="chapter" data-level="13.8" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#heartbleed-and-logjam-attacks"><i class="fa fa-check"></i><b>13.8</b> Heartbleed and logjam attacks</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html"><i class="fa fa-check"></i><b>14</b> Zero knowledge proofs</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#applications-for-zero-knowledge-proofs."><i class="fa fa-check"></i><b>14.1</b> Applications for zero knowledge proofs.</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#nuclear-disarmament"><i class="fa fa-check"></i><b>14.1.1</b> Nuclear disarmament</a></li>
+<li class="chapter" data-level="14.1.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#voting"><i class="fa fa-check"></i><b>14.1.2</b> Voting</a></li>
+<li class="chapter" data-level="14.1.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#more-applications"><i class="fa fa-check"></i><b>14.1.3</b> More applications</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-and-constructing-zero-knowledge-proofs"><i class="fa fa-check"></i><b>14.2</b> Defining and constructing zero knowledge proofs</a></li>
+<li class="chapter" data-level="14.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-zero-knowledge"><i class="fa fa-check"></i><b>14.3</b> Defining zero knowledge</a></li>
+<li class="chapter" data-level="14.4" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#zero-knowledge-proof-for-hamiltonicity."><i class="fa fa-check"></i><b>14.4</b> Zero knowledge proof for Hamiltonicity.</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#why-is-this-interesting"><i class="fa fa-check"></i><b>14.4.1</b> Why is this interesting?</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#parallel-repetition-and-turning-zero-knowledge-proofs-to-signatures."><i class="fa fa-check"></i><b>14.5</b> Parallel repetition and turning zero knowledge proofs to signatures.</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#bonus-features-of-zero-knowledge"><i class="fa fa-check"></i><b>14.5.1</b> “Bonus features” of zero knowledge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="chapfheone.html"><a href="chapfheone.html"><i class="fa fa-check"></i><b>15</b> Fully homomorphic encryption: Introduction and bootstrapping</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="chapfheone.html"><a href="chapfheone.html#defining-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>15.1</b> Defining fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="chapfheone.html"><a href="chapfheone.html#another-application-fully-homomorphic-encryption-for-verifying-computation"><i class="fa fa-check"></i><b>15.1.1</b> Another application: fully homomorphic encryption for verifying computation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="chapfheone.html"><a href="chapfheone.html#example-an-xor-homomorphic-encryption"><i class="fa fa-check"></i><b>15.2</b> Example: An XOR homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="chapfheone.html"><a href="chapfheone.html#abstraction-a-trapdoor-pseudorandom-generator."><i class="fa fa-check"></i><b>15.2.1</b> Abstraction: A trapdoor pseudorandom generator.</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="chapfheone.html"><a href="chapfheone.html#from-linear-homomorphism-to-full-homomorphism"><i class="fa fa-check"></i><b>15.3</b> From linear homomorphism to full homomorphism</a></li>
+<li class="chapter" data-level="15.4" data-path="chapfheone.html"><a href="chapfheone.html#bootstrapping-fully-homomorphic-escape-velocity"><i class="fa fa-check"></i><b>15.4</b> Bootstrapping: Fully Homomorphic “escape velocity”</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="chapfheone.html"><a href="chapfheone.html#radioactive-legos-analogy"><i class="fa fa-check"></i><b>15.4.1</b> Radioactive legos analogy</a></li>
+<li class="chapter" data-level="15.4.2" data-path="chapfheone.html"><a href="chapfheone.html#proving-the-bootstrapping-theorem"><i class="fa fa-check"></i><b>15.4.2</b> Proving the bootstrapping theorem</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="chapfhetwo.html"><a href="chapfhetwo.html"><i class="fa fa-check"></i><b>16</b> Fully homomorphic encryption: Construction</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#prelude-from-vectors-to-matrices"><i class="fa fa-check"></i><b>16.1</b> Prelude: from vectors to matrices</a></li>
+<li class="chapter" data-level="16.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#real-world-partially-homomorphic-encryption"><i class="fa fa-check"></i><b>16.2</b> Real world partially homomorphic encryption</a></li>
+<li class="chapter" data-level="16.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#noise-management-via-encoding"><i class="fa fa-check"></i><b>16.3</b> Noise management via encoding</a></li>
+<li class="chapter" data-level="16.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#putting-it-all-together"><i class="fa fa-check"></i><b>16.4</b> Putting it all together</a></li>
+<li class="chapter" data-level="16.5" data-path="chapfhetwo.html"><a href="chapfhetwo.html#analysis-of-our-scheme"><i class="fa fa-check"></i><b>16.5</b> Analysis of our scheme</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#correctness"><i class="fa fa-check"></i><b>16.5.1</b> Correctness</a></li>
+<li class="chapter" data-level="16.5.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#cpa-security"><i class="fa fa-check"></i><b>16.5.2</b> CPA Security</a></li>
+<li class="chapter" data-level="16.5.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#homomorphism"><i class="fa fa-check"></i><b>16.5.3</b> Homomorphism</a></li>
+<li class="chapter" data-level="16.5.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#shallow-decryption-circuit"><i class="fa fa-check"></i><b>16.5.4</b> Shallow decryption circuit</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="chapfhetwo.html"><a href="chapfhetwo.html#advanced-topics"><i class="fa fa-check"></i><b>16.6</b> Advanced topics:</a>
+<ul>
+<li class="chapter" data-level="16.6.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#fully-homomorphic-encryption-for-approximate-computation-over-the-real-numbers-ckks"><i class="fa fa-check"></i><b>16.6.1</b> Fully homomorphic encryption for approximate computation over the real numbers: CKKS</a></li>
+<li class="chapter" data-level="16.6.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#bandwidth-efficient-fully-homomorphic-encryption-gh"><i class="fa fa-check"></i><b>16.6.2</b> Bandwidth efficient fully homomorphic encryption GH</a></li>
+<li class="chapter" data-level="16.6.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#using-fully-homomorphic-encryption-to-achieve-private-information-retrieval."><i class="fa fa-check"></i><b>16.6.3</b> Using fully homomorphic encryption to achieve private information retrieval.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sfeonechap.html"><a href="sfeonechap.html"><i class="fa fa-check"></i><b>17</b> Multiparty secure computation I: Definition and Honest-But-Curious to Malicious complier</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sfeonechap.html"><a href="sfeonechap.html#ideal-vs.-real-model-security."><i class="fa fa-check"></i><b>17.1</b> Ideal vs. Real Model Security.</a></li>
+<li class="chapter" data-level="17.2" data-path="sfeonechap.html"><a href="sfeonechap.html#formally-defining-secure-multiparty-computation"><i class="fa fa-check"></i><b>17.2</b> Formally defining secure multiparty computation</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="sfeonechap.html"><a href="sfeonechap.html#first-attempt-a-slightly-too-ideal-definition"><i class="fa fa-check"></i><b>17.2.1</b> First attempt: a slightly “too ideal” definition</a></li>
+<li class="chapter" data-level="17.2.2" data-path="sfeonechap.html"><a href="sfeonechap.html#allowing-for-aborts"><i class="fa fa-check"></i><b>17.2.2</b> Allowing for aborts</a></li>
+<li class="chapter" data-level="17.2.3" data-path="sfeonechap.html"><a href="sfeonechap.html#some-comments"><i class="fa fa-check"></i><b>17.2.3</b> Some comments:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="sfeonechap.html"><a href="sfeonechap.html#example-second-price-auction-using-bitcoin"><i class="fa fa-check"></i><b>17.3</b> Example: Second price auction using bitcoin</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="sfeonechap.html"><a href="sfeonechap.html#another-example-distributed-and-threshold-cryptography"><i class="fa fa-check"></i><b>17.3.1</b> Another example: distributed and threshold cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="sfeonechap.html"><a href="sfeonechap.html#proving-the-fundamental-theorem"><i class="fa fa-check"></i><b>17.4</b> Proving the fundamental theorem:</a></li>
+<li class="chapter" data-level="17.5" data-path="sfeonechap.html"><a href="sfeonechap.html#hbctomalred"><i class="fa fa-check"></i><b>17.5</b> Malicious to honest but curious reduction</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="sfeonechap.html"><a href="sfeonechap.html#handling-probabilistic-strategies"><i class="fa fa-check"></i><b>17.5.1</b> Handling probabilistic strategies:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sfetwochap.html"><a href="sfetwochap.html"><i class="fa fa-check"></i><b>18</b> Multiparty secure computation II: Construction using Fully Homomorphic Encryption</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sfetwochap.html"><a href="sfetwochap.html#constructing-2-party-honest-but-curious-computation-from-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.1</b> Constructing 2 party honest but curious computation from fully homomorphic encryption</a></li>
+<li class="chapter" data-level="18.2" data-path="sfetwochap.html"><a href="sfetwochap.html#achieving-circuit-privacy-in-a-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.2</b> Achieving circuit privacy in a fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="sfetwochap.html"><a href="sfetwochap.html#bottom-line-a-two-party-secure-computation-protocol"><i class="fa fa-check"></i><b>18.2.1</b> Bottom line: A two party secure computation protocol</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="sfetwochap.html"><a href="sfetwochap.html#beyond-two-parties"><i class="fa fa-check"></i><b>18.3</b> Beyond two parties</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html"><i class="fa fa-check"></i><b>19</b> Quantum computing and cryptography I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#the-double-slit-experiment"><i class="fa fa-check"></i><b>19.1</b> The double slit experiment</a></li>
+<li class="chapter" data-level="19.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-amplitudes"><i class="fa fa-check"></i><b>19.2</b> Quantum amplitudes</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-computing-and-computation---an-executive-summary."><i class="fa fa-check"></i><b>19.2.1</b> Quantum computing and computation - an executive summary.</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-101"><i class="fa fa-check"></i><b>19.3</b> Quantum 101</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#physically-realizing-quantum-computation"><i class="fa fa-check"></i><b>19.3.1</b> Physically realizing quantum computation</a></li>
+<li class="chapter" data-level="19.3.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bra-ket-notation"><i class="fa fa-check"></i><b>19.3.2</b> Bra-ket notation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bells-inequality"><i class="fa fa-check"></i><b>19.4</b> Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.5" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#analysis-of-bells-inequality"><i class="fa fa-check"></i><b>19.5</b> Analysis of Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.6" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#grovers-algorithm"><i class="fa fa-check"></i><b>19.6</b> Grover’s Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html"><i class="fa fa-check"></i><b>20</b> Quantum computing and cryptography II</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-order-finding-to-factoring-and-discrete-log"><i class="fa fa-check"></i><b>20.1</b> From order finding to factoring and discrete log</a></li>
+<li class="chapter" data-level="20.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#finding-periods-of-a-function-simons-algorithm"><i class="fa fa-check"></i><b>20.2</b> Finding periods of a function: Simon’s Algorithm</a></li>
+<li class="chapter" data-level="20.3" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-simon-to-shor"><i class="fa fa-check"></i><b>20.3</b> From Simon to Shor</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#the-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.1</b> The Fourier transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+<li class="chapter" data-level="20.3.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.2</b> Quantum Fourier Transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#shor鈥檚-order-finding-algorithm."><i class="fa fa-check"></i><b>20.4</b> Shor鈥檚 Order-Finding Algorithm.</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#analysis-the-case-that-rm"><i class="fa fa-check"></i><b>20.4.1</b> Analysis: the case that <span class="math inline">\(r|m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.5" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#rational-approximation-of-real-numbers"><i class="fa fa-check"></i><b>20.5</b> Rational approximation of real numbers</a>
+<ul>
+<li class="chapter" data-level="20.5.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-cryptography"><i class="fa fa-check"></i><b>20.5.1</b> Quantum cryptography</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="software-obfuscation.html"><a href="software-obfuscation.html"><i class="fa fa-check"></i><b>21</b> Software Obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#witness-encryption"><i class="fa fa-check"></i><b>21.1</b> Witness encryption</a></li>
+<li class="chapter" data-level="21.2" data-path="software-obfuscation.html"><a href="software-obfuscation.html#deniable-encryption"><i class="fa fa-check"></i><b>21.2</b> Deniable encryption</a></li>
+<li class="chapter" data-level="21.3" data-path="software-obfuscation.html"><a href="software-obfuscation.html#functional-encryption"><i class="fa fa-check"></i><b>21.3</b> Functional encryption</a></li>
+<li class="chapter" data-level="21.4" data-path="software-obfuscation.html"><a href="software-obfuscation.html#the-software-patch-problem"><i class="fa fa-check"></i><b>21.4</b> The software patch problem</a></li>
+<li class="chapter" data-level="21.5" data-path="software-obfuscation.html"><a href="software-obfuscation.html#software-obfuscation-1"><i class="fa fa-check"></i><b>21.5</b> Software obfuscation</a></li>
+<li class="chapter" data-level="21.6" data-path="software-obfuscation.html"><a href="software-obfuscation.html#applications-of-obfuscation"><i class="fa fa-check"></i><b>21.6</b> Applications of obfuscation</a></li>
+<li class="chapter" data-level="21.7" data-path="software-obfuscation.html"><a href="software-obfuscation.html#impossibility-of-obfuscation"><i class="fa fa-check"></i><b>21.7</b> Impossibility of obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.7.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#proof-of-impossibility-of-vbb-obfuscation"><i class="fa fa-check"></i><b>21.7.1</b> Proof of impossibility of VBB obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="21.8" data-path="software-obfuscation.html"><a href="software-obfuscation.html#indistinguishability-obfuscation"><i class="fa fa-check"></i><b>21.8</b> Indistinguishability obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html"><i class="fa fa-check"></i><b>22</b> More obfuscation, exotic encryptions</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#slower-weaker-less-securer"><i class="fa fa-check"></i><b>22.1</b> Slower, weaker, less securer</a></li>
+<li class="chapter" data-level="22.2" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#how-to-get-ibe-from-pairing-based-assumptions."><i class="fa fa-check"></i><b>22.2</b> How to get IBE from pairing based assumptions.</a></li>
+<li class="chapter" data-level="22.3" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#beyond-pairing-based-cryptography"><i class="fa fa-check"></i><b>22.3</b> Beyond pairing based cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="anonymous-communication.html"><a href="anonymous-communication.html"><i class="fa fa-check"></i><b>23</b> Anonymous communication</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="anonymous-communication.html"><a href="anonymous-communication.html#steganography"><i class="fa fa-check"></i><b>23.1</b> Steganography</a></li>
+<li class="chapter" data-level="23.2" data-path="anonymous-communication.html"><a href="anonymous-communication.html#anonymous-routing"><i class="fa fa-check"></i><b>23.2</b> Anonymous routing</a></li>
+<li class="chapter" data-level="23.3" data-path="anonymous-communication.html"><a href="anonymous-communication.html#tor"><i class="fa fa-check"></i><b>23.3</b> Tor</a></li>
+<li class="chapter" data-level="23.4" data-path="anonymous-communication.html"><a href="anonymous-communication.html#telex"><i class="fa fa-check"></i><b>23.4</b> Telex</a></li>
+<li class="chapter" data-level="23.5" data-path="anonymous-communication.html"><a href="anonymous-communication.html#riposte"><i class="fa fa-check"></i><b>23.5</b> Riposte</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html"><i class="fa fa-check"></i><b>24</b> Ethical, moral, and policy dimensions to cryptography</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#reading-prior-to-lecture"><i class="fa fa-check"></i><b>24.1</b> Reading prior to lecture:</a></li>
+<li class="chapter" data-level="24.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#case-studies."><i class="fa fa-check"></i><b>24.2</b> Case studies.</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#the-snowden-revelations"><i class="fa fa-check"></i><b>24.2.1</b> The Snowden revelations</a></li>
+<li class="chapter" data-level="24.2.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#fbi-vs-apple-case"><i class="fa fa-check"></i><b>24.2.2</b> FBI vs Apple case</a></li>
+<li class="chapter" data-level="24.2.3" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#juniper-backdoor-case-and-the-opm-break-in"><i class="fa fa-check"></i><b>24.2.3</b> Juniper backdoor case and the OPM break-in</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="course-recap.html"><a href="course-recap.html"><i class="fa fa-check"></i><b>25</b> Course recap</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="course-recap.html"><a href="course-recap.html#some-things-we-did-not-cover"><i class="fa fa-check"></i><b>25.1</b> Some things we did not cover</a></li>
+<li class="chapter" data-level="25.2" data-path="course-recap.html"><a href="course-recap.html#what-i-hope-you-learned"><i class="fa fa-check"></i><b>25.2</b> What I hope you learned</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapfhetwo" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">16</span> Fully homomorphic encryption: Construction<a href="chapfhetwo.html#chapfhetwo" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In the last lecture we defined fully homomorphic encryption, and showed the “bootstrapping theorem” that transforms a partially homomorphic encryption scheme into a fully homomorphic encryption, as long as the original scheme can homomorphically evaluate its own decryption circuit.
+In this lecture we will show an encryption scheme (due to Gentry, Sahai and Waters, henceforth GSW) meeting the latter property.
+That is, this lecture is devoted to proving<a href="#fn96" class="footnote-ref" id="fnref96"><sup>96</sup></a> the following theorem:</p>
+<blockquote>
+<h1 id="LWEFHEthm" class="theorem" title="FHE from LWE"></h1>
+<p>Assuming the LWE conjecture, there exists a partially homomorphic public key encryption <span class="math inline">\((G,E,D,EVAL)\)</span> that fits the conditions of the bootstrapping theorem (<a href="" class="ref">bootstrapthm</a>).
+That is, for every two ciphertexts <span class="math inline">\(c\)</span> and <span class="math inline">\(c&#39;\)</span>, the function <span class="math inline">\(d \mapsto D_d(c)\; NAND\; D_d(c&#39;)\)</span> can be homomorphically evaluated by <span class="math inline">\(EVAL\)</span>.</p>
+</blockquote>
+<p>Before the detailed description and analysis, let us first outline our strategy. The following notion of “noisy homomorphic encryption” will be of essential importance (see also <a href="" class="ref">noisefhefig</a>).</p>
+<div class="definition" title="Noisy Homomorphic Encryption">
+<p><span id="def:NoisyHEdef" class="definition"><strong>Definition 16.1  </strong></span>A <em>noisy homomorphic encryption scheme</em> is a four-tuple <span class="math inline">\((G,E,D,ENAND)\)</span> of algorithms such that <span class="math inline">\((G,E,D)\)</span> is a CPA secure public key scheme and
+such that for every keypair <span class="math inline">\((e,d)\)</span>, there exists a function <span class="math inline">\(\eta=\eta_{e,d}\)</span> which maps any ciphertext <span class="math inline">\(c\)</span> to a number <span class="math inline">\(\eta(c)\in [0, \infty)\)</span>
+(which we call the “noise level” of <span class="math inline">\(c\)</span>) satisfying the following.</p>
+<p>For every keypair <span class="math inline">\((e,d)\)</span>, if we denote
+<span class="math display">\[\mathcal{C}_b^\theta=\{c:D_d(c)=b,\eta(c)\leq\theta \}.\]</span></p>
+<p>then</p>
+<ul>
+<li><p><span class="math inline">\(E_e(b)\in \mathcal{C}_b^{\sqrt{q}}\)</span> for any plaintext <span class="math inline">\(b\)</span>. That is, “fresh encryptions” have noise at most <span class="math inline">\(\sqrt{q}\)</span>.</p></li>
+<li><p>If <span class="math inline">\(c\in\mathcal{C}_b^\eta\)</span> with <span class="math inline">\(\eta\leq q/4\)</span>, then <span class="math inline">\(D_d(c)=b\)</span>. That is, as long as the noise is at most <span class="math inline">\(q/4\)</span> (which is <span class="math inline">\(\gg \sqrt{q}\)</span>), decryption will still succeed.</p></li>
+<li><p>For any <span class="math inline">\(c\in\mathcal{C}_b^\eta\)</span> and <span class="math inline">\(c&#39;\in\mathcal{C}_{b&#39;}^{\eta&#39;}\)</span>, it holds that
+<span class="math display">\[ENAND(c,c&#39;)\in\mathcal{C}_{b\overline{\wedge}b&#39;}^{n^3\cdot \max\{\eta,\eta&#39;\}}\]</span>
+as long as <span class="math inline">\(n^3\cdot \max\{\eta,\eta&#39;\}&lt;q/4\)</span>. That is, as long as noise is not too large, applying <span class="math inline">\(ENAND\)</span> to <span class="math inline">\(c\)</span> and <span class="math inline">\(c&#39;\)</span> will yield an encryption of <span class="math inline">\(NAND(D_d(c),D_d(c&#39;))\)</span> with noise level that is not “too much higher” than the maximum noise of <span class="math inline">\(c\)</span> and <span class="math inline">\(c&#39;\)</span>.</p></li>
+</ul>
+</div>
+<p>The noisy homomorphic encryption actually states that if <span class="math inline">\(C\)</span> and <span class="math inline">\(C&#39;\)</span> encrypt <span class="math inline">\(b\)</span> and <span class="math inline">\(b&#39;\)</span> up to error <span class="math inline">\(\eta\)</span> and <span class="math inline">\(\eta&#39;\)</span>, respectively, then <span class="math inline">\(ENAND(c,c&#39;)\)</span> encrypts <span class="math inline">\(NAND(b,b&#39;)\)</span> up to some error which can be controlled by <span class="math inline">\(\eta,\eta&#39;\)</span>. The coefficient <span class="math inline">\(n^3\)</span> is not essential here; we just need the order <span class="math inline">\(poly(n)\)</span>. This property allows us to perform the <span class="math inline">\(ENAND\)</span> operator repeatly as long as we can guarantee the accumulated error is smaller than <span class="math inline">\(q/4\)</span>, which means that the decryption can be done correctly. The next theorem tells us with what depth a circuit can be computed homomorphically.</p>
+<div class="float" id="noisefhefig">
+<img src="../figure/fhe-noisy.png" alt="In a noisy homomorphic encryption, every ciphertext c has a “noise” parameter \eta(c) associated with it. When we encrypt 0 or 1, we get a ciphertext with noise at most \sqrt{q}, while we are guaranteed to successfully decrypt. Applying the ENAND operation to two ciphertexts c and c&#39; yields a ciphertext with noise level at most n^3 times the maximum noise of c and c&#39;. Hence we can compose ENAND operations to apply any NAND circuit of depth at most \ell to fresh encryptions, and succeed in obtaining a ciphertext decrypting to the circuit output as long as n^{3\ell}\sqrt{q} \ll q/4." />
+<div class="figcaption">In a noisy homomorphic encryption, every ciphertext <span class="math inline">\(c\)</span> has a “noise” parameter <span class="math inline">\(\eta(c)\)</span> associated with it. When we encrypt <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>, we get a ciphertext with noise at most <span class="math inline">\(\sqrt{q}\)</span>, while we are guaranteed to successfully decrypt. Applying the <span class="math inline">\(ENAND\)</span> operation to two ciphertexts <span class="math inline">\(c\)</span> and <span class="math inline">\(c&#39;\)</span> yields a ciphertext with noise level at most <span class="math inline">\(n^3\)</span> times the maximum noise of <span class="math inline">\(c\)</span> and <span class="math inline">\(c&#39;\)</span>. Hence we can compose <span class="math inline">\(ENAND\)</span> operations to apply any NAND circuit of depth at most <span class="math inline">\(\ell\)</span> to fresh encryptions, and succeed in obtaining a ciphertext decrypting to the circuit output as long as <span class="math inline">\(n^{3\ell}\sqrt{q} \ll q/4\)</span>.</div>
+</div>
+<blockquote>
+<h1 id="Depththm" class="theorem"></h1>
+<p>If there exists a noisy homomorphic encryption scheme with <span class="math inline">\(q=2^{\sqrt{n}}\)</span>, then it can be extended to a homomorphic encryption scheme for any circuit with depth smaller than <span class="math inline">\(polylog(n)\)</span>.</p>
+</blockquote>
+<blockquote>
+<h1 id="section-80" class="proof"></h1>
+<p>For any function <span class="math inline">\(f:\{0,1\}^m\rightarrow \{0,1\}\)</span> which can be described by a circuit with depth <span class="math inline">\(\ell\)</span>, we can compute <span class="math inline">\(EVAL(f,E_e(x_1),\cdots,E_e(x_m))\)</span> with error up to <span class="math inline">\(\sqrt{q}(n^3)^\ell\)</span>. (The initial error for <span class="math inline">\(E_e(x_i)\)</span> is smaller than <span class="math inline">\(\sqrt{q}\)</span> and the error will be accumulated with rate up to <span class="math inline">\(n^3\)</span>.) Thus, to guarantee that <span class="math inline">\(EVAL(f,E_e(x_1),\cdots,E_e(x_m))\)</span> can be decrypted to <span class="math inline">\(f(x_1,\cdots,x_m)\)</span> correctly, we only need <span class="math inline">\(\sqrt{q}(n^3)^\ell\ll q\)</span>, i.e., <span class="math inline">\(n^{3\ell}\ll \sqrt{q}=2^{\sqrt{n}/2}\)</span>. This is equalvent to <span class="math inline">\(3\ell\log(n)\ll \sqrt{n}/2\)</span>, which can be guaranteed when <span class="math inline">\(\ell =n^{o(1)}\)</span> or <span class="math inline">\(\ell=polylog(n)\)</span>.</p>
+</blockquote>
+<p>We will assume the LWE conjecture with <span class="math inline">\(q(n) \approx 2^{\sqrt{n}}\)</span> in the remainder of this chapter.
+With <a href="" class="ref">Depththm</a> in hand, our goal is to construct a noisy FHE such that the decryption map (specifically the map <span class="math inline">\(d \mapsto D_d(c)\)</span> for any fixed ciphertext <span class="math inline">\(c\)</span>) can be computed by a circuit with depth at most <span class="math inline">\(polylog(n)\)</span>. (<a href="" class="ref">bootstrapthm</a> refers to the map <span class="math inline">\(d \mapsto \neg(D_d(c) \wedge D_d(c&#39;))\)</span>, but this latter map is obtained by applying one more NAND gate to two parallel executions of <span class="math inline">\(d \mapsto D_d(c)\)</span>, and hence if the map <span class="math inline">\(d \mapsto D_d(c)\)</span> has depth at most <span class="math inline">\(polylog(n)\)</span> then so does the map <span class="math inline">\(d \mapsto \neg(D_d(c) \wedge D_d(c&#39;))\)</span>.) Once we do this then we can obtain a fully homomorphic encryption scheme. We will head into some details show how to construct things we want in the rest of this chapter. The most technical and interesting part would be how to upper bound the noise/error.</p>
+<div id="prelude-from-vectors-to-matrices" class="section level2 hasAnchor" number="16.1">
+<h2><span class="header-section-number">16.1</span> Prelude: from vectors to matrices<a href="chapfhetwo.html#prelude-from-vectors-to-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the linear homomorphic scheme we saw in the last lecture, every ciphertext was a vector <span class="math inline">\(c\in\mathbb{Z}_q^n\)</span> such that <span class="math inline">\(\langle c,s \rangle\)</span> equals (up to scaling by <span class="math inline">\(\lfloor \tfrac{q}{2} \rfloor\)</span>) the plaintext bit.
+We saw that adding two ciphertexts modulo <span class="math inline">\(q\)</span> corresponded to XOR’ing (i.e., adding modulo <span class="math inline">\(2\)</span>) the corresponding two plaintexts.
+That is, if we define <span class="math inline">\(c \oplus c&#39;\)</span> as <span class="math inline">\(c+c&#39; \pmod{q}\)</span> then performing the <span class="math inline">\(\oplus\)</span> operation on the ciphertexts corresponds to adding modulo <span class="math inline">\(2\)</span> the plaintexts.</p>
+<p>However, to get to a fully, or even partially, homomorphic scheme, we need to find a way to perform the NAND operation on the two plaintexts.
+The challenge is that it seems that to do that we need to find a way to evaluate <em>multiplications</em>: find a way to define some operation <span class="math inline">\(\otimes\)</span> on ciphertexts that corresponds to multiplying the plaintexts.
+Alas, a priori, there doesn’t seem to be a natural way to <em>multiply</em> two vectors.</p>
+<p>The GSW approach to handle this is to move from vectors to <em>matrices</em>.
+As usual, it is instructive to first consider the cryptographer’s dream world where Gaussian elimination doesn’t exist.
+In this case, the GSW ciphertext encrypting <span class="math inline">\(b\in\{0,1\}\)</span> would be an <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(C\)</span> over <span class="math inline">\(\mathbb{Z}_q\)</span> such that <span class="math inline">\(Cs = bs\)</span> where <span class="math inline">\(s\in\mathbb{Z}_q^n\)</span> is the secret key.
+That is, the encryption of a bit <span class="math inline">\(b\)</span> is a matrix <span class="math inline">\(C\)</span> such that the secret key is an <em>eigenvector</em> (modulo <span class="math inline">\(q\)</span>) of <span class="math inline">\(C\)</span> with corresponding eigenvalue <span class="math inline">\(b\)</span>.
+(We defer discussion of how the encrypting party generates such a ciphertext, since this is in any case only a “dream” toy example.)</p>
+<blockquote>
+<h1 id="section-81" class="pause"></h1>
+<p>You should make sure you understand the <em>types</em> of all the identifiers we refer to.
+In particular, above <span class="math inline">\(C\)</span> is an <span class="math inline">\(n\times n\)</span> <em>matrix</em> with entries in <span class="math inline">\(\mathbb{Z}_q\)</span>, <span class="math inline">\(s\)</span> is a <em>vector</em> in <span class="math inline">\(\mathbb{Z}_q^n\)</span>, and <span class="math inline">\(b\)</span> is a <em>scalar</em> (i.e., just a number) in <span class="math inline">\(\{0,1\}\)</span>.
+See <a href="" class="ref">naivegswfig</a> for a visual representation of the ciphertexts in this “naive” encryption scheme.
+Keeping track of the dimensions of all objects will become only more important in the rest of this lecture.</p>
+</blockquote>
+<div class="float" id="naivegswfig">
+<img src="../figure/naivegsw.png" class="margin" alt="In the “naive” version of the GSW encryption, to encrypt a bit b we output an n\times n matrix C such that Cs=bs where s \in \mathbb{Z}_q^n is the secret key. In this scheme we can transform encryptions C,C&#39; of b,b&#39; respectively to an encryption C&#39;&#39; of NAND(b,b&#39;) by letting C&#39;&#39; = I-CC&#39;." />
+<div class="figcaption">In the “naive” version of the GSW encryption, to encrypt a bit <span class="math inline">\(b\)</span> we output an <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(C\)</span> such that <span class="math inline">\(Cs=bs\)</span> where <span class="math inline">\(s \in \mathbb{Z}_q^n\)</span> is the secret key. In this scheme we can transform encryptions <span class="math inline">\(C,C&#39;\)</span> of <span class="math inline">\(b,b&#39;\)</span> respectively to an encryption <span class="math inline">\(C&#39;&#39;\)</span> of <span class="math inline">\(NAND(b,b&#39;)\)</span> by letting <span class="math inline">\(C&#39;&#39; = I-CC&#39;\)</span>.</div>
+</div>
+<p>Given <span class="math inline">\(C\)</span> and <span class="math inline">\(s\)</span> we can recover <span class="math inline">\(b\)</span> by just checking if <span class="math inline">\(Cs=s\)</span> or <span class="math inline">\(Cs=0^n\)</span>.
+The scheme allows homomorphic evaluation of both addition (modulo <span class="math inline">\(q\)</span>) and multiplication, since if <span class="math inline">\(Cs = bs\)</span> and <span class="math inline">\(C&#39;s=b&#39;s\)</span> then we can define
+<span class="math inline">\(C \oplus C&#39; = C + C&#39;\)</span> (where on the righthand side, addition is simply done in <span class="math inline">\(\mathbb{Z}_q\)</span>) and <span class="math inline">\(C\otimes C&#39; = CC&#39;\)</span> (where again this refers to matrix multiplication in <span class="math inline">\(\mathbb{Z}_q\)</span>).</p>
+<p>Indeed, one can verify that both addition and multiplication succeed since
+<span class="math display">\[(C+C&#39;)s = (b+b&#39;)s\]</span>
+and
+<span class="math display">\[CC&#39;s = C(b&#39;s) = bb&#39;s\]</span>
+where all these equalities are in <span class="math inline">\(\mathbb{Z}_q\)</span>.</p>
+<p>Addition modulo <span class="math inline">\(q\)</span> is not the same as XOR, but given these multiplication and addition operations, we can implement the NAND operation as well.
+Specifically, for every <span class="math inline">\(b,b&#39; \in \{0,1\}\)</span>, <span class="math inline">\(b \; NAND \; b&#39; = 1-bb&#39;\)</span>.
+Hence we can take a ciphertext <span class="math inline">\(C\)</span> encrypting <span class="math inline">\(b\)</span> and a ciphertext <span class="math inline">\(C&#39;\)</span> encrypting <span class="math inline">\(b&#39;\)</span> and transform these two ciphertexts to the ciphertext
+<span class="math inline">\(C&#39;&#39;=(I-CC&#39;)\)</span> that encrypts <span class="math inline">\(b\; NAND \; b&#39;\)</span> (where <span class="math inline">\(I\)</span> is the identity matrix).
+Thus in a world without Gaussian elimination it is not hard to get a fully homomorphic encryption.</p>
+<blockquote>
+<h1 id="privkeyfhe" class="remark" title="Private key FHE"></h1>
+<p>We have not shown how to <em>generate</em> a ciphertext without knowledge of <span class="math inline">\(s\)</span>, and hence strictly speaking we only showed in this world how to get a <em>private key</em> fully homomorphic encryption.
+Our “real world” scheme will be a full fledged <em>public key</em> FHE.
+However we note that private key homomorphic encryption is already very interesting and in fact sufficient for many of the “cloud computing” applications.
+Moreover, <a href="http://eccc.hpi-web.de/report/2010/146/">Rothblum</a> gave a generic transformation from a <em>private key</em> homomorphic encryption to a <em>public key</em> homomorphic encryption.</p>
+</blockquote>
+</div>
+<div id="real-world-partially-homomorphic-encryption" class="section level2 hasAnchor" number="16.2">
+<h2><span class="header-section-number">16.2</span> Real world partially homomorphic encryption<a href="chapfhetwo.html#real-world-partially-homomorphic-encryption" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We now discuss how we can obtain an encryption in the real world where, as much as we’d like to ignore it, there are people who walk among us (not to mention some computer programs) that actually know how to invert matrices.
+As usual, the idea is to “fool Gaussian elimination with noise” but we will see that we have to be much more careful about “noise management”, otherwise even for the party holding the secret key the noise will overwhelm the signal.<a href="#fn97" class="footnote-ref" id="fnref97"><sup>97</sup></a></p>
+<p>The main idea is that we can expect the following problem to be hard for a random secret <span class="math inline">\(s\in\mathbb{Z}_q^n\)</span>: distinguish between samples of random matrices <span class="math inline">\(C\)</span> and matrices where <span class="math inline">\(Cs = bs + e\)</span> for some <span class="math inline">\(b\in\{0,1\}\)</span> and “short” <span class="math inline">\(e\)</span> satisfying <span class="math inline">\(|e_i| \leq \sqrt{q}\)</span> for all <span class="math inline">\(i\)</span>.
+This yields a natural candidate for an encryption scheme where we encrypt <span class="math inline">\(b\)</span> by a matrix <span class="math inline">\(C\)</span> satisfying <span class="math inline">\(Cs = bs + e\)</span> where <span class="math inline">\(e\)</span> is a “short” vector.<a href="#fn98" class="footnote-ref" id="fnref98"><sup>98</sup></a></p>
+<p>We can now try to check what adding and multiplying two matrices does to the noise.
+If <span class="math inline">\(Cs = bs+e\)</span> and <span class="math inline">\(C&#39;s=b&#39;s+e&#39;\)</span> then
+<span class="math display">\[(C+C&#39;)s = (b+b&#39;)s+(e+e&#39;) \label{eqhomadd}\]</span>
+and
+<span class="math display">\[CC&#39;s = C(b&#39;s+e&#39;)+e =bb&#39;s+ (b&#39;e+Ce&#39;)\;. \label{eqhommult} \]</span></p>
+<blockquote>
+<h1 id="section-82" class="pause"></h1>
+<p>I recommend you pause here and check for yourself whether it will be the case that <span class="math inline">\(C+C&#39;\)</span> encrypts <span class="math inline">\(b+b&#39;\)</span> and <span class="math inline">\(CC&#39;\)</span> encrypts <span class="math inline">\(bb&#39;\)</span> up to small noise or not.</p>
+</blockquote>
+<p>We would have loved to say that we can define as above <span class="math inline">\(C\oplus C&#39; = C+C&#39; \pmod q\)</span> and <span class="math inline">\(C\otimes C&#39; = CC&#39;\pmod q\)</span>.
+For this we would need that the vector <span class="math inline">\((C+C&#39;)s\)</span> equals <span class="math inline">\((b+b&#39;)s\)</span> plus a “short” vector and the vector <span class="math inline">\(CC&#39;s\)</span> equals <span class="math inline">\(bb&#39;s\)</span> plus a “short” vector.
+The former statement indeed holds.
+Looking at <a href="" class="eqref">eqhommult</a> we see that <span class="math inline">\((C+C&#39;)s\)</span> equals <span class="math inline">\((b+b&#39;)s\)</span> up to the “noise” vector <span class="math inline">\(e+e&#39;\)</span>, and if <span class="math inline">\(e,e&#39;\)</span> are “short” then <span class="math inline">\(e+e&#39;\)</span> is not too long either.
+That is, if <span class="math inline">\(|e_i|&lt;\eta\)</span> and <span class="math inline">\(|e&#39;_i|&lt;\eta&#39;\)</span> for every <span class="math inline">\(i\)</span> then <span class="math inline">\(|e_i+e&#39;_i|&lt;\eta + \eta&#39;\)</span>.
+So we can at least handle a significant number of additions before the noise gets out of hand.</p>
+<p>However, if we consider <a href="" class="eqref">eqhommult</a>, we see that <span class="math inline">\(CC&#39;\)</span> will be equal to <span class="math inline">\(bb&#39;s\)</span> plus the “noise vector” <span class="math inline">\(b&#39;e + Ce&#39;\)</span>.
+The first component <span class="math inline">\(b&#39;e\)</span> of this noise vector is “short” (after all <span class="math inline">\(b&#39;\in \{0,1\}\)</span> and <span class="math inline">\(e\)</span> is “short”).
+However, the second component <span class="math inline">\(Ce&#39;\)</span> could be a very large vector.
+Indeed, since <span class="math inline">\(C\)</span> looks like a random matrix in <span class="math inline">\(\mathbb{Z}_q\)</span>, no matter how small the entries of <span class="math inline">\(e&#39;\)</span>, many of the entries of <span class="math inline">\(Ce&#39;\)</span> will be large.
+Hence multiplying <span class="math inline">\(e&#39;\)</span> by <span class="math inline">\(C\)</span> takes us “beyond the edge of chaos” and makes the noise too large for decryption to be successful.</p>
+</div>
+<div id="noise-management-via-encoding" class="section level2 hasAnchor" number="16.3">
+<h2><span class="header-section-number">16.3</span> Noise management via encoding<a href="chapfhetwo.html#noise-management-via-encoding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The problem we had above is that the entries of <span class="math inline">\(C\)</span> are elements in <span class="math inline">\(\mathbb{Z}_q\)</span> that can be very large, while we would have loved them to be small numbers such as <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>.
+At this point one could say</p>
+<blockquote>
+<p><em>“If only there was some way to encode numbers between <span class="math inline">\(0\)</span> and <span class="math inline">\(q-1\)</span> using only <span class="math inline">\(0\)</span>’s and <span class="math inline">\(1\)</span>’s”</em></p>
+</blockquote>
+<p>If you think about it hard enough, it turns out that there is something known as the “binary basis” that allows us to encode a number <span class="math inline">\(x\in\mathbb{Z}_q\)</span> as a vector <span class="math inline">\(\hat{x}\in\{0,1\}^{\log q}\)</span>.<a href="#fn99" class="footnote-ref" id="fnref99"><sup>99</sup></a>
+What’s even more surprising is that this seemingly trivial trick turns out to be immensely useful.
+We will define the <em>binary encoding</em> of a vector or matrix <span class="math inline">\(x\)</span> over <span class="math inline">\(\mathbb{Z}_q\)</span> by <span class="math inline">\(\hat{x}\)</span>.
+That is, <span class="math inline">\(\hat{x}\)</span> is obtained by replacing every coordinate <span class="math inline">\(x_i\)</span> with <span class="math inline">\(\log q\)</span> coordinates <span class="math inline">\(x_{i,0},\ldots,x_{i,\log q-1}\)</span> such that</p>
+<p><span class="math display">\[x_i = \sum_{j=0}^{\log q-1}2^j x_{i,j} \;. \label{eqbinaryencoding}\]</span></p>
+<p>Specifically, if <span class="math inline">\(s\in \mathbb{Z}_q^n\)</span>, then we denote by <span class="math inline">\(\hat{s}\)</span> the <span class="math inline">\(n\log q\)</span>-dimensional vector with entries in <span class="math inline">\(\{0,1\}\)</span>, such that each <span class="math inline">\(\log q\)</span>-sized block of <span class="math inline">\(\hat{s}\)</span> encodes a coordinate of <span class="math inline">\(s\)</span>.
+Similarly, if <span class="math inline">\(C\)</span> is an <span class="math inline">\(m\times n\)</span> matrix, then we denote by <span class="math inline">\(\hat{C}\)</span> the <span class="math inline">\(m\times n\log q\)</span> matrix with entries in <span class="math inline">\(\{0,1\}\)</span> that corresponds to encoding every <span class="math inline">\(n\)</span>-dimensional row of <span class="math inline">\(C\)</span> by an <span class="math inline">\(n\log q\)</span>-dimensional row where each <span class="math inline">\(\log q\)</span>-sized block corresponds to a single entry.
+(We still think of the entries of these vectors and matrices as elements of <span class="math inline">\(\mathbb{Z}_q\)</span> and so all calculations are still done modulo <span class="math inline">\(q\)</span>.)</p>
+<p>While encoding in the binary basis is not a linear operation, the <em>decoding</em> operation is linear as one can see in <a href="" class="eqref">eqbinaryencoding</a>.
+We let <span class="math inline">\(Q\)</span> be the <span class="math inline">\(n \times (n\log q)\)</span> “decoding” matrix that maps an encoding vector <span class="math inline">\(\hat{s}\)</span> back to the original vector <span class="math inline">\(s\)</span>.
+Specifically, every row of <span class="math inline">\(Q\)</span> is composed of <span class="math inline">\(n\)</span> blocks each of <span class="math inline">\(\log q\)</span> size, where the <span class="math inline">\(i\)</span>-th row has only the <span class="math inline">\(i\)</span>-th block nonzero, and equal to the values <span class="math inline">\((1,2,4,\ldots,2^{\log q-1})\)</span>.
+It’s a good exercise to verify that for every vector <span class="math inline">\(s\in \mathbb{Z}_q^n\)</span> and matrix <span class="math inline">\(C\in \mathbb{Z}_q^{n\times n}\)</span>, <span class="math inline">\(Q\hat{s}=s\)</span> and <span class="math inline">\(\hat{C}Q^\top =C\)</span>. (See <a href="" class="ref">encodevecfig</a> amd <a href="" class="ref">encodematrixfig</a>.)</p>
+<div class="float" id="encodevecfig">
+<img src="../figure/encodevec.png" class="margin" alt="We can encode a vector s\in \mathbb{Z}_q^n as a vector \hat{s} \in \mathbb{Z}_q^{n\log q} that has only entries in \{0,1\} by using the binary encoding, replacing every coordinate of s with a \log q-sized block in \hat{s}. The decoding operation is linear and so we can write s=Q\hat{s} for a specific (simple) n \times (n\log q) matrix Q." />
+<div class="figcaption">We can encode a vector <span class="math inline">\(s\in \mathbb{Z}_q^n\)</span> as a vector <span class="math inline">\(\hat{s} \in \mathbb{Z}_q^{n\log q}\)</span> that has only entries in <span class="math inline">\(\{0,1\}\)</span> by using the binary encoding, replacing every coordinate of <span class="math inline">\(s\)</span> with a <span class="math inline">\(\log q\)</span>-sized block in <span class="math inline">\(\hat{s}\)</span>. The decoding operation is <em>linear</em> and so we can write <span class="math inline">\(s=Q\hat{s}\)</span> for a specific (simple) <span class="math inline">\(n \times (n\log q)\)</span> matrix <span class="math inline">\(Q\)</span>.</div>
+</div>
+<div class="float" id="encodematrixfig">
+<img src="../figure/encodematrix.png" class="margin" alt="We can encode an n\times n matrix C over \mathbb{Z}_q by an n\times (n \log q) matrix \hat{C} using the binary basis. We have the equation C=\hat{C}Q^\top where Q is the same matrix we use to decode a vector." />
+<div class="figcaption">We can encode an <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(C\)</span> over <span class="math inline">\(\mathbb{Z}_q\)</span> by an <span class="math inline">\(n\times (n \log q)\)</span> matrix <span class="math inline">\(\hat{C}\)</span> using the binary basis. We have the equation <span class="math inline">\(C=\hat{C}Q^\top\)</span> where <span class="math inline">\(Q\)</span> is the same matrix we use to decode a vector.</div>
+</div>
+<p><strong>Our final encryption scheme:</strong> We describe below the key generation, encryption and decryption algorithms of our final homomorphic encryption scheme (FHEENC).
+It will satisfy the following properties:</p>
+<ol style="list-style-type: decimal">
+<li><p>Ciphertexts are <span class="math inline">\((n \log q)\times (n\log q)\)</span> matrices <span class="math inline">\(C\)</span> with all coefficients in <span class="math inline">\(\{0,1\}\)</span>.</p></li>
+<li><p>The secret key is a vector <span class="math inline">\(s \in \mathbb{Z}_q^n\)</span>. We let <span class="math inline">\(v \in \mathbb{Z}_q^{n \log q}\)</span> be the vector <span class="math inline">\(V = Q^\top s\)</span>.</p></li>
+<li><p>An encryption of <span class="math inline">\(b\in \{0,1\}\)</span> is a matrix <span class="math inline">\(C\)</span> satisfying the following “ciphertext equation”
+<span class="math display">\[Cv =bv + e \label{eqciphertexteqfhe}\]</span>
+for a “short” <span class="math inline">\(e\)</span>.</p></li>
+</ol>
+<p>Given the conditions 1,2, and 3, we can now define the addition and multiplication operations for two ciphertexts <span class="math inline">\(C,C&#39;\)</span> as follows:</p>
+<ul>
+<li><p><span class="math inline">\(C \oplus C&#39; = C + C&#39; \pmod{q}\)</span></p></li>
+<li><p><span class="math inline">\(C \otimes C&#39; = \widehat{(CQ^\top)}C&#39;\)</span></p></li>
+</ul>
+<div class="pause">
+<p>Please try to verify that if <span class="math inline">\(C,C&#39;\)</span> are encryptions of <span class="math inline">\(b,b&#39;\)</span> then <span class="math inline">\(C \oplus C&#39;\)</span> and <span class="math inline">\(C \otimes C&#39;\)</span> will be encryptions of <span class="math inline">\(b+b&#39;\)</span> and <span class="math inline">\(bb&#39;\)</span> respectively.</p>
+</div>
+<p><strong>Correctness of operations.</strong> Suppose that <span class="math inline">\(Cv = bv + e\)</span> and <span class="math inline">\(C&#39;v = b&#39;v + e&#39;\)</span>.
+Then
+<span class="math display">\[(C\oplus C&#39;)v = (C+C&#39;)v = (b+b&#39;)v + (e+e&#39;) \label{eqfheaddfinal}\]</span></p>
+<p>which means that <span class="math inline">\(C \oplus C&#39;\)</span> satisfies the ciphertext equation <a href="" class="eqref">eqciphertexteqfhe</a> with respect to the plaintext <span class="math inline">\(b+b&#39;\)</span>, with the short vector <span class="math inline">\(e+e&#39;\)</span>.</p>
+<p>Let’s now analyze the more challenging case of <span class="math inline">\(C \otimes C&#39;\)</span>.</p>
+<p><span class="math display">\[(C\otimes C&#39;)v = \widehat{(CQ^\top)}C&#39;v = \widehat{(CQ^\top)}(b&#39;v+e&#39;) \;. \label{fhemultfinaleqfirst}\]</span></p>
+<p>But since <span class="math inline">\(v=Q^\top s\)</span> and <span class="math inline">\(\hat{A}Q^\top = A\)</span> for every matrix <span class="math inline">\(A\)</span>, the righthand side of <a href="" class="eqref">fhemultfinaleqfirst</a> equals</p>
+<p><span class="math display">\[\widehat{(CQ^\top)}(b&#39;Q^\top s+e&#39;)=b&#39;C Q^\top s+\widehat{(CQ^\top)}e&#39; = b&#39;Cv + \widehat{(CQ^\top)}e&#39; \label{fhemultfinaleqsec}\]</span></p>
+<p>but since <span class="math inline">\(\widehat{B}\)</span> is a matrix with small coefficients for every <span class="math inline">\(B\)</span> and <span class="math inline">\(e&#39;\)</span> is short, the righthand side of <a href="" class="eqref">fhemultfinaleqsec</a> equals <span class="math inline">\(b&#39;Cv\)</span> up to a short vector, and since <span class="math inline">\(Cv=bv+e\)</span> and <span class="math inline">\(b&#39;e\)</span> is short, we get that <span class="math inline">\((C\otimes C&#39;)v\)</span> equals <span class="math inline">\(b&#39;bv\)</span> plus a short vector as desired.</p>
+<p>We can now define</p>
+<p><span class="math display">\[
+ENAND(C,C&#39;) = I - C \otimes C&#39; \;.
+\]</span></p>
+<p><strong>Keeping track of parameters.</strong> For <span class="math inline">\(C\)</span> that encrypts a plaintext <span class="math inline">\(b\)</span>, let <span class="math inline">\(\eta(C) = \max_{i\in [n]} |Cv -bv|\)</span>.
+Now if we can see that if <span class="math inline">\(C\)</span> encrypts <span class="math inline">\(b\)</span> with noise <span class="math inline">\(\eta(C)\)</span> and <span class="math inline">\(C&#39;\)</span> encrypts <span class="math inline">\(b&#39;\)</span> with noise <span class="math inline">\(\eta(C&#39;)\)</span>, then <span class="math inline">\(ENAND(C,C&#39;)\)</span> will encrypt
+<span class="math inline">\(1-bb&#39; = NAND(b,b&#39;)\)</span> with noise of magnitude at most <span class="math inline">\(O(\mu + n\log q \mu&#39;)\)</span>, which is smaller than <span class="math inline">\(n^3\cdot \max\{\eta(C),\eta(C&#39;)\}\)</span> for <span class="math inline">\(q\approx 2^{\sqrt{n}}\)</span>.</p>
+</div>
+<div id="putting-it-all-together" class="section level2 hasAnchor" number="16.4">
+<h2><span class="header-section-number">16.4</span> Putting it all together<a href="chapfhetwo.html#putting-it-all-together" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We now describe the full scheme.
+We are going to use a quantitatively stronger version of LWE.
+Namely, the <span class="math inline">\(q(n)\)</span>-dLWE assumption for <span class="math inline">\(q(n)=2^{\sqrt{n}}\)</span>.
+It is not hard to show that we can relax our assumption to <span class="math inline">\(q(n)\)</span>-LWE <span class="math inline">\(q(n)=2^{polylog(n)}\)</span> and Brakerski and Vaikuntanathan showed how to relax the assumption to standard (i.e. <span class="math inline">\(q(n)=poly(n)\)</span>) LWE though we will not present this here.</p>
+<div class="quote">
+<p><strong>FHEENC:</strong></p>
+<ul>
+<li><p><strong>Key generation:</strong> As in the scheme of last lecture the secret key is <span class="math inline">\(s\in\mathbb{Z}_q^n\)</span> and the public key is a generator <span class="math inline">\(G_s\)</span> such that samples from <span class="math inline">\(G_s(1^n)\)</span> are indistinguishable from independent random samples from <span class="math inline">\(\mathbb{Z}_q^n\)</span> but if <span class="math inline">\(c\)</span> is output by <span class="math inline">\(G_s\)</span> then <span class="math inline">\(|\langle c,s \rangle|&lt;\sqrt{q}\)</span>, where the inner product (as all other computations) is done modulo <span class="math inline">\(q\)</span> and for every <span class="math inline">\(x\in\mathbb{Z}_q=\{0,\ldots,q-1\}\)</span> we define <span class="math inline">\(|x|=\min \{ x, q-x \}\)</span>.
+As before, we can assume that <span class="math inline">\(s_1 = \lfloor q/2 \rfloor\)</span> which implies that <span class="math inline">\((Q^\top s)_1\)</span> is also <span class="math inline">\(\lfloor q/2 \rfloor\)</span> since (as can be verified by direct inspection) the first row of <span class="math inline">\(Q^\top\)</span> is <span class="math inline">\((1,0,\ldots,0)\)</span>.</p></li>
+<li><p><strong>Encryption:</strong> To encrypt <span class="math inline">\(b\in\{0,1\}\)</span>, let <span class="math inline">\(d_1,\ldots,d_{n\log q} \leftarrow_R G_s(1^n)\)</span> output <span class="math inline">\(C=\widehat{(bQ^\top +D)}\)</span> where <span class="math inline">\(D\)</span> is the matrix whose rows are <span class="math inline">\(d_1,\ldots,d_{n\log q}\)</span> generated from <span class="math inline">\(G_s\)</span>. (See <a href="" class="ref">fheencfig</a>)</p></li>
+<li><p><strong>Decryption:</strong> To decrypt the ciphertext <span class="math inline">\(C\)</span>, we output <span class="math inline">\(0\)</span> if <span class="math inline">\(|(CQ^\top s)_1|&lt;0.1q\)</span> and output <span class="math inline">\(1\)</span> if <span class="math inline">\(0.6q&gt;|(CQ^\top s)_1|&gt;0.4q\)</span>, see <a href="" class="ref">fhedecfig</a>. (It doesn’t matter what we output on other cases.)</p></li>
+<li><p><strong>NAND evaluation:</strong> Given ciphertexts <span class="math inline">\(C,C&#39;\)</span>, we define <span class="math inline">\(C \overline{\wedge} C&#39;\)</span> (sometimes also denoted as <span class="math inline">\(NANDEVAL(C,C&#39;)\)</span>) to equal <span class="math inline">\(I- \widehat{(CQ^\top)}C&#39;\)</span>, where <span class="math inline">\(I\)</span> is the <span class="math inline">\((n\log q)\times (n\log q)\)</span> identity matrix.</p></li>
+</ul>
+</div>
+<blockquote>
+<h1 id="section-83" class="pause"></h1>
+<p>Please take your time to read the definition of the scheme, and go over
+<a href="" class="ref">fheencfig</a> and <a href="" class="ref">fhedecfig</a> to make sure you understand it.</p>
+</blockquote>
+<div class="float" id="fheencfig">
+<img src="../figure/fheenc.png" alt="In our fully homomorphic encryption, the public key is a trapdoor generator G_s. To encrypt a bit b, we output C=\widehat{(bQ^\top +D)} where D is a (n\log q) \times n matrix whose rows are generated using G_s." />
+<div class="figcaption">In our fully homomorphic encryption, the public key is a trapdoor generator <span class="math inline">\(G_s\)</span>. To encrypt a bit <span class="math inline">\(b\)</span>, we output <span class="math inline">\(C=\widehat{(bQ^\top +D)}\)</span> where <span class="math inline">\(D\)</span> is a <span class="math inline">\((n\log q) \times n\)</span> matrix whose rows are generated using <span class="math inline">\(G_s\)</span>.</div>
+</div>
+<div class="float" id="fhedecfig">
+<img src="../figure/fhedec.png" alt="We decrypt a ciphertext C=\widehat{(bQ^\top +D)} by looking at the first coordinate of CQ^\top s (or equivalently, CQ^\top Q\hat{s}). If b=0 then this equals the first coordinate of Ds, which is at most \sqrt{q} in magintude. If b=1 then we get an extra factor of Q^\top s which we set to be in the interval (0.499q,0.51q). We can think of either s or \hat{s} as our secret key." />
+<div class="figcaption">We decrypt a ciphertext <span class="math inline">\(C=\widehat{(bQ^\top +D)}\)</span> by looking at the first coordinate of <span class="math inline">\(CQ^\top s\)</span> (or equivalently, <span class="math inline">\(CQ^\top Q\hat{s}\)</span>). If <span class="math inline">\(b=0\)</span> then this equals the first coordinate of <span class="math inline">\(Ds\)</span>, which is at most <span class="math inline">\(\sqrt{q}\)</span> in magintude. If <span class="math inline">\(b=1\)</span> then we get an extra factor of <span class="math inline">\(Q^\top s\)</span> which we set to be in the interval <span class="math inline">\((0.499q,0.51q)\)</span>. We can think of either <span class="math inline">\(s\)</span> or <span class="math inline">\(\hat{s}\)</span> as our secret key.</div>
+</div>
+</div>
+<div id="analysis-of-our-scheme" class="section level2 hasAnchor" number="16.5">
+<h2><span class="header-section-number">16.5</span> Analysis of our scheme<a href="chapfhetwo.html#analysis-of-our-scheme" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To show that that this scheme is a valid partially homomorphic scheme we need to show the following properties:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Correctness:</strong> The decryption of an encryption of <span class="math inline">\(b\in\{0,1\}\)</span> equals <span class="math inline">\(b\)</span>.</p></li>
+<li><p><strong>CPA security:</strong> An encryption of <span class="math inline">\(0\)</span> is computationally indistinguishable from an encryption of <span class="math inline">\(1\)</span> to someone that got the public key.</p></li>
+<li><p><strong>Homomorphism:</strong> If <span class="math inline">\(C\)</span> encrypts <span class="math inline">\(b\)</span> and <span class="math inline">\(C&#39;\)</span> encrypts <span class="math inline">\(b&#39;\)</span> then <span class="math inline">\(C \overline{\wedge} C&#39;\)</span> encrypts <span class="math inline">\(b\; NAND\; b&#39;\)</span> (with a higher amount of noise). The growth of the noise will be the reason that we will not get immediately a fully homomorphic encryption.</p></li>
+<li><p><strong>Shallow decryption circuit:</strong> To plug this scheme into the bootstrapping theorem we will need to show that its decryption algorithm (or more accurately, the function in the statement of the bootstrapping theorem) can be evaluated in depth <span class="math inline">\(polylog(n)\)</span> (independently of <span class="math inline">\(q\)</span>), and that moreover, the noise grows slowly enough that our scheme is homomorphic with respect to such circuits.</p></li>
+</ol>
+<p>Once we obtain 1-4 above, we can plug FHEENC into the Bootstrapping Theorem (<a href="" class="ref">bootstrapthm</a>) and thus complete the proof of existence of a fully homomorphic encryption scheme.
+We now address those points one by one.</p>
+<div id="correctness" class="section level3 hasAnchor" number="16.5.1">
+<h3><span class="header-section-number">16.5.1</span> Correctness<a href="chapfhetwo.html#correctness" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Correctness of the scheme will follow from the following stronger condition:</p>
+<blockquote>
+<h1 id="fhecorrectlem" class="lemma"></h1>
+<p>For every <span class="math inline">\(b \in \{0,1\}\)</span>, if <span class="math inline">\(C\)</span> is the encryption of <span class="math inline">\(b\)</span> then it is an <span class="math inline">\((n\log q)\times (n \log q)\)</span> matrix satisfying
+<span class="math display">\[CQ^\top s = bQ^\top s + e\]</span>
+where <span class="math inline">\(\max |e_i| \ll \sqrt{q}\)</span>.</p>
+</blockquote>
+<blockquote>
+<h1 id="section-84" class="proof"></h1>
+<p>For starters, let us see that the dimensions make sense: the encryption of <span class="math inline">\(b\)</span> is computed by <span class="math inline">\(C=\widehat{(bQ^\top +D)}\)</span> where <span class="math inline">\(D\)</span> is an <span class="math inline">\((n\log q)\times n\)</span> matrix satisfying <span class="math inline">\(|Ds|_i \leq \sqrt{q}\)</span> for every <span class="math inline">\(i\)</span>.</p>
+<p>Since <span class="math inline">\(Q^\top\)</span> is also an <span class="math inline">\((n \log q) \times n\)</span> matrix, adding <span class="math inline">\(bQ^\top\)</span> (i.e. either <span class="math inline">\(Q^\top\)</span> or the all-zeroes matrix, depending on whether or not <span class="math inline">\(b=1\)</span>) to <span class="math inline">\(D\)</span> makes sense and applying the <span class="math inline">\(\hat{\cdot}\)</span> operation will transform every row to length <span class="math inline">\(n\log q\)</span> and hence <span class="math inline">\(C\)</span> is indeed a square <span class="math inline">\((n\log q)\times (n \log q)\)</span> matrix.</p>
+<p>Let us now see what this matrix <span class="math inline">\(C\)</span> does to the vector <span class="math inline">\(v=Q^\top s\)</span>.
+Using the fact that <span class="math inline">\(\hat{M}Q^\top = M\)</span> for every matrix <span class="math inline">\(M\)</span>, we get that
+<span class="math display">\[Cv = (bQ^\top + D) s = bv+  Ds\]</span>
+but by construction <span class="math inline">\(|(Ds)_i| \leq \sqrt{q}\)</span> for every <span class="math inline">\(i\)</span>.</p>
+</blockquote>
+<p><a href="" class="ref">fhecorrectlem</a> implies correctness of decryption since by construction we ensured that <span class="math inline">\((Q^\top s)_1 \in (0.499q,0.5001q)\)</span> and hence we get that if <span class="math inline">\(b=0\)</span> then <span class="math inline">\(|(Cv)_1|=o(q)\)</span> and if <span class="math inline">\(b=1\)</span> then <span class="math inline">\(0.499q-o(q) \leq |(C_v)_1|  \leq 0.501q + o(q)\)</span>.</p>
+</div>
+<div id="cpa-security" class="section level3 hasAnchor" number="16.5.2">
+<h3><span class="header-section-number">16.5.2</span> CPA Security<a href="chapfhetwo.html#cpa-security" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To show CPA security we need to show that an encryption of <span class="math inline">\(0\)</span> is indistinguishable from an encryption of <span class="math inline">\(1\)</span>.
+However, by the security of the trapdoor generator, an encryption of <span class="math inline">\(b\)</span> computed according to our algorithm will be indistinguishable from an encryption of <span class="math inline">\(b\)</span> obtained when the matrix <span class="math inline">\(D\)</span> is a random <span class="math inline">\((n\log q)\times n\)</span> matrix.
+Now in this case the encryption is obtained by applying the <span class="math inline">\(\hat{\cdot}\)</span> operation to <span class="math inline">\(bQ^\top +D\)</span> but if <span class="math inline">\(D\)</span> is uniformly random then for every choice of <span class="math inline">\(b\)</span>, <span class="math inline">\(bQ^\top + D\)</span> is uniformly random (since a fixed matrix plus a random matrix yields a random matrix) and hence the matrix <span class="math inline">\(bQ^\top + D\)</span> (and so also the matrix <span class="math inline">\(\widehat{bQ^\top+D}\)</span>) contains no information about <span class="math inline">\(b\)</span>.
+This completes the proof of CPA security (can you see why?).</p>
+<p>If we want to plug in this scheme in the bootstrapping theorem, then we will also assume that it is <em>circular secure</em>.
+It seems a reasonable assumption though unfortuantely at the moment we do not know how to derive it from LWE.
+(If we don’t want to make this assumption we can still obtained a <em>leveled</em> fully homomorphic encryption as discussed in the previous lecture.)</p>
+</div>
+<div id="homomorphism" class="section level3 hasAnchor" number="16.5.3">
+<h3><span class="header-section-number">16.5.3</span> Homomorphism<a href="chapfhetwo.html#homomorphism" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(v=Q^\top s\)</span>, <span class="math inline">\(b\in\{0,1\}\)</span> and <span class="math inline">\(C\)</span> be a ciphertext such that <span class="math inline">\(Cv = bv + e\)</span>.
+We define the <em>noise</em> of <span class="math inline">\(C\)</span>, denoted as <span class="math inline">\(\mu(C)\)</span> to be the maximum of <span class="math inline">\(|e_i|\)</span> over all <span class="math inline">\(i\in[n\log q]\)</span>.
+We make the following lemma, which we’ll call the “noisy homomorphism lemma”:</p>
+<blockquote>
+<h1 id="noisehomolem" class="lemma"></h1>
+<p>Let <span class="math inline">\(C,C&#39;\)</span> be ciphertexts encrypting <span class="math inline">\(b,b&#39;\)</span> respectively with <span class="math inline">\(\mu(C),\mu(C&#39;)\leq q/4\)</span>.
+Then <span class="math inline">\(C&#39;&#39;=C \overline{\wedge} C&#39;\)</span> encrypts <span class="math inline">\(b\; NAND\; b&#39;\)</span> and satisfies
+<span class="math display">\[\mu(C&#39;&#39;) \leq (2n\log q)\max\{ \mu(C), \mu(C&#39;) \} \label{eqnoisebound}\]</span></p>
+</blockquote>
+<blockquote>
+<h1 id="section-85" class="proof"></h1>
+<p>This follows from the calculations we have done before.
+As we’ve seen,
+<span class="math display">\[\widehat{CQ^\top}C&#39;v = \widehat{CQ^\top}(b&#39;v+e&#39;) = b&#39;\widehat{CQ^\top}Q^\top s + \widehat{CQ^\top}e&#39; = b&#39;(Cv)+ \widehat{CQ^\top}e&#39; = bb&#39;v + b&#39;e+ \widehat{CQ^\top}e&#39;\]</span>
+But since <span class="math inline">\(\widehat{CQ^\top}\)</span> is a <span class="math inline">\(0/1\)</span> matrix with every row of length <span class="math inline">\(n\log q\)</span>, for every <span class="math inline">\(i\)</span> <span class="math inline">\((\widehat{CQ^\top}e&#39;)_i \leq (n\log q)\max_j |e_j&#39;|\)</span>.
+We see that the noise vector in the product has magnitude at most <span class="math inline">\(\mu(C)+n\log q \mu(C&#39;)\)</span>.
+Adding the identity for the NAND operation adds at most <span class="math inline">\(\mu(C)+\mu(C&#39;)\)</span> to the noise, and so the total noise magnitude is bounded by the righthand side of <a href="" class="eqref">eqnoisebound</a>.</p>
+</blockquote>
+</div>
+<div id="shallow-decryption-circuit" class="section level3 hasAnchor" number="16.5.4">
+<h3><span class="header-section-number">16.5.4</span> Shallow decryption circuit<a href="chapfhetwo.html#shallow-decryption-circuit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Recall that to plug in our homomorphic encryption scheme into the bootstrapping theorem, we needed to show that for every ciphertext <span class="math inline">\(C\)</span> (generated by the encryption algorithm) the function <span class="math inline">\(f_C:\{0,1\}^{n \log q} \rightarrow \{0,1\}\)</span> can be computed by a circuit of sufficiently shallow, where <span class="math inline">\(f_C\)</span> is defined as
+<span class="math display">\[f_C(d) = D_d(C)\]</span>
+where <span class="math inline">\(d\)</span> is the secret key and <span class="math inline">\(D_d(C)\)</span> denotes the decryption algorithm applied to <span class="math inline">\(C\)</span>.</p>
+<p>In our case a circuit of <span class="math inline">\(polylog(n) \ll n^5\)</span> will be “sufficiently shallow”.
+Specifically, by repeatedly applying the noisy homomorphism lemma (<a href="" class="ref">noisehomolem</a>), we can show that can homorphically evaluate every circuit of NAND gates whose <em>depth</em> <span class="math inline">\(\ell\)</span> satisfies the condition <span class="math inline">\((2n\log q)^\ell \ll q\)</span>.
+If <span class="math inline">\(q = 2^{\sqrt{n}}\)</span> then (assuming <span class="math inline">\(n\)</span> is sufficiently large) as long as <span class="math inline">\(\ell &lt; n^{0.49}\)</span> this will be satisfied.</p>
+<p>We will encode the secret key of the encryption scheme as the binary string <span class="math inline">\(\hat{s}\)</span> which describes our vector <span class="math inline">\(s \in Z_q^n\)</span> as a bit string of length <span class="math inline">\(n\log q\)</span>.
+Given a ciphertext <span class="math inline">\(C\)</span>, the decryption algorithm takes the dot product modulo <span class="math inline">\(q\)</span> of <span class="math inline">\(s\)</span> with the first row of <span class="math inline">\(CQ^\top\)</span>.
+This can be equivalently described as taking the dot product of <span class="math inline">\(\hat{s}\)</span> with the first row of <span class="math inline">\(CQ^\top Q\)</span>.
+Decryption outputs <span class="math inline">\(0\)</span> (respectively <span class="math inline">\(1\)</span>) if the resulting number is small (respectively large).</p>
+<p>In particular to show that <span class="math inline">\(f_C(\cdot)\)</span> can be homomorphically evaluated it will suffice to show that for every fixed vector <span class="math inline">\(c\in \mathbb{Z}_q^{n\log q}\)</span> there is a <span class="math inline">\(polylog(n) \ll n^{0.49}\)</span> depth circuit <span class="math inline">\(F\)</span> that on input a string <span class="math inline">\(\hat{s}\in\{0,1\}^{n \log q}\)</span> will output <span class="math inline">\(0\)</span> if <span class="math inline">\(|\langle c,\hat{s \rangle}|  &lt; q/10\)</span> and output <span class="math inline">\(1\)</span> if <span class="math inline">\(|\langle c,\hat{s \rangle}|  &gt; q/5\)</span>.
+(We don’t care what <span class="math inline">\(F\)</span> does otherwise.) The above suffices since given a ciphertext <span class="math inline">\(C\)</span> we can use <span class="math inline">\(F\)</span> with the vector <span class="math inline">\(c\)</span> being the top row of <span class="math inline">\(CQ^\top Q\)</span>, and hence <span class="math inline">\(\langle c,\hat{s} \rangle\)</span> would correspond to the first entry of <span class="math inline">\(CQ^\top s\)</span>.</p>
+<blockquote>
+<h1 id="section-86" class="pause"></h1>
+<p>Please make sure you understand the above argument.</p>
+</blockquote>
+<p>If <span class="math inline">\(c=(c_1,\ldots,c_{n\log q})\)</span> is a vector then to compute its inner product with a <span class="math inline">\(0/1\)</span> vector <span class="math inline">\(\hat{s}\)</span> we simply need to sum up the numbers <span class="math inline">\(c_i\)</span> where <span class="math inline">\(\hat{s}_i=1\)</span>.
+Summing up <span class="math inline">\(m\)</span> numbers can be done via the obvious recursion in depth that is <span class="math inline">\(\log m\)</span> times the depth for a single addition of two numbers.
+However, the naive way to add two numbers in <span class="math inline">\(\mathbb{Z}_q\)</span> (each represented by <span class="math inline">\(\log q\)</span> bits) will have depth <span class="math inline">\(O(\log q)\)</span> which is too much for us.
+The issue is that while <span class="math inline">\(m = n\log q\)</span> is polynomial in <span class="math inline">\(n\)</span>, <span class="math inline">\(q\)</span> itself has <em>exponential</em> magnitude. In particular <span class="math inline">\(\log q \approx \sqrt{n}\)</span>, and we cannot afford to use a circuit of that depth.</p>
+<blockquote>
+<h1 id="section-87" class="pause"></h1>
+<p>Please stop here and see if you understand why the natural circuit to compute the addition of two numbers modulo <span class="math inline">\(q\)</span> (represented as <span class="math inline">\(\log q\)</span>-length binary strings) will require depth <span class="math inline">\(O(\log q)\)</span>.
+As a hint, one needs to keep track of the “carry”.</p>
+</blockquote>
+<p>Fortunately, because we only care about accuracy up to <span class="math inline">\(q/10\)</span>, we can make the calculation “shallower”.
+Specifically, if we add <span class="math inline">\(m\)</span> numbers in <span class="math inline">\(\mathbb{Z}_q\)</span> (each represented by <span class="math inline">\(\log q\)</span> bits), we can drop all but the first <span class="math inline">\(100\log m\)</span> most significant digits of our numbers.
+The reason is that dropping this can change each number by at most <span class="math inline">\((q/m^{100})\)</span>, and so if we ignore these digits, then it would change the sum of the <span class="math inline">\(m\)</span> numbers by at most <span class="math inline">\(m(q/m^{100}) \ll q\)</span>.
+Hence we can easily do this work in <span class="math inline">\(poly(\log m)\)</span> depth, which is <span class="math inline">\(poly(\log n)\)</span> since <span class="math inline">\(m=poly(n)\)</span>.</p>
+<p>Let us now show this more formally:</p>
+<div class="lemma">
+<p><span id="lem:decdepthlem" class="lemma"><strong>Lemma 16.1  </strong></span>For every <span class="math inline">\(c\in\mathbb{Z}_q^m\)</span> there exists some function <span class="math inline">\(f:\{0,1\}^m\rightarrow\{0,1\}\)</span> such that:</p>
+<ol style="list-style-type: decimal">
+<li><p>For every <span class="math inline">\(\hat{s}\in \{0,1\}^n\)</span> such that <span class="math inline">\(|\langle \hat{s},c \rangle|&lt;0.1q\)</span>, <span class="math inline">\(f(\hat{s})=0\)</span></p></li>
+<li><p>For every <span class="math inline">\(\hat{s}\in \{0,1\}^n\)</span> such that <span class="math inline">\(0.4q&lt;|\langle \hat{s},c \rangle|&lt;0.6q\)</span>, <span class="math inline">\(f(\hat{s})=1\)</span></p></li>
+<li><p>There is a circuit computing <span class="math inline">\(f\)</span> of depth at most <span class="math inline">\(100(\log m)^3\)</span>.</p></li>
+</ol>
+</div>
+<p>{.proof data-ref=“decdepthlem”}
+For every number <span class="math inline">\(x\in\mathbb{Z}_q\)</span>, define <span class="math inline">\(\tilde{x}\)</span> to be the number that is obtained by writing <span class="math inline">\(x\)</span> in the binary basis and setting all digits except the <span class="math inline">\(10\log m\)</span> most significant ones to zero.
+Note that <span class="math inline">\(\tilde{x} \leq x \leq \tilde{x} + q/m^{10}\)</span>. The idea is that we will do the calculation by changing every number <span class="math inline">\(c_i\)</span> and the modulos <span class="math inline">\(q\)</span> into their correponding numbers <span class="math inline">\(\tilde{c}_i\)</span> and <span class="math inline">\(\tilde{q}\)</span>.</p>
+<p>We define <span class="math inline">\(f(\hat{s})\)</span> to equal <span class="math inline">\(1\)</span> if <span class="math inline">\(|\sum \hat{s}_i \tilde{c}_i \pmod {\tilde{q}}| \geq 0.3\tilde{q}\)</span> and to equal <span class="math inline">\(0\)</span> otherwise (where as usual the absolute value of <span class="math inline">\(x\)</span> modulo <span class="math inline">\(\tilde{q}\)</span> is the minimum of <span class="math inline">\(x\)</span> and <span class="math inline">\(\tilde{q}-x\)</span>.)
+All numbers involved have zeroes in all but the <span class="math inline">\(10\log m\)</span> most significant digits and so these less significant digits can be ignored.
+Hence we can add any pair of such numbers modulo <span class="math inline">\(\tilde{q}\)</span> in depth <span class="math inline">\(O(\log m)^2\)</span> using the standard elementary school algorithm to add two <span class="math inline">\(\ell\)</span>-digit numbers in <span class="math inline">\(O(\ell^2)\)</span> steps.</p>
+<p>Now we can add the <span class="math inline">\(m\)</span> numbers by adding pairs, and then adding up the results, and this way in a binary tree of depth <span class="math inline">\(\log m\)</span> to get a total depth of <span class="math inline">\(O(\log m)^3\)</span>.
+So, all that is left to prove is that this function <span class="math inline">\(f\)</span> satisfies the conditions (1) and (2).</p>
+<p>If we look at the <em>non modular</em> sum then <span class="math inline">\(|\sum \hat{s}_i \tilde{c}_i - \sum \hat{s}_i c_i | &lt; mq/m^{10} = q/m^9\)</span> so now we want to show that the effect of taking modulo <span class="math inline">\(\tilde{q}\)</span> is not much different from taking modulo <span class="math inline">\(q\)</span>.
+Indeed, note that this sum (before a modular reduction) is an integer between <span class="math inline">\(0\)</span> and <span class="math inline">\(qm\)</span>. If <span class="math inline">\(x\)</span> is such an integer and we
+divide <span class="math inline">\(x\)</span> by <span class="math inline">\(q\)</span> to write <span class="math inline">\(x = kq+ r\)</span> for <span class="math inline">\(r&lt;q\)</span>, then since <span class="math inline">\(x&lt;qm\)</span>, <span class="math inline">\(k&lt;m\)</span>, and so we can write <span class="math inline">\(x = k\tilde{q} + k(q-\tilde{q})+r\)</span> so the difference between <span class="math inline">\(k \mod q\)</span> and <span class="math inline">\(k \mod{\tilde{q}}\)</span> will be (in our standard modular metric) at most <span class="math inline">\(mq/m^{10}=q/m^9\)</span>. Overall we get that if <span class="math inline">\(\sum \hat{s}_i c_i \mod{q}\)</span> is in the interval <span class="math inline">\([0.4q, 0.6q]\)</span> then <span class="math inline">\(\sum \hat{s}_i \tilde{c}_i \pmod{\tilde{q}}\)</span> will be in the interval <span class="math inline">\([0.4q-100q/m^9, 0.6q+100q/m^9]\)</span> which is contained in <span class="math inline">\([0.3\tilde{q},0.7\tilde{q}]\)</span>.</p>
+<p>This completes the proof that our scheme can fit into the bootstrapping theorem (i.e., of <a href="" class="ref">LWEFHEthm</a>), hence completing the description of the fully homomorphic encryption scheme.</p>
+<blockquote>
+<h1 id="section-88" class="pause"></h1>
+<p>Now would be a good point to go back and see you understand how all the pieces fit together to obtain the complete construction of the fully homomorphic encryption scheme.</p>
+</blockquote>
+</div>
+</div>
+<div id="advanced-topics" class="section level2 hasAnchor" number="16.6">
+<h2><span class="header-section-number">16.6</span> Advanced topics:<a href="chapfhetwo.html#advanced-topics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="fully-homomorphic-encryption-for-approximate-computation-over-the-real-numbers-ckks" class="section level3 hasAnchor" number="16.6.1">
+<h3><span class="header-section-number">16.6.1</span> Fully homomorphic encryption for approximate computation over the real numbers: <a href="https://eprint.iacr.org/2016/421.pdf">CKKS</a><a href="chapfhetwo.html#fully-homomorphic-encryption-for-approximate-computation-over-the-real-numbers-ckks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We have seen how a fully homomorphic encryption for a plaintext bit <span class="math inline">\(b\)</span> can be constructed and we are able to evaluate addition and multiplication of ciphertexts as well as a NAND gate in the ciphertext space. One can also extend FHEENC scheme to encrypt a plaintext message <span class="math inline">\(\mu \in \mathbb{Z}_q\)</span> and can evaluate multi-bit integer additions and multiplications more efficiently. Our next following question would be floating/fixed point operations. They are similar to integer operations, but we need to be able to evaluate a rounding operation following every computation. Unfortunately, it has been considered difficult to evaluate the rounding operation ensuring the correctness property. An easier solution is to assume approximate computations from the beginning and embrace errors caused by them.</p>
+<p>CKKS scheme, one of the recent schemes, addressed this challenge by allowing small errors in the decrypted results. Its correctness property is more relaxed than what we’ve seen before. Now decryption does not necessarily be precisely the original message, and indeed, this resolved the rounding operation problem supporting approximate computation over the real numbers.
+To get more sense on its construction, recall that when we decrypt a ciphertext in the FHEENC scheme, we have <span class="math inline">\(CQ^\top s = bQ^\top s + e\)</span> where <span class="math inline">\(\max |e_i| \ll \sqrt{q}\)</span>. Since <span class="math inline">\((Q^\top s)_1 \in (0.499q, 0.5001q)\)</span>, multiplying by this term places a plaintext bit near the most significant bits of the ciphertext where the plaintext cannot be polluted by the encryption noise. Therefore, we are able to precisely remove the noise <span class="math inline">\(e\)</span> we added for the security. However, this kind of separated placement actually makes an evaluation of the rounding operation difficult.
+On the other hand, the CKKS scheme doesn’t clearly separate the plaintext message and noise in its decryption structure. Specifically, we have the form of <span class="math inline">\(c^\top s = m + e\)</span> and the noise lies with the LSB part of the message and does pollute the lowest bits of the message. Note that this is acceptable as long as it preserves enough precision. Now we can evaluate rounding(i.e., rescaling in the paper) homomorphically, by dividing both a ciphertext <span class="math inline">\(c\)</span> and the parameter <span class="math inline">\(q\)</span> by some factor <span class="math inline">\(p\)</span>. The concept of handling ciphertexts with a different encryption parameter <span class="math inline">\(q&#39;=q/p\)</span> is already known to be possible. You can find more details on this modulus switching technique in this <a href="https://eprint.iacr.org/2011/277.pdf">paper</a> if you are interested.
+Besides, it is also proved that the precision loss of the decrypted evaluation result is at most one more bit loss compared to the plaintext computation result, which means the scheme’s precision guarantee is nearly optimal.
+This scheme offers an efficient homomorphic encryption setting for many practical data science and machine learning applications which does not require precise values, but approximate ones. You may check existing open source libraries, such as <a href="https://www.microsoft.com/en-us/research/project/microsoft-seal/">MS SEAL</a> and <a href="https://github.com/snucrypto/HEAAN">HEAAN</a>, of this scheme as well as many practical applications including <a href="https://eprint.iacr.org/2018/254.pdf">logistic regression</a> in the literature.</p>
+</div>
+<div id="bandwidth-efficient-fully-homomorphic-encryption-gh" class="section level3 hasAnchor" number="16.6.2">
+<h3><span class="header-section-number">16.6.2</span> Bandwidth efficient fully homomorphic encryption <a href="https://eprint.iacr.org/2019/733.pdf">GH</a><a href="chapfhetwo.html#bandwidth-efficient-fully-homomorphic-encryption-gh" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When we define homomorphic encryption in <a href="" class="ref">partialhomdef</a>, we only consider a class of single-output functions <span class="math inline">\(\mathcal{F}\)</span>. Now we want to extend the difinition to multiple-output function and consider how bandwidth-efficient the fully homomorphic encryption can be. More specifically, if we want to guarantee that the result of decryption is (or contains) <span class="math inline">\(f(x_1,\ldots,x_\ell)\)</span>, what will be the minimal possible length of the ciphertext? Let us first define the compressible fully homomorphic encryption scheme.</p>
+<div class="definition" title="Compressible Fully Homomorphic Encryption">
+<p><span id="def:compFHE" class="definition"><strong>Definition 16.2  </strong></span>A <em>compressible fully homomorphic public key encryption scheme</em> is a CPA secure public key encryption scheme <span class="math inline">\((G,E,D)\)</span> such that there exist polynomial-time algorithms <span class="math inline">\(EVAL, COMP:{0,1}^* \rightarrow {0,1}^*\)</span> such that for every <span class="math inline">\((e,d)=G(1^n)\)</span>, <span class="math inline">\(\ell=poly(n)\)</span>, <span class="math inline">\(x_1,\ldots,x_\ell \in \{0,1\}\)</span>, and <span class="math inline">\(f:\{0,1\}^\ell\rightarrow \{0,1\}^*\)</span> which can be described by a circuit, it holds that:</p>
+<ul>
+<li><p><span class="math inline">\(c=EVAL_e(f,E_e(x_1),\ldots,E_e(x_\ell))\)</span>.</p></li>
+<li><p><span class="math inline">\(c^*=COMP(c)\)</span>.</p></li>
+<li><p><span class="math inline">\(f(x_1,\ldots,x_\ell)\)</span> is a prefix of <span class="math inline">\(D_d(c^*)\)</span>.</p></li>
+</ul>
+</div>
+<p>This definition is similar to the standard fully homomorphic encryption except an additional compression step. The bandwidth efficiency of a compressible fully homomorphic encryption is often described by the rate which is defined as follows:</p>
+<div class="definition" title="Rate of Compressible Fully Homomorphic Encryption">
+<p><span id="def:ratecompFHE" class="definition"><strong>Definition 16.3  </strong></span>A compressible fully homomorphic public key encryption scheme has <em>rate</em> <span class="math inline">\(\alpha=\alpha(n)\)</span> if for every <span class="math inline">\((e,d)=G(1^n)\)</span>, <span class="math inline">\(\ell=poly(n)\)</span>, <span class="math inline">\(x_1,\ldots,x_\ell \in \{0,1\}\)</span>, and <span class="math inline">\(f:\{0,1\}^\ell\rightarrow \{0,1\}^*\)</span> with sufficiently long output, it holds that
+<span class="math display">\[\alpha |c^*|\leq |f(x_1,\ldots,x_\ell)|.\]</span></p>
+</div>
+<p>The following theorem by <a href="https://eprint.iacr.org/2019/733.pdf">Gentry and Halevi 2019</a> answers the earlier question, which states that the nearly optimal rate, say a rate arbitrarily close to 1, can be achieved.</p>
+<blockquote>
+<h1 id="optrate" class="theorem" title="Nearly Optimal Rate"></h1>
+<p>For any <span class="math inline">\(\epsilon&gt;0\)</span>, there exists a compressive fully homomorphic encryption scheme with rate being <span class="math inline">\(1-\epsilon\)</span> under the LWE assumption.</p>
+</blockquote>
+</div>
+<div id="using-fully-homomorphic-encryption-to-achieve-private-information-retrieval." class="section level3 hasAnchor" number="16.6.3">
+<h3><span class="header-section-number">16.6.3</span> Using fully homomorphic encryption to achieve private information retrieval.<a href="chapfhetwo.html#using-fully-homomorphic-encryption-to-achieve-private-information-retrieval." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Private information retrieval (PIR) allows the client to retrive the <span class="math inline">\(i\)</span>-th entry of a database which has totally <span class="math inline">\(n\)</span> entries without letting the server know <span class="math inline">\(i\)</span>. We only consider the single-server case here. Obviously, a trivial solution is that the server sends the entire database to the client.</p>
+<p>One simple case of PIR is that each entry is a bit, for which the trivial solution above has the communication complexity being <span class="math inline">\(n\)</span>. <a href="https://web.cs.ucla.edu/~rafail/PUBLIC/34.pdf">Kushilevitz and Ostrovsky 1997</a> reduced the the complexity to be smaller than <span class="math inline">\(O(n^\epsilon)\)</span> for any <span class="math inline">\(\epsilon&gt;0\)</span>. After that, another work (<a href="https://people.csail.mit.edu/silvio/Selected%20Scientific%20Papers/Private%20Information%20Retrieval/Computationally%20Private%20Information%20Retrieval%20with%20Polylogarithmic%20Communication.pdf">Cachin et al. 1999</a>) further reduced the complexity to <span class="math inline">\(polylog(n)\)</span>. More discussion about PIR and related FHE techniques can be found in <a href="https://eprint.iacr.org/2007/059.pdf">Ostrovsky and Skeith 2007</a>, <a href="https://ieeexplore.ieee.org/document/6189348">Yi et al. 2013</a> and references therein.</p>
+<p>One interesting observation is that fully homomorphic encryption can be applied to the single-server PIR via the following procedures:</p>
+<ul>
+<li><p>The client computes <span class="math inline">\(E_e(i)\)</span> and sends it to the server.</p></li>
+<li><p>The server evaluates <span class="math inline">\(c=EVAL(f,E_e(i))\)</span>, where <span class="math inline">\(f(i)\)</span> returns the <span class="math inline">\(i\)</span>-th entry of the database, and sends it (or its compressed version <span class="math inline">\(c^*\)</span>) back to the client.</p></li>
+<li><p>The client decrypts <span class="math inline">\(D_d(c)\)</span> or <span class="math inline">\(D_d(c^*)\)</span> and obtains the <span class="math inline">\(i\)</span>-th entry of the database.</p></li>
+<li><p>Bandwidth efficient fully homomorphic encryption <a href="https://eprint.iacr.org/2019/733.pdf">GH</a></p></li>
+</ul>
+<p>Since there exists compressive fully homomorphic encryption scheme with nearly optimal rate, say rate arbitrary close to <span class="math inline">\(1\)</span> (see <a href="" class="ref">optrate</a>), we can immediately get rate-<span class="math inline">\((1-\epsilon)\)</span> PIR for any <span class="math inline">\(\epsilon\)</span>. (Note that this result holds only for database whose entries is quite large, since the rate is defined for circuits with sufficiently long output.) Prior to the theorem by <a href="https://eprint.iacr.org/2019/733.pdf">Gentry and Halevi 2019</a>, <a href="https://petsymposium.org/2015/papers/23_Kiayias.pdf">Kiayias et al. 2015</a> also constructed a PIR scheme with a nearly optimal rate/bandwidth efficiency. The application of fully homomorphic encryption to PIR is a fascinating field; not only limited to the bandwidth efficiency, you may be also interested in the computational cost. We refer to <a href="https://eprint.iacr.org/2019/733.pdf">Gentry and Halevi 2019</a> for more details.</p>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="96">
+<li id="fn96"><p>This theorem as stated was proven by Brakerski and Vaikuntanathan (ITCS 2014) building a line of work initiated by Gentry’s original STOC 2009 work. We will actually prove a weaker version of this theorem, due to Brakerski and Vaikuntanathan (FOCS 2011), which assumes a quantitative strengthening of LWE. However, we will not follow the proof of Brakerski and Vaikuntanathan but rather a scheme of Gentry, Sahai and Waters (CRYPTO 2013). Also note that, as noted in the previous lecture, all of these results require the extra assumption of <em>circular security</em> on top of LWE to achieve a non-leveled fully homomorphic encryption scheme.<a href="chapfhetwo.html#fnref96" class="footnote-back">↩︎</a></p></li>
+<li id="fn97"><p>For this reason, Craig Gentry called his highly recommended survey on fully homomorphic encryption and other advanced constructions <a href="https://eprint.iacr.org/2014/610">computing on the edge of chaos</a>.<a href="chapfhetwo.html#fnref97" class="footnote-back">↩︎</a></p></li>
+<li id="fn98"><p>We deliberately leave some flexibility in the definition of “short”. While initially “short” might mean that <span class="math inline">\(|e_i|&lt;\sqrt{q}\)</span> for every <span class="math inline">\(i\)</span>, decryption will succeed as long as <span class="math inline">\(|e_i|\)</span> is, say, at most <span class="math inline">\(q/100n\)</span>.<a href="chapfhetwo.html#fnref98" class="footnote-back">↩︎</a></p></li>
+<li id="fn99"><p>If we were being pedantic the length of the vector (and other constant below) should be the integer <span class="math inline">\(\ceil{\log q}\)</span> but I omit the ceiling symbols for simplicity of notation.<a href="chapfhetwo.html#fnref99" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chapfheone.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sfeonechap.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/15-FHE-part2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Pseudorandomness | A Minimal Book Example</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Pseudorandomness | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Pseudorandomness | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="computational-security.html"/>
+<link rel="next" href="pseudorandom-functions.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="mathematical-background.html"><a href="mathematical-background.html"><i class="fa fa-check"></i><b>1</b> Mathematical Background</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="mathematical-background.html"><a href="mathematical-background.html#a-quick-overview-of-mathematical-prerequisites"><i class="fa fa-check"></i><b>1.1</b> A quick overview of mathematical prerequisites</a></li>
+<li class="chapter" data-level="1.2" data-path="mathematical-background.html"><a href="mathematical-background.html#mathematical-proofs"><i class="fa fa-check"></i><b>1.2</b> Mathematical Proofs</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="mathematical-background.html"><a href="mathematical-background.html#example-the-existence-of-infinitely-many-primes."><i class="fa fa-check"></i><b>1.2.1</b> Example: The existence of infinitely many primes.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="mathematical-background.html"><a href="mathematical-background.html#probability-and-sample-spaces"><i class="fa fa-check"></i><b>1.3</b> Probability and Sample spaces</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="mathematical-background.html"><a href="mathematical-background.html#random-variables"><i class="fa fa-check"></i><b>1.3.1</b> Random variables</a></li>
+<li class="chapter" data-level="1.3.2" data-path="mathematical-background.html"><a href="mathematical-background.html#distributions-over-strings"><i class="fa fa-check"></i><b>1.3.2</b> Distributions over strings</a></li>
+<li class="chapter" data-level="1.3.3" data-path="mathematical-background.html"><a href="mathematical-background.html#more-general-sample-spaces."><i class="fa fa-check"></i><b>1.3.3</b> More general sample spaces.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="mathematical-background.html"><a href="mathematical-background.html#correlations-and-independence"><i class="fa fa-check"></i><b>1.4</b> Correlations and independence</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="mathematical-background.html"><a href="mathematical-background.html#independent-random-variables"><i class="fa fa-check"></i><b>1.4.1</b> Independent random variables</a></li>
+<li class="chapter" data-level="1.4.2" data-path="mathematical-background.html"><a href="mathematical-background.html#collections-of-independent-random-variables."><i class="fa fa-check"></i><b>1.4.2</b> Collections of independent random variables.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="mathematical-background.html"><a href="mathematical-background.html#concentration-and-tail-bounds"><i class="fa fa-check"></i><b>1.5</b> Concentration and tail bounds</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="mathematical-background.html"><a href="mathematical-background.html#chebyshevs-inequality"><i class="fa fa-check"></i><b>1.5.1</b> Chebyshev’s Inequality</a></li>
+<li class="chapter" data-level="1.5.2" data-path="mathematical-background.html"><a href="mathematical-background.html#the-chernoff-bound"><i class="fa fa-check"></i><b>1.5.2</b> The Chernoff bound</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises"><i class="fa fa-check"></i><b>1.6</b> Exercises</a></li>
+<li class="chapter" data-level="1.7" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises-1"><i class="fa fa-check"></i><b>1.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#defining-encryptions"><i class="fa fa-check"></i><b>2.2</b> Defining encryptions</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#defining-security-of-encryption"><i class="fa fa-check"></i><b>2.3</b> Defining security of encryption</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction.html"><a href="introduction.html#generating-randomness-in-actual-cryptographic-systems"><i class="fa fa-check"></i><b>2.3.1</b> Generating randomness in actual cryptographic systems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#defining-the-secrecy-requirement."><i class="fa fa-check"></i><b>2.4</b> Defining the secrecy requirement.</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction.html"><a href="introduction.html#perfect-secrecy"><i class="fa fa-check"></i><b>2.5</b> Perfect Secrecy</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="introduction.html"><a href="introduction.html#achieving-perfect-secrecy"><i class="fa fa-check"></i><b>2.5.1</b> Achieving perfect secrecy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="introduction.html"><a href="introduction.html#necessity-of-long-keys"><i class="fa fa-check"></i><b>2.6</b> Necessity of long keys</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction.html"><a href="introduction.html#amplifying-success-probability"><i class="fa fa-check"></i><b>2.6.1</b> Amplifying success probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction.html"><a href="introduction.html#bibliographical-notes"><i class="fa fa-check"></i><b>2.7</b> Bibliographical notes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="computational-security.html"><a href="computational-security.html"><i class="fa fa-check"></i><b>3</b> Computational Security</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="computational-security.html"><a href="computational-security.html#proof-by-reduction"><i class="fa fa-check"></i><b>3.0.1</b> Proof by reduction</a></li>
+<li class="chapter" data-level="3.1" data-path="computational-security.html"><a href="computational-security.html#the-asymptotic-approach"><i class="fa fa-check"></i><b>3.1</b> The asymptotic approach</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="computational-security.html"><a href="computational-security.html#countoperation"><i class="fa fa-check"></i><b>3.1.1</b> Counting number of operations.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="computational-security.html"><a href="computational-security.html#our-first-conjecture"><i class="fa fa-check"></i><b>3.2</b> Our first conjecture</a></li>
+<li class="chapter" data-level="3.3" data-path="computational-security.html"><a href="computational-security.html#why-care-about-the-cipher-conjecture"><i class="fa fa-check"></i><b>3.3</b> Why care about the cipher conjecture?</a></li>
+<li class="chapter" data-level="3.4" data-path="computational-security.html"><a href="computational-security.html#prelude-computational-indistinguishability"><i class="fa fa-check"></i><b>3.4</b> Prelude: Computational Indistinguishability</a></li>
+<li class="chapter" data-level="3.5" data-path="computational-security.html"><a href="computational-security.html#the-length-extension-theorem-or-stream-ciphers"><i class="fa fa-check"></i><b>3.5</b> The Length Extension Theorem or Stream Ciphers</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="computational-security.html"><a href="computational-security.html#appendix-the-computational-model"><i class="fa fa-check"></i><b>3.5.1</b> Appendix: The computational model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pseudorandomness.html"><a href="pseudorandomness.html"><i class="fa fa-check"></i><b>4</b> Pseudorandomness</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#unpredictability-an-alternative-approach-for-proving-the-length-extension-theorem"><i class="fa fa-check"></i><b>4.0.1</b> Unpredictability: an alternative approach for proving the length extension theorem</a></li>
+<li class="chapter" data-level="4.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#stream-ciphers"><i class="fa fa-check"></i><b>4.1</b> Stream ciphers</a></li>
+<li class="chapter" data-level="4.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#what-do-pseudorandom-generators-actually-look-like"><i class="fa fa-check"></i><b>4.2</b> What do pseudorandom generators actually look like?</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-0-the-counter-generator"><i class="fa fa-check"></i><b>4.2.1</b> Attempt 0: The counter generator</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-1-the-linear-checksum-linear-feedback-shift-register-lfsr"><i class="fa fa-check"></i><b>4.2.2</b> Attempt 1: The linear checksum / linear feedback shift register (LFSR)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#from-insecurity-to-security"><i class="fa fa-check"></i><b>4.2.3</b> From insecurity to security</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-2-linear-congruential-generators-with-dropped-bits"><i class="fa fa-check"></i><b>4.2.4</b> Attempt 2: Linear Congruential Generators with dropped bits</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#successful-examples"><i class="fa fa-check"></i><b>4.3</b> Successful examples</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-1-subset-sum-generator"><i class="fa fa-check"></i><b>4.3.1</b> Case Study 1: Subset Sum Generator</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-2-rc4"><i class="fa fa-check"></i><b>4.3.2</b> Case Study 2: RC4</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-3-blum-blum-and-shub"><i class="fa fa-check"></i><b>4.3.3</b> Case Study 3: Blum, Blum and Shub</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#non-constructive-existence-of-pseudorandom-generators"><i class="fa fa-check"></i><b>4.4</b> Non-constructive existence of pseudorandom generators</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html"><i class="fa fa-check"></i><b>5</b> Pseudorandom functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#one-time-passwords-e.g.-google-authenticator-rsa-id-etc."><i class="fa fa-check"></i><b>5.1</b> One time passwords (e.g. Google Authenticator, RSA ID, etc.)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#how-do-pseudorandom-functions-help-in-the-login-problem"><i class="fa fa-check"></i><b>5.1.1</b> How do pseudorandom functions help in the login problem?</a></li>
+<li class="chapter" data-level="5.1.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#modifying-input-and-output-lengths-of-prfs"><i class="fa fa-check"></i><b>5.1.2</b> Modifying input and output lengths of PRFs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#message-authentication-codes"><i class="fa fa-check"></i><b>5.2</b> Message Authentication Codes</a></li>
+<li class="chapter" data-level="5.3" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#macs-from-prfs"><i class="fa fa-check"></i><b>5.3</b> MACs from PRFs</a></li>
+<li class="chapter" data-level="5.4" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#arbitrary-input-length-extension-for-macs-and-prfs"><i class="fa fa-check"></i><b>5.4</b> Arbitrary input length extension for MACs and PRFs</a></li>
+<li class="chapter" data-level="5.5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#aside-natural-proofs"><i class="fa fa-check"></i><b>5.5</b> Aside: natural proofs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><i class="fa fa-check"></i><b>6</b> Pseudorandom functions from pseudorandom generators and CPA security</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#securely-encrypting-many-messages---chosen-plaintext-security"><i class="fa fa-check"></i><b>6.1</b> Securely encrypting many messages - chosen plaintext security</a></li>
+<li class="chapter" data-level="6.2" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#pseudorandom-permutations-block-ciphers"><i class="fa fa-check"></i><b>6.2</b> Pseudorandom permutations / block ciphers</a></li>
+<li class="chapter" data-level="6.3" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#encryption-modes"><i class="fa fa-check"></i><b>6.3</b> Encryption modes</a></li>
+<li class="chapter" data-level="6.4" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#optional-aside-broadcast-encryption"><i class="fa fa-check"></i><b>6.4</b> Optional, Aside: Broadcast Encryption</a></li>
+<li class="chapter" data-level="6.5" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#reading-comprehension-exercises"><i class="fa fa-check"></i><b>6.5</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html"><i class="fa fa-check"></i><b>7</b> Chosen Ciphertext Security</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#short-recap"><i class="fa fa-check"></i><b>7.1</b> Short recap</a></li>
+<li class="chapter" data-level="7.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#going-beyond-cpa"><i class="fa fa-check"></i><b>7.2</b> Going beyond CPA</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#example-the-wired-equivalence-privacy-wep"><i class="fa fa-check"></i><b>7.2.1</b> Example: The Wired Equivalence Privacy (WEP)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-security-1"><i class="fa fa-check"></i><b>7.2.2</b> Chosen ciphertext security</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#constructing-cca-secure-encryption"><i class="fa fa-check"></i><b>7.3</b> Constructing CCA secure encryption</a></li>
+<li class="chapter" data-level="7.4" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#simplified-gcm-encryption"><i class="fa fa-check"></i><b>7.4</b> (Simplified) GCM encryption</a></li>
+<li class="chapter" data-level="7.5" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#padding-chopping-and-their-pitfalls-the-buffer-overflow-of-cryptography"><i class="fa fa-check"></i><b>7.5</b> Padding, chopping, and their pitfalls: the “buffer overflow” of cryptography</a></li>
+<li class="chapter" data-level="7.6" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-attack-as-implementing-metaphors"><i class="fa fa-check"></i><b>7.6</b> Chosen ciphertext attack as implementing metaphors</a></li>
+<li class="chapter" data-level="7.7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#reading-comprehension-exercises-1"><i class="fa fa-check"></i><b>7.7</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="hash-functions-random-oracles-and-bitcoin.html"><a href="hash-functions-random-oracles-and-bitcoin.html"><i class="fa fa-check"></i><b>8</b> Hash Functions, Random Oracles, and Bitcoin</a></li>
+<li class="chapter" data-level="9" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><i class="fa fa-check"></i><b>9</b> Key derivation, protecting passwords, slow hashes, Merkle trees</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#keys-from-passwords"><i class="fa fa-check"></i><b>9.1</b> Keys from passwords</a></li>
+<li class="chapter" data-level="9.2" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#merkle-trees-and-verifying-storage."><i class="fa fa-check"></i><b>9.2</b> Merkle trees and verifying storage.</a></li>
+<li class="chapter" data-level="9.3" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#proofs-of-retrievability"><i class="fa fa-check"></i><b>9.3</b> Proofs of Retrievability</a></li>
+<li class="chapter" data-level="9.4" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#entropy-extraction"><i class="fa fa-check"></i><b>9.4</b> Entropy extraction</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#forward-and-backward-secrecy"><i class="fa fa-check"></i><b>9.4.1</b> Forward and backward secrecy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html"><i class="fa fa-check"></i><b>10</b> Public key cryptography</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#private-key-crypto-recap"><i class="fa fa-check"></i><b>10.1</b> Private key crypto recap</a></li>
+<li class="chapter" data-level="10.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#public-key-encryptions-definition"><i class="fa fa-check"></i><b>10.2</b> Public Key Encryptions: Definition</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-obfuscation-paradigm"><i class="fa fa-check"></i><b>10.2.1</b> The obfuscation paradigm</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#some-concrete-candidates"><i class="fa fa-check"></i><b>10.3</b> Some concrete candidates:</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#diffie-hellman-encryption-aka-el-gamal"><i class="fa fa-check"></i><b>10.3.1</b> Diffie-Hellman Encryption (aka El-Gamal)</a></li>
+<li class="chapter" data-level="10.3.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#sampling-random-primes"><i class="fa fa-check"></i><b>10.3.2</b> Sampling random primes</a></li>
+<li class="chapter" data-level="10.3.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#a-little-bit-of-group-theory."><i class="fa fa-check"></i><b>10.3.3</b> A little bit of group theory.</a></li>
+<li class="chapter" data-level="10.3.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#digital-signatures"><i class="fa fa-check"></i><b>10.3.4</b> Digital Signatures</a></li>
+<li class="chapter" data-level="10.3.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-digital-signature-algorithm-dsa"><i class="fa fa-check"></i><b>10.3.5</b> The Digital Signature Algorithm (DSA)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#putting-everything-together---security-in-practice."><i class="fa fa-check"></i><b>10.4</b> Putting everything together - security in practice.</a></li>
+<li class="chapter" data-level="10.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#appendix-an-alternative-proof-of-the-density-of-primes"><i class="fa fa-check"></i><b>10.5</b> Appendix: An alternative proof of the density of primes</a></li>
+<li class="chapter" data-level="10.6" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#additional-group-theory-exercises-and-proofs"><i class="fa fa-check"></i><b>10.6</b> Additional Group Theory Exercises and Proofs</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#solved-exercises"><i class="fa fa-check"></i><b>10.6.1</b> Solved exercises:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html"><i class="fa fa-check"></i><b>11</b> Concrete candidates for public key crypto</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#some-number-theory."><i class="fa fa-check"></i><b>11.1</b> Some number theory.</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#primaliy-testing"><i class="fa fa-check"></i><b>11.1.1</b> Primaliy testing</a></li>
+<li class="chapter" data-level="11.1.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#fields"><i class="fa fa-check"></i><b>11.1.2</b> Fields</a></li>
+<li class="chapter" data-level="11.1.3" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#chinese-remainder-theorem"><i class="fa fa-check"></i><b>11.1.3</b> Chinese remainder theorem</a></li>
+<li class="chapter" data-level="11.1.4" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#the-rsa-and-rabin-functions"><i class="fa fa-check"></i><b>11.1.4</b> The RSA and Rabin functions</a></li>
+<li class="chapter" data-level="11.1.5" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#abstraction-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.5</b> Abstraction: trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.6" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#public-key-encryption-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.6</b> Public key encryption from trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.7" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#digital-signatures-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.7</b> Digital signatures from trapdoor permutations</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#hardcore-bits-and-security-without-random-oracles"><i class="fa fa-check"></i><b>11.2</b> Hardcore bits and security without random oracles</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#extending-to-more-than-one-hardcore-bit"><i class="fa fa-check"></i><b>11.2.1</b> Extending to more than one hardcore bit</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html"><i class="fa fa-check"></i><b>12</b> Lattice based cryptography</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#quick-linear-algebra-recap"><i class="fa fa-check"></i><b>12.0.1</b> Quick linear algebra recap</a></li>
+<li class="chapter" data-level="12.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#a-world-without-gaussian-elimination"><i class="fa fa-check"></i><b>12.1</b> A world without Gaussian elimination</a></li>
+<li class="chapter" data-level="12.2" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#security-in-the-real-world."><i class="fa fa-check"></i><b>12.2</b> Security in the real world.</a></li>
+<li class="chapter" data-level="12.3" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#search-to-decision"><i class="fa fa-check"></i><b>12.3</b> Search to decision</a></li>
+<li class="chapter" data-level="12.4" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#lweencsec"><i class="fa fa-check"></i><b>12.4</b> An LWE based encryption scheme</a></li>
+<li class="chapter" data-level="12.5" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#but-what-are-lattices"><i class="fa fa-check"></i><b>12.5</b> But what are lattices?</a></li>
+<li class="chapter" data-level="12.6" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#ring-based-lattices"><i class="fa fa-check"></i><b>12.6</b> Ring based lattices</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html"><i class="fa fa-check"></i><b>13</b> Establishing secure connections over insecure channels</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cryptographys-obsession-with-adjectives."><i class="fa fa-check"></i><b>13.1</b> Cryptography’s obsession with adjectives.</a></li>
+<li class="chapter" data-level="13.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#basic-key-exchange-protocol"><i class="fa fa-check"></i><b>13.2</b> Basic Key Exchange protocol</a></li>
+<li class="chapter" data-level="13.3" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#authenticated-key-exchange"><i class="fa fa-check"></i><b>13.3</b> Authenticated key exchange</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#bleichenbachers-attack-on-rsa-pkcs-v1.5-and-ssl-v3.0"><i class="fa fa-check"></i><b>13.3.1</b> Bleichenbacher’s attack on RSA PKCS V1.5 and SSL V3.0</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#chosen-ciphertext-attack-security-for-public-key-cryptography"><i class="fa fa-check"></i><b>13.4</b> Chosen ciphertext attack security for public key cryptography</a></li>
+<li class="chapter" data-level="13.5" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cca-secure-public-key-encryption-in-the-random-oracle-model"><i class="fa fa-check"></i><b>13.5</b> CCA secure public key encryption in the Random Oracle Model</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#defining-secure-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.1</b> Defining secure authenticated key exchange</a></li>
+<li class="chapter" data-level="13.5.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#the-compiler-approach-for-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.2</b> The compiler approach for authenticated key exchange</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#password-authenticated-key-exchange."><i class="fa fa-check"></i><b>13.6</b> Password authenticated key exchange.</a></li>
+<li class="chapter" data-level="13.7" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#client-to-client-key-exchange-for-secure-text-messaging---zrtp-otr-textsecure"><i class="fa fa-check"></i><b>13.7</b> Client to client key exchange for secure text messaging - ZRTP, OTR, TextSecure</a></li>
+<li class="chapter" data-level="13.8" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#heartbleed-and-logjam-attacks"><i class="fa fa-check"></i><b>13.8</b> Heartbleed and logjam attacks</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html"><i class="fa fa-check"></i><b>14</b> Zero knowledge proofs</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#applications-for-zero-knowledge-proofs."><i class="fa fa-check"></i><b>14.1</b> Applications for zero knowledge proofs.</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#nuclear-disarmament"><i class="fa fa-check"></i><b>14.1.1</b> Nuclear disarmament</a></li>
+<li class="chapter" data-level="14.1.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#voting"><i class="fa fa-check"></i><b>14.1.2</b> Voting</a></li>
+<li class="chapter" data-level="14.1.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#more-applications"><i class="fa fa-check"></i><b>14.1.3</b> More applications</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-and-constructing-zero-knowledge-proofs"><i class="fa fa-check"></i><b>14.2</b> Defining and constructing zero knowledge proofs</a></li>
+<li class="chapter" data-level="14.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-zero-knowledge"><i class="fa fa-check"></i><b>14.3</b> Defining zero knowledge</a></li>
+<li class="chapter" data-level="14.4" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#zero-knowledge-proof-for-hamiltonicity."><i class="fa fa-check"></i><b>14.4</b> Zero knowledge proof for Hamiltonicity.</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#why-is-this-interesting"><i class="fa fa-check"></i><b>14.4.1</b> Why is this interesting?</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#parallel-repetition-and-turning-zero-knowledge-proofs-to-signatures."><i class="fa fa-check"></i><b>14.5</b> Parallel repetition and turning zero knowledge proofs to signatures.</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#bonus-features-of-zero-knowledge"><i class="fa fa-check"></i><b>14.5.1</b> “Bonus features” of zero knowledge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="chapfheone.html"><a href="chapfheone.html"><i class="fa fa-check"></i><b>15</b> Fully homomorphic encryption: Introduction and bootstrapping</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="chapfheone.html"><a href="chapfheone.html#defining-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>15.1</b> Defining fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="chapfheone.html"><a href="chapfheone.html#another-application-fully-homomorphic-encryption-for-verifying-computation"><i class="fa fa-check"></i><b>15.1.1</b> Another application: fully homomorphic encryption for verifying computation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="chapfheone.html"><a href="chapfheone.html#example-an-xor-homomorphic-encryption"><i class="fa fa-check"></i><b>15.2</b> Example: An XOR homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="chapfheone.html"><a href="chapfheone.html#abstraction-a-trapdoor-pseudorandom-generator."><i class="fa fa-check"></i><b>15.2.1</b> Abstraction: A trapdoor pseudorandom generator.</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="chapfheone.html"><a href="chapfheone.html#from-linear-homomorphism-to-full-homomorphism"><i class="fa fa-check"></i><b>15.3</b> From linear homomorphism to full homomorphism</a></li>
+<li class="chapter" data-level="15.4" data-path="chapfheone.html"><a href="chapfheone.html#bootstrapping-fully-homomorphic-escape-velocity"><i class="fa fa-check"></i><b>15.4</b> Bootstrapping: Fully Homomorphic “escape velocity”</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="chapfheone.html"><a href="chapfheone.html#radioactive-legos-analogy"><i class="fa fa-check"></i><b>15.4.1</b> Radioactive legos analogy</a></li>
+<li class="chapter" data-level="15.4.2" data-path="chapfheone.html"><a href="chapfheone.html#proving-the-bootstrapping-theorem"><i class="fa fa-check"></i><b>15.4.2</b> Proving the bootstrapping theorem</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="chapfhetwo.html"><a href="chapfhetwo.html"><i class="fa fa-check"></i><b>16</b> Fully homomorphic encryption: Construction</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#prelude-from-vectors-to-matrices"><i class="fa fa-check"></i><b>16.1</b> Prelude: from vectors to matrices</a></li>
+<li class="chapter" data-level="16.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#real-world-partially-homomorphic-encryption"><i class="fa fa-check"></i><b>16.2</b> Real world partially homomorphic encryption</a></li>
+<li class="chapter" data-level="16.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#noise-management-via-encoding"><i class="fa fa-check"></i><b>16.3</b> Noise management via encoding</a></li>
+<li class="chapter" data-level="16.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#putting-it-all-together"><i class="fa fa-check"></i><b>16.4</b> Putting it all together</a></li>
+<li class="chapter" data-level="16.5" data-path="chapfhetwo.html"><a href="chapfhetwo.html#analysis-of-our-scheme"><i class="fa fa-check"></i><b>16.5</b> Analysis of our scheme</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#correctness"><i class="fa fa-check"></i><b>16.5.1</b> Correctness</a></li>
+<li class="chapter" data-level="16.5.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#cpa-security"><i class="fa fa-check"></i><b>16.5.2</b> CPA Security</a></li>
+<li class="chapter" data-level="16.5.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#homomorphism"><i class="fa fa-check"></i><b>16.5.3</b> Homomorphism</a></li>
+<li class="chapter" data-level="16.5.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#shallow-decryption-circuit"><i class="fa fa-check"></i><b>16.5.4</b> Shallow decryption circuit</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="chapfhetwo.html"><a href="chapfhetwo.html#advanced-topics"><i class="fa fa-check"></i><b>16.6</b> Advanced topics:</a>
+<ul>
+<li class="chapter" data-level="16.6.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#fully-homomorphic-encryption-for-approximate-computation-over-the-real-numbers-ckks"><i class="fa fa-check"></i><b>16.6.1</b> Fully homomorphic encryption for approximate computation over the real numbers: CKKS</a></li>
+<li class="chapter" data-level="16.6.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#bandwidth-efficient-fully-homomorphic-encryption-gh"><i class="fa fa-check"></i><b>16.6.2</b> Bandwidth efficient fully homomorphic encryption GH</a></li>
+<li class="chapter" data-level="16.6.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#using-fully-homomorphic-encryption-to-achieve-private-information-retrieval."><i class="fa fa-check"></i><b>16.6.3</b> Using fully homomorphic encryption to achieve private information retrieval.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sfeonechap.html"><a href="sfeonechap.html"><i class="fa fa-check"></i><b>17</b> Multiparty secure computation I: Definition and Honest-But-Curious to Malicious complier</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sfeonechap.html"><a href="sfeonechap.html#ideal-vs.-real-model-security."><i class="fa fa-check"></i><b>17.1</b> Ideal vs. Real Model Security.</a></li>
+<li class="chapter" data-level="17.2" data-path="sfeonechap.html"><a href="sfeonechap.html#formally-defining-secure-multiparty-computation"><i class="fa fa-check"></i><b>17.2</b> Formally defining secure multiparty computation</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="sfeonechap.html"><a href="sfeonechap.html#first-attempt-a-slightly-too-ideal-definition"><i class="fa fa-check"></i><b>17.2.1</b> First attempt: a slightly “too ideal” definition</a></li>
+<li class="chapter" data-level="17.2.2" data-path="sfeonechap.html"><a href="sfeonechap.html#allowing-for-aborts"><i class="fa fa-check"></i><b>17.2.2</b> Allowing for aborts</a></li>
+<li class="chapter" data-level="17.2.3" data-path="sfeonechap.html"><a href="sfeonechap.html#some-comments"><i class="fa fa-check"></i><b>17.2.3</b> Some comments:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="sfeonechap.html"><a href="sfeonechap.html#example-second-price-auction-using-bitcoin"><i class="fa fa-check"></i><b>17.3</b> Example: Second price auction using bitcoin</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="sfeonechap.html"><a href="sfeonechap.html#another-example-distributed-and-threshold-cryptography"><i class="fa fa-check"></i><b>17.3.1</b> Another example: distributed and threshold cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="sfeonechap.html"><a href="sfeonechap.html#proving-the-fundamental-theorem"><i class="fa fa-check"></i><b>17.4</b> Proving the fundamental theorem:</a></li>
+<li class="chapter" data-level="17.5" data-path="sfeonechap.html"><a href="sfeonechap.html#hbctomalred"><i class="fa fa-check"></i><b>17.5</b> Malicious to honest but curious reduction</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="sfeonechap.html"><a href="sfeonechap.html#handling-probabilistic-strategies"><i class="fa fa-check"></i><b>17.5.1</b> Handling probabilistic strategies:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sfetwochap.html"><a href="sfetwochap.html"><i class="fa fa-check"></i><b>18</b> Multiparty secure computation II: Construction using Fully Homomorphic Encryption</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sfetwochap.html"><a href="sfetwochap.html#constructing-2-party-honest-but-curious-computation-from-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.1</b> Constructing 2 party honest but curious computation from fully homomorphic encryption</a></li>
+<li class="chapter" data-level="18.2" data-path="sfetwochap.html"><a href="sfetwochap.html#achieving-circuit-privacy-in-a-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.2</b> Achieving circuit privacy in a fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="sfetwochap.html"><a href="sfetwochap.html#bottom-line-a-two-party-secure-computation-protocol"><i class="fa fa-check"></i><b>18.2.1</b> Bottom line: A two party secure computation protocol</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="sfetwochap.html"><a href="sfetwochap.html#beyond-two-parties"><i class="fa fa-check"></i><b>18.3</b> Beyond two parties</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html"><i class="fa fa-check"></i><b>19</b> Quantum computing and cryptography I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#the-double-slit-experiment"><i class="fa fa-check"></i><b>19.1</b> The double slit experiment</a></li>
+<li class="chapter" data-level="19.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-amplitudes"><i class="fa fa-check"></i><b>19.2</b> Quantum amplitudes</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-computing-and-computation---an-executive-summary."><i class="fa fa-check"></i><b>19.2.1</b> Quantum computing and computation - an executive summary.</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-101"><i class="fa fa-check"></i><b>19.3</b> Quantum 101</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#physically-realizing-quantum-computation"><i class="fa fa-check"></i><b>19.3.1</b> Physically realizing quantum computation</a></li>
+<li class="chapter" data-level="19.3.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bra-ket-notation"><i class="fa fa-check"></i><b>19.3.2</b> Bra-ket notation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bells-inequality"><i class="fa fa-check"></i><b>19.4</b> Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.5" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#analysis-of-bells-inequality"><i class="fa fa-check"></i><b>19.5</b> Analysis of Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.6" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#grovers-algorithm"><i class="fa fa-check"></i><b>19.6</b> Grover’s Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html"><i class="fa fa-check"></i><b>20</b> Quantum computing and cryptography II</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-order-finding-to-factoring-and-discrete-log"><i class="fa fa-check"></i><b>20.1</b> From order finding to factoring and discrete log</a></li>
+<li class="chapter" data-level="20.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#finding-periods-of-a-function-simons-algorithm"><i class="fa fa-check"></i><b>20.2</b> Finding periods of a function: Simon’s Algorithm</a></li>
+<li class="chapter" data-level="20.3" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-simon-to-shor"><i class="fa fa-check"></i><b>20.3</b> From Simon to Shor</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#the-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.1</b> The Fourier transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+<li class="chapter" data-level="20.3.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.2</b> Quantum Fourier Transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#shor鈥檚-order-finding-algorithm."><i class="fa fa-check"></i><b>20.4</b> Shor鈥檚 Order-Finding Algorithm.</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#analysis-the-case-that-rm"><i class="fa fa-check"></i><b>20.4.1</b> Analysis: the case that <span class="math inline">\(r|m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.5" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#rational-approximation-of-real-numbers"><i class="fa fa-check"></i><b>20.5</b> Rational approximation of real numbers</a>
+<ul>
+<li class="chapter" data-level="20.5.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-cryptography"><i class="fa fa-check"></i><b>20.5.1</b> Quantum cryptography</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="software-obfuscation.html"><a href="software-obfuscation.html"><i class="fa fa-check"></i><b>21</b> Software Obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#witness-encryption"><i class="fa fa-check"></i><b>21.1</b> Witness encryption</a></li>
+<li class="chapter" data-level="21.2" data-path="software-obfuscation.html"><a href="software-obfuscation.html#deniable-encryption"><i class="fa fa-check"></i><b>21.2</b> Deniable encryption</a></li>
+<li class="chapter" data-level="21.3" data-path="software-obfuscation.html"><a href="software-obfuscation.html#functional-encryption"><i class="fa fa-check"></i><b>21.3</b> Functional encryption</a></li>
+<li class="chapter" data-level="21.4" data-path="software-obfuscation.html"><a href="software-obfuscation.html#the-software-patch-problem"><i class="fa fa-check"></i><b>21.4</b> The software patch problem</a></li>
+<li class="chapter" data-level="21.5" data-path="software-obfuscation.html"><a href="software-obfuscation.html#software-obfuscation-1"><i class="fa fa-check"></i><b>21.5</b> Software obfuscation</a></li>
+<li class="chapter" data-level="21.6" data-path="software-obfuscation.html"><a href="software-obfuscation.html#applications-of-obfuscation"><i class="fa fa-check"></i><b>21.6</b> Applications of obfuscation</a></li>
+<li class="chapter" data-level="21.7" data-path="software-obfuscation.html"><a href="software-obfuscation.html#impossibility-of-obfuscation"><i class="fa fa-check"></i><b>21.7</b> Impossibility of obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.7.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#proof-of-impossibility-of-vbb-obfuscation"><i class="fa fa-check"></i><b>21.7.1</b> Proof of impossibility of VBB obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="21.8" data-path="software-obfuscation.html"><a href="software-obfuscation.html#indistinguishability-obfuscation"><i class="fa fa-check"></i><b>21.8</b> Indistinguishability obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html"><i class="fa fa-check"></i><b>22</b> More obfuscation, exotic encryptions</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#slower-weaker-less-securer"><i class="fa fa-check"></i><b>22.1</b> Slower, weaker, less securer</a></li>
+<li class="chapter" data-level="22.2" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#how-to-get-ibe-from-pairing-based-assumptions."><i class="fa fa-check"></i><b>22.2</b> How to get IBE from pairing based assumptions.</a></li>
+<li class="chapter" data-level="22.3" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#beyond-pairing-based-cryptography"><i class="fa fa-check"></i><b>22.3</b> Beyond pairing based cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="anonymous-communication.html"><a href="anonymous-communication.html"><i class="fa fa-check"></i><b>23</b> Anonymous communication</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="anonymous-communication.html"><a href="anonymous-communication.html#steganography"><i class="fa fa-check"></i><b>23.1</b> Steganography</a></li>
+<li class="chapter" data-level="23.2" data-path="anonymous-communication.html"><a href="anonymous-communication.html#anonymous-routing"><i class="fa fa-check"></i><b>23.2</b> Anonymous routing</a></li>
+<li class="chapter" data-level="23.3" data-path="anonymous-communication.html"><a href="anonymous-communication.html#tor"><i class="fa fa-check"></i><b>23.3</b> Tor</a></li>
+<li class="chapter" data-level="23.4" data-path="anonymous-communication.html"><a href="anonymous-communication.html#telex"><i class="fa fa-check"></i><b>23.4</b> Telex</a></li>
+<li class="chapter" data-level="23.5" data-path="anonymous-communication.html"><a href="anonymous-communication.html#riposte"><i class="fa fa-check"></i><b>23.5</b> Riposte</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html"><i class="fa fa-check"></i><b>24</b> Ethical, moral, and policy dimensions to cryptography</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#reading-prior-to-lecture"><i class="fa fa-check"></i><b>24.1</b> Reading prior to lecture:</a></li>
+<li class="chapter" data-level="24.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#case-studies."><i class="fa fa-check"></i><b>24.2</b> Case studies.</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#the-snowden-revelations"><i class="fa fa-check"></i><b>24.2.1</b> The Snowden revelations</a></li>
+<li class="chapter" data-level="24.2.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#fbi-vs-apple-case"><i class="fa fa-check"></i><b>24.2.2</b> FBI vs Apple case</a></li>
+<li class="chapter" data-level="24.2.3" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#juniper-backdoor-case-and-the-opm-break-in"><i class="fa fa-check"></i><b>24.2.3</b> Juniper backdoor case and the OPM break-in</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="course-recap.html"><a href="course-recap.html"><i class="fa fa-check"></i><b>25</b> Course recap</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="course-recap.html"><a href="course-recap.html#some-things-we-did-not-cover"><i class="fa fa-check"></i><b>25.1</b> Some things we did not cover</a></li>
+<li class="chapter" data-level="25.2" data-path="course-recap.html"><a href="course-recap.html#what-i-hope-you-learned"><i class="fa fa-check"></i><b>25.2</b> What I hope you learned</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pseudorandomness" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Pseudorandomness<a href="pseudorandomness.html#pseudorandomness" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Reading:</strong> Katz-Lindell Section 3.3, Boneh-Shoup Chapter 3<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a></p>
+<p>The nature of randomness has troubled philosophers, scientists, statisticians
+and laypeople for many years.<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a> Over the years people have given different
+answers to the question of what does it mean for data to be random, and what is
+the nature of probability. The movements of the planets initially looked random
+and arbitrary, but then early astronomers managed to find <em>order</em> and make
+some <em>predictions</em> on them. Similarly, we have made great advances in predicting
+the weather and will probably continue to do so.</p>
+<p>So, while these days it seems as if the event of whether or not it will rain a week from today
+is <em>random</em>, we could imagine that in the future we will be able to predict the weather accurately.
+Even the canonical notion of a random experiment -tossing a coin -
+<a href="http://statweb.stanford.edu/~susan/papers/headswithJ.pdf">might not be as random as you’d think</a>:
+the second toss will have the same result as the first one with about a 51% chance.
+(Though <a href="https://www.stat.berkeley.edu/~aldous/Real-World/coin_tosses.html">see also this experiment</a>.)
+It is conceivable that at some point someone would discover some function <span class="math inline">\(F\)</span>
+that, given the first 100 coin tosses by any given person, can predict the value of the
+101<span class="math inline">\(^{st}\)</span>.<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a></p>
+<p>In all these examples, the physics underlying the event, whether it’s the
+planets’ movement, the weather, or coin tosses, did not change but only
+our powers to predict them.
+So to a large extent, <em>randomness is a function of
+the observer</em>, or in other words</p>
+<blockquote>
+<p><em>If a quantity is hard to compute, it might as well be random.</em></p>
+</blockquote>
+<p>Much of cryptography is about trying to make this intuition more formal, and
+harnessing it to build secure systems. The basic object we want is the
+following:</p>
+<div class="definition" title="Pseudorandom generator (concrete)">
+<p><span id="def:prgdefconcrete" class="definition"><strong>Definition 4.1  </strong></span>A function <span class="math inline">\(G:{\{0,1\}}^n\rightarrow{\{0,1\}}^\ell\)</span> is a <span class="math inline">\((T,\epsilon)\)</span> <em>pseudorandom generator</em> if <span class="math inline">\(G(U_n) \approx_{T,\epsilon} U_\ell\)</span> where <span class="math inline">\(U_t\)</span> denotes the uniform distribution on <span class="math inline">\({\{0,1\}}^t\)</span>.</p>
+</div>
+<p>That is, <span class="math inline">\(G\)</span> is a <span class="math inline">\((T,\epsilon)\)</span> pseudorandom generator if no circuit of at most <span class="math inline">\(T\)</span> gates can distinguish with bias better than <span class="math inline">\(\epsilon\)</span> between the output of <span class="math inline">\(G\)</span> (on a random input) and a uniformly random string of the same length.
+Spelling this out fully, this means that for every function <span class="math inline">\(D:\{0,1\}^\ell \rightarrow \{0,1\}\)</span> computable using at most <span class="math inline">\(T\)</span> operations,</p>
+<p><span class="math display">\[\left| \Pr_{x \leftarrow_R \{0,1\}^n}[ D(G(x))=1 ] - \Pr_{y \leftarrow_R \{0,1\}^\ell}[ D(y)=1 ] \right| &lt; \epsilon\;.\]</span></p>
+<p>As we did for the case of encryption, we will typically use <em>asymptotic terms</em> to describe cryptographic pseudorandom generator. We say that <span class="math inline">\(G\)</span> is simply a pseudorandom generator if it is efficiently computable and it is
+<span class="math inline">\((p(n),1/p(n))\)</span>-pseudorandom generator for every polynomial <span class="math inline">\(p(\cdot)\)</span>.
+In other words, we define pseudorandom generators as follows:</p>
+<div class="definition" title="Pseudorandom generator">
+<p><span id="def:prgdef" class="definition"><strong>Definition 4.2  </strong></span>Let <span class="math inline">\(G:\{0,1\}^* \rightarrow \{0,1\}^*\)</span> be some function computable in polynomial time.
+We say that <span class="math inline">\(G\)</span> is a <em>pseudorandom generator</em> with length function <span class="math inline">\(\ell:\N \rightarrow \N\)</span> (where <span class="math inline">\(\ell(n)&gt;n\)</span>) if</p>
+<ul>
+<li><p>For every <span class="math inline">\(x\in \{0,1\}^*\)</span>, <span class="math inline">\(|G(x)| = \ell(|x|)\)</span>.</p></li>
+<li><p>For every polynomial <span class="math inline">\(p(\cdot)\)</span> and sufficiently large <span class="math inline">\(n\)</span>, if <span class="math inline">\(D:\{0,1\}^{\ell(n)} \rightarrow \{0,1\}\)</span> is computable by at most <span class="math inline">\(p(n)\)</span> operations, then</p></li>
+</ul>
+<p><span class="math display">\[\left| \Pr[D(G(U_n))=1] - \Pr[ D(U_\ell)=1] \right| &lt; \tfrac{1}{p(n)} \label{prgdefeq}\]</span></p>
+</div>
+<p>Another way to say it, is that a polynomial-time computable function <span class="math inline">\(G\)</span> mapping <span class="math inline">\(n\)</span> bits strings to <span class="math inline">\(\ell(n)&gt;n\)</span> bit strings is a pseudo-random generator if the two distributions <span class="math inline">\(G(U_n)\)</span> and <span class="math inline">\(U_{\ell(n)}\)</span> are <em>computationally indistinguishable</em>.</p>
+<blockquote>
+<h1 id="section-27" class="pause"></h1>
+<p>This definition (as is often the case in cryptography) is a bit long, but the concept of a pseudorandom generator is central to cryptography, and so you should take your time and make sure you understand it.
+Intuitively, a function <span class="math inline">\(G\)</span> is a pseudorandom generator if <strong>(1)</strong> it expands its input (mapping <span class="math inline">\(n\)</span> bits to <span class="math inline">\(n+1\)</span> or more) and <strong>(2)</strong> we cannot distinguish between the output <span class="math inline">\(G(x)\)</span> for <span class="math inline">\(x\)</span> a short (i.e., <span class="math inline">\(n\)</span> bit long) random string, often known as the <em>seed</em> of the pseudorandom generator, and a truly random long (i.e., of length <span class="math inline">\(\ell(n)\)</span>) string chosen uniformly at random from <span class="math inline">\(\{0,1\}^{\ell(n)}\)</span>.</p>
+</blockquote>
+<div class="float" id="prgdeffig">
+<img src="../figure/prg_def.png" alt="A function G:\{0,1\}^n \rightarrow \{0,1\}^{\ell(n)} is a pseudorandom generator if G(x) for a random short x \leftarrow_R \{0,1\}^n is computationally indistinguishable from a long truly random y \leftarrow_R \{0,1\}^{\ell(n)}." />
+<div class="figcaption">A function <span class="math inline">\(G:\{0,1\}^n \rightarrow \{0,1\}^{\ell(n)}\)</span> is a <em>pseudorandom generator</em> if <span class="math inline">\(G(x)\)</span> for a random short <span class="math inline">\(x \leftarrow_R \{0,1\}^n\)</span> is computationally indistinguishable from a long truly random <span class="math inline">\(y \leftarrow_R \{0,1\}^{\ell(n)}\)</span>.</div>
+</div>
+<p>Note that the requirement that <span class="math inline">\(\ell&gt;n\)</span> is crucial to make this notion
+non-trivial, as for <span class="math inline">\(\ell=n\)</span> the function <span class="math inline">\(G(x)=x\)</span> clearly satisfies that
+<span class="math inline">\(G(U_n)\)</span> is identical to (and hence in particular indistinguishable from) the distribution
+<span class="math inline">\(U_n\)</span>.
+(Make sure that you understand this last statement!)
+However, for <span class="math inline">\(\ell&gt;n\)</span> this is no longer trivial at all. In particular, if we didn’t
+restrict the running time of <span class="math inline">\(Eve\)</span> then no such pseudo-random generator would
+exist:</p>
+<blockquote>
+<h1 id="breakprglem" class="lemma"></h1>
+<p>Suppose that <span class="math inline">\(G:{\{0,1\}}^n\rightarrow{\{0,1\}}^{n+1}\)</span>. Then there
+exists an (inefficient) algorithm <span class="math inline">\(Eve:{\{0,1\}}^{n+1}\rightarrow{\{0,1\}}\)</span> such
+that <span class="math inline">\({\mathbb{E}}[ Eve(G(U_n)) ]=1\)</span> but <span class="math inline">\({\mathbb{E}}[ Eve(U_{n+1})] \leq 1/2\)</span>.</p>
+</blockquote>
+<blockquote>
+<h1 id="section-28" class="proof"></h1>
+<p>On input <span class="math inline">\(y\in{\{0,1\}}^{n+1}\)</span>, consider the algorithm <span class="math inline">\(Eve\)</span> that goes over all possible
+<span class="math inline">\(x\in{\{0,1\}}^n\)</span> and will output <span class="math inline">\(1\)</span> if and only if <span class="math inline">\(y=G(x)\)</span> for some <span class="math inline">\(x\)</span>.
+Clearly <span class="math inline">\({\mathbb{E}}[ Eve(G(U_n)) ] =1\)</span>.
+However, the set <span class="math inline">\(S =\{ G(x) : x\in {\{0,1\}}^n \}\)</span> on which Eve outputs <span class="math inline">\(1\)</span> has size at most <span class="math inline">\(2^n\)</span>, and hence a
+random <span class="math inline">\(y{\leftarrow_{\tiny R}} U_{n+1}\)</span> will fall in <span class="math inline">\(S\)</span> with probability at most
+<span class="math inline">\(1/2\)</span>.</p>
+</blockquote>
+<p>It is not hard to show that if <span class="math inline">\(P=NP\)</span> then the above algorithm Eve can be made
+efficient.
+In particular, at the moment we do not know how to <em>prove</em>
+the existence of pseudorandom generators. Nevertheless we believe that pseudorandom generators exist
+and hence we make the following conjecture:</p>
+<blockquote>
+<p><strong>Conjecture (The PRG conjecture):</strong> For every <span class="math inline">\(n\)</span>, there exists a pseudorandom
+generator <span class="math inline">\(G\)</span> mapping <span class="math inline">\(n\)</span> bits to <span class="math inline">\(n+1\)</span> bits.<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a></p>
+</blockquote>
+<p>As was the case for the cipher conjecture, and any other conjecture, there are two natural questions
+regarding the PRG conjecture: why should we believe it and why should we care. Fortunately, the answer to the first question is simple:
+it is known that the cipher conjecture <em>implies</em> the PRG conjecture, and hence if we believe the former we should believe the latter.
+(The proof is highly non-trivial and we may not get to see it in this course.)
+As for the second question, we will see that the PRG conjecture implies a great number of useful cryptographic tools, including the cipher conjecture (i.e., the two conjectures are in fact equivalent).
+We start by showing that once we can get to an output that is one bit longer than the input, we can in fact obtain any polynomial number of bits.</p>
+<blockquote>
+<h1 id="lengthextendprgthm" class="theorem" title="Length Extension for PRG&#39;s"></h1>
+<p>Suppose that the PRG conjecture is
+true. Then for every polynomial <span class="math inline">\(t(n)\)</span>, there exists a pseudorandom generator
+mapping <span class="math inline">\(n\)</span> bits to <span class="math inline">\(t(n)\)</span> bits.</p>
+</blockquote>
+<div class="float" id="lengthextendprgfig">
+<img src="../figure/length-extension-prg.jpg" alt="Length extension for pseudorandom generators" />
+<div class="figcaption">Length extension for pseudorandom generators</div>
+</div>
+<div class="proof" data-ref="lengthextendprgthm">
+<p><span id="unlabeled-div-11" class="proof"><em>Proof</em>. </span>The proof of this theorem is very similar to the length extension theorem for
+ciphers, and in fact this theorem can be used to give an alternative proof for the former theorem.</p>
+<p>The construction is illustrated in <a href="" class="ref">lengthextendprgfig</a>.
+We are given a pseudorandom generator <span class="math inline">\(G&#39;\)</span> mapping <span class="math inline">\(n\)</span> bits into <span class="math inline">\(n+1\)</span> bits and need to construct a pseudorandom generator <span class="math inline">\(G\)</span> mapping <span class="math inline">\(n\)</span> bits to <span class="math inline">\(t=t(n)\)</span>
+bits for some polynomial <span class="math inline">\(t(\cdot)\)</span>. The idea is that we maintain a state of <span class="math inline">\(n\)</span> bits, which are originally our input seed<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a> <span class="math inline">\(s_0\)</span>, and at the <span class="math inline">\(i^{th}\)</span> step we use <span class="math inline">\(G&#39;\)</span>
+to map <span class="math inline">\(s_{i-1}\)</span> to the <span class="math inline">\(n+1\)</span>-long bit string <span class="math inline">\((s_i,y_i)\)</span>, output <span class="math inline">\(y_i\)</span> and keep <span class="math inline">\(s_i\)</span> as our new state.
+To prove the security of this construction
+we need to show that the distribution <span class="math inline">\(G(U_n) = (y_1,\ldots,y_t)\)</span> is computationally indistinguishable from the uniform distribution <span class="math inline">\(U_t\)</span>. As usual, we will use the hybrid argument.
+For <span class="math inline">\(i\in\{0,\ldots,t\}\)</span> we define <span class="math inline">\(H_i\)</span> to be the distribution where the first <span class="math inline">\(i\)</span> bits chosen uniformly at random, whereas the last <span class="math inline">\(t-i\)</span> bits are computed as above.
+Namely, we choose <span class="math inline">\(s_i\)</span> at random in <span class="math inline">\(\{0,1\}^n\)</span> and continue the computation of <span class="math inline">\(y_{i+1},\ldots,y_t\)</span> from the state <span class="math inline">\(s_i\)</span>.
+Clearly <span class="math inline">\(H_0=G(U_n)\)</span> and <span class="math inline">\(H_t=U_t\)</span> and hence by the triangle inequality it suffices to prove that <span class="math inline">\(H_i \approx H_{i+1}\)</span> for all <span class="math inline">\(i\in\{0,\ldots,t-1\}\)</span>.
+We illustrate these two hybrids in <a href="" class="ref">lengthextendhybridfig</a>.</p>
+<div class="float" id="lengthextendhybridfig">
+<img src="../figure/length-extension-prg-hybrid.jpg" alt="Hybrids H_i and H_{i+1}— dotted boxes refer to values that are chosen independently and uniformly at random" />
+<div class="figcaption">Hybrids <span class="math inline">\(H_i\)</span> and <span class="math inline">\(H_{i+1}\)</span>— dotted boxes refer to values that are chosen independently and uniformly at random</div>
+</div>
+<p>Now suppose otherwise that there exists some adversary <span class="math inline">\(Eve\)</span> such that <span class="math inline">\(\left| \mathbb{E}[Eve(H_i)] - \mathbb{E}[Eve(H_{i+1})] \right| \geq \epsilon\)</span> for some non-negligible <span class="math inline">\(\epsilon\)</span>.
+From <span class="math inline">\(Eve\)</span>, we will design an adversary <span class="math inline">\(Eve&#39;\)</span> breaking the security of the pseudorandom generator <span class="math inline">\(G&#39;\)</span> (see <a href="" class="ref">reductionlengthextendfig</a>).</p>
+<div class="float" id="reductionlengthextendfig">
+<img src="../figure/length-extension-prg-adversary.jpg" alt="Building an adversary Eve&#39; for G&#39; from an adversary Eve distinguishing H_i and H_{i+1}. The boxes marked with questions marks are those that are random or pseudorandom depending on whether we are in H_i or H_{i+1}. Everything inside the dashed red lines is simulated by Eve&#39; that gets as input the n+1-bit string (s_{i+1},y_{i+1})." />
+<div class="figcaption">Building an adversary <span class="math inline">\(Eve&#39;\)</span> for <span class="math inline">\(G&#39;\)</span> from an adversary <span class="math inline">\(Eve\)</span> distinguishing <span class="math inline">\(H_i\)</span> and <span class="math inline">\(H_{i+1}\)</span>. The boxes marked with questions marks are those that are random or pseudorandom depending on whether we are in <span class="math inline">\(H_i\)</span> or <span class="math inline">\(H_{i+1}\)</span>. Everything inside the dashed red lines is simulated by <span class="math inline">\(Eve&#39;\)</span> that gets as input the <span class="math inline">\(n+1\)</span>-bit string <span class="math inline">\((s_{i+1},y_{i+1})\)</span>.</div>
+</div>
+<p>On input a string <span class="math inline">\(y\)</span> of length <span class="math inline">\(n+1\)</span>, <span class="math inline">\(Eve&#39;\)</span> will interpret <span class="math inline">\(y\)</span> as <span class="math inline">\((s_{i+1},y_{i+1})\)</span> where <span class="math inline">\(s_{i+1} \in \{0,1\}^n\)</span>. She then chooses <span class="math inline">\(y_1,\ldots,y_i\)</span> randomly and compute <span class="math inline">\(y_{i+2},\ldots,y_t\)</span> as in our pseudorandom generator’s construction. <span class="math inline">\(Eve&#39;\)</span> will then feed <span class="math inline">\((y_1,\ldots,y_t)\)</span> to <span class="math inline">\(Eve\)</span> and output whatever <span class="math inline">\(Eve\)</span> does. Clearly, <span class="math inline">\(Eve&#39;\)</span> is efficient if <span class="math inline">\(Eve\)</span> is. Moreover, one can see that if
+<span class="math inline">\(y\)</span> was random then <span class="math inline">\(Eve&#39;\)</span> is feeding <span class="math inline">\(Eve\)</span> with an input distributed according to <span class="math inline">\(H_{i+1}\)</span> while if <span class="math inline">\(y\)</span> was of the form <span class="math inline">\(G(s)\)</span> for a random <span class="math inline">\(s\)</span> then <span class="math inline">\(Eve&#39;\)</span> will feed <span class="math inline">\(Eve\)</span>
+with an input distributed according to <span class="math inline">\(H_i\)</span>. Hence we get that <span class="math inline">\(| \mathbb{E}[ Eve&#39;(G&#39;(U_n))] - \mathbb{E}[Eve&#39;(U_{n+1})] | \geq \epsilon\)</span> contradicting the security of <span class="math inline">\(G&#39;\)</span>.</p>
+</div>
+<div class="remark" title="Pseudorandom generators in practice">
+<p><span id="prgpractice" class="remark"><em>Remark</em>. </span>The proof of <a href="" class="ref">lengthextendprgthm</a> is indicative of many practical constructions of pseudorandom generators.
+In many operating systems and programming environments, pseudorandom generators work as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Upon initialization, the system obtains an initial <em>seed</em> of randomness <span class="math inline">\(x_0 \in \{0,1\}^n\)</span> (where often <span class="math inline">\(n\)</span> is something like <span class="math inline">\(128\)</span> or <span class="math inline">\(256\)</span>).</p></li>
+<li><p>At the <span class="math inline">\(t\)</span>-th call to a function such as `rand’ to obtain new randomness, the system uses some underlying pseudorandom generator <span class="math inline">\(G&#39;:\{0,1\}^n \rightarrow \{0,1\}^{n+m}\)</span> to let <span class="math inline">\(x&#39;\|y = G&#39;(x_{t-1})\)</span>, updates <span class="math inline">\(x_t = x&#39;\)</span> and outputs <span class="math inline">\(y\)</span>.</p></li>
+</ol>
+<p>There are often some additional complications on how to obtain this seed from some “unpredictable” or “high entropy” observations (which can sometimes include network latency, user typing and mouse patterns, and more), and whether the state of the system is periodically “refreshed” using additional observations.</p>
+</div>
+<div id="unpredictability-an-alternative-approach-for-proving-the-length-extension-theorem" class="section level3 hasAnchor" number="4.0.1">
+<h3><span class="header-section-number">4.0.1</span> Unpredictability: an alternative approach for proving the length extension theorem<a href="pseudorandomness.html#unpredictability-an-alternative-approach-for-proving-the-length-extension-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The notion that being random is the same as being “unpredictable”, as discussed at the beginning of this chapter, can be formalized as follows.</p>
+<div class="definition" title="Unpredictable function">
+<p><span id="def:unpreddef" class="definition"><strong>Definition 4.3  </strong></span>An efficiently computable function <span class="math inline">\(G:\{0,1\}^* \rightarrow \{0,1\}^*\)</span> is <em>unpredictable</em> if, for any <span class="math inline">\(n\)</span>, <span class="math inline">\(1\le i&lt;\ell(n)\)</span> and polynomially-sized circuit <span class="math inline">\(P\)</span>, <span class="math display">\[\Pr_{y\leftarrow G(U_n)}[P(y_1,\ldots,y_{i-1}) = y_i] \le \frac12+negl(n).\]</span> Here, <span class="math inline">\(\ell(n)\)</span> is the length function of <span class="math inline">\(G\)</span> and <span class="math inline">\(y\leftarrow G(U_n)\)</span> denotes that <span class="math inline">\(y\)</span> is a random output of <span class="math inline">\(G\)</span>. In other words, no polynomial-sized circuit can predict the next bit of the output of <span class="math inline">\(G\)</span> given the previous bits significantly better than guessing.</p>
+</div>
+<p>We now show that the condition for a function <span class="math inline">\(G\)</span> to be unpredictable is equivalent to the condition for it to be a secure PRG.
+Please make sure you follow the proof, because it is an important theorem, and because it is another example of a canonical cryptographic proof.</p>
+<blockquote>
+<h1 id="unpredequiv" class="lemma"></h1>
+<p>Let <span class="math inline">\(G:\{0,1\}^* \rightarrow \{0,1\}^*\)</span> be a function with length function <span class="math inline">\(\ell(n)\)</span>, then <span class="math inline">\(G\)</span> is a secure PRG iff it is unpredictable.</p>
+</blockquote>
+<div class="proof" data-ref="unpredequiv">
+<p><span id="unlabeled-div-12" class="proof"><em>Proof</em>. </span>For the forward direction, suppose for contradiction that there exists some <span class="math inline">\(i\)</span> and some circuit <span class="math inline">\(P\)</span> can predict <span class="math inline">\(y_i\)</span> given <span class="math inline">\(y_1,\ldots,y_{i-1}\)</span> with probability <span class="math inline">\(p\ge \frac12+\epsilon(n)\)</span> for non-negligible <span class="math inline">\(\epsilon\)</span>. Consider the adversary <span class="math inline">\(Eve\)</span> that, given a string <span class="math inline">\(y\)</span>, runs the circuit <span class="math inline">\(P\)</span> on <span class="math inline">\(y_1,\ldots,y_{i-1}\)</span>, checks if the output is equal to <span class="math inline">\(y_i\)</span> and if so output 1.</p>
+<p>If <span class="math inline">\(y=G(x)\)</span> for a uniform <span class="math inline">\(x\)</span>, then <span class="math inline">\(P\)</span> succeeds with probability <span class="math inline">\(p\)</span>. If <span class="math inline">\(y\)</span> is uniformly random, then we can imagine that the bit <span class="math inline">\(y_i\)</span> is generated <em>after</em> <span class="math inline">\(P\)</span> finished its calculation. The bit <span class="math inline">\(y_i\)</span> is <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> with equal probability, so <span class="math inline">\(P\)</span> succeeds with probability <span class="math inline">\(\frac12\)</span>. Since <span class="math inline">\(Eve\)</span> outputs 1 when <span class="math inline">\(P\)</span> succeeds,<span class="math display">\[\left| \Pr[Eve(G(U_n))=1] - \Pr[ Eve(U_\ell)=1] \right|=|p-\frac12|\ge \epsilon(n),\]</span> a contradiction.</p>
+<p>For the backward direction, let <span class="math inline">\(G\)</span> be an unpredictable function. Let <span class="math inline">\(H_i\)</span> be the distribution where the first <span class="math inline">\(i\)</span> bits come from <span class="math inline">\(G(U_n)\)</span> while the last <span class="math inline">\(\ell-i\)</span> bits are all random. Notice that <span class="math inline">\(H_0=U_\ell\)</span> and <span class="math inline">\(H_\ell=G(U_n)\)</span>, so it suffices to show that <span class="math inline">\(H_{i-1} \approx H_{i}\)</span> for all <span class="math inline">\(i\)</span>.</p>
+<p>Suppose <span class="math inline">\(H_{i-1} \not\approx H_{i}\)</span> for some <span class="math inline">\(i\)</span>, i.e. there exists some <span class="math inline">\(Eve\)</span> and non-negligible <span class="math inline">\(\epsilon\)</span> such that <span class="math display">\[\Pr[Eve(H_{i})=1]-\Pr[Eve(H_{i-1})=1]&gt;\epsilon(n).\]</span> Consider the program <span class="math inline">\(P\)</span> that, on input <span class="math inline">\((y_1,\ldots,y_{i-1})\)</span>, picks the bits <span class="math inline">\(\hat y_{i},\ldots, \hat y_\ell\)</span> uniformly at random. Then, <span class="math inline">\(P\)</span> calls <span class="math inline">\(Eve\)</span> on the generated input. If <span class="math inline">\(Eve\)</span> outputs <span class="math inline">\(1\)</span> then <span class="math inline">\(P\)</span> outputs <span class="math inline">\(\hat y_{i}\)</span>, and otherwise it outputs <span class="math inline">\(1-\hat y_{i}\)</span>.</p>
+<p>The string <span class="math inline">\((y_1,\ldots,y_{i-1}, \hat y_i,\ldots,\hat y_\ell)\)</span> has the same distribution as <span class="math inline">\(H_{i-1}\)</span>. However, conditioned on <span class="math inline">\(\hat y_i=y_i\)</span>, the string has distribution equal to <span class="math inline">\(H_{i}\)</span>. Let <span class="math inline">\(p\)</span> be the probability that <span class="math inline">\(Eve\)</span> outputs <span class="math inline">\(1\)</span> if <span class="math inline">\(\hat y_i=y_i\)</span> and <span class="math inline">\(q\)</span> be the same probability when <span class="math inline">\(\hat y_i\neq y_i\)</span>, then we get <span class="math display">\[p-\frac12(p+q)=\Pr[Eve(H_{i})=1]-\Pr[Eve(H_{i-1})=1]&gt;\epsilon(n).\]</span> Therefore, the probability <span class="math inline">\(P\)</span> outputs the correct value is equal to <span class="math inline">\(\frac12p+\frac12(1-q)=\frac12+\epsilon(n)\)</span>, a contradiction.</p>
+</div>
+<p>The definition of unpredictability is useful because many of our candidates for pseudorandom generators appeal to the unpredictability definition in their proofs. For example, the Blum-Blum-Shub generator we will see later in the chapter is proved to be unpredictable if the “quadratic residuosity problem” is hard. It is also nice to know that our intuition at the beginning of the chapter can be formalized.</p>
+</div>
+<div id="stream-ciphers" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Stream ciphers<a href="pseudorandomness.html#stream-ciphers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We now show a connection between pseudorandom generators and encryption schemes:</p>
+<blockquote>
+<h1 id="PRGandcipherthm" class="theorem" title="PRG conjecture implies Cipher conjectures"></h1>
+<p>If the PRG conjecture is true then so is the cipher conjecture.</p>
+</blockquote>
+<p>It turns out that the converse direction is also true, and hence
+these two conjectures are <em>equivalent</em>. We will probably not show the
+(quite non-trivial) proof of this fact in this course. (We might show a
+weaker version though.)</p>
+<div class="proof" data-ref="PRGandcipherthm">
+<p><span id="unlabeled-div-13" class="proof"><em>Proof</em>. </span>Recall that the <em>one time pad</em> is a perfectly secure cipher but its only problem was that to encrypt an
+<span class="math inline">\(n+1\)</span> long message it needed an <span class="math inline">\(n+1\)</span> long bit key. Now using a pseudorandom
+generator, we can map an <span class="math inline">\(n\)</span>-bit long key into an <span class="math inline">\(n+1\)</span>-bit long string that
+looks random enough that we could use it as a key for the one-time pad. That is,
+our cipher will look as follows:</p>
+<p><span class="math display">\[
+E_k(m) = G(k) \oplus m
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+D_k(c) = G(k) \oplus c
+\]</span></p>
+<p>Just like in the one time pad, <span class="math inline">\(D_k(E_k(m)) = G(k) \oplus G(k) \oplus m = m\)</span>.
+Moreover, the encryption and decryption algorithms are clearly efficient. We will prove security
+of this encryption by showing the stronger claim that <span class="math inline">\(E_{U_n}(m)\approx U_{n+1}\)</span> for any <span class="math inline">\(m\)</span>.</p>
+<p>Notice that <span class="math inline">\(U_{n+1}=U_{n+1}\oplus m\)</span>, as we showed in the security of the one-time pad.
+Suppose that for some non-negligible <span class="math inline">\(\epsilon=\epsilon(n)&gt;0\)</span> there is an efficient adversary <span class="math inline">\(Eve&#39;\)</span> such
+that</p>
+<p><span class="math display">\[
+\left| {\mathbb{E}}[ Eve&#39;(G(U_n)\oplus m)] - {\mathbb{E}}[ Eve&#39;(U_{n+1}\oplus m) ] \right| \geq \epsilon.
+\]</span></p>
+<p>Then the adversary <span class="math inline">\(Eve\)</span> defined as <span class="math inline">\(Eve(y) = Eve&#39;(y\oplus m)\)</span> would be also efficient. Furthermore, if <span class="math inline">\(y\)</span>
+is pseudorandom then <span class="math inline">\(Eve(y)=Eve&#39;(G(U_n)\oplus m)\)</span> and if <span class="math inline">\(y\)</span> is uniformly random then <span class="math inline">\(Eve(y)=Eve&#39;(U_{n+1}\oplus m)\)</span>.
+Then, <span class="math inline">\(Eve\)</span> can distinguish the two distributions with advantage <span class="math inline">\(\epsilon\)</span>, a contradiction.</p>
+</div>
+<p>If the PRG outputs <span class="math inline">\(t(n)\)</span> bits instead of <span class="math inline">\(n+1\)</span> then we automatically
+get an encryption scheme with <span class="math inline">\(t(n)\)</span> long message length. In fact, in practice
+if we use the length extension for PRG’s, we don’t need to decide on the length
+of messages in advance. Every time we need to encrypt another bit (or another
+block) <span class="math inline">\(m_i\)</span> of the message, we run the basic PRG to update our state and obtain
+some new randomness <span class="math inline">\(y_i\)</span> that we can XOR with the message and output. Such
+constructions are known as <em>stream ciphers</em> in the literature. In much
+of the practical literature, the name <em>stream cipher</em> is used both for the
+pseudorandom generator itself as well as for the encryption scheme that is
+obtained by combining it with the one-time pad.</p>
+<div class="remark" title="Using pseudorandom generators for coin tossing over the phone">
+<p><span id="cointossingphonerm" class="remark"><em>Remark</em>. </span>The following is a cute application of pseudorandom generators. Alice and Bob want to toss a fair coin over the phone. They use a pseudorandom generator <span class="math inline">\(G:\{0,1\}^n\rightarrow\{0,1\}^{3n}\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Alice will send <span class="math inline">\(z\leftarrow_R\{0,1\}^{3n}\)</span> to Bob<br />
+</li>
+<li>Bob picks <span class="math inline">\(s\leftarrow_R\{0,1\}^n\)</span> and <span class="math inline">\(b \leftarrow_R \{0,1\}\)</span>. If <span class="math inline">\(b=0\)</span> then Bob sends <span class="math inline">\(y=G(s)\)</span> and if <span class="math inline">\(b=1\)</span> he sends <span class="math inline">\(y=G(s)\oplus z\)</span>. In other words, <span class="math inline">\(y = G(s) \oplus b\cdot z\)</span> where <span class="math inline">\(b\cdot z\)</span> is the vector <span class="math inline">\((b\cdot z_1,\ldots, b\cdot z_{3n})\)</span>.</li>
+<li>Alice then picks a random <span class="math inline">\(b&#39;\leftarrow_R\{0,1\}\)</span> and sends it to Bob.<br />
+</li>
+<li>Bob sends to Alice the string <span class="math inline">\(s\)</span> and <span class="math inline">\(b\)</span>. Alice verifies that indeed <span class="math inline">\(y= G(s) \oplus b \cdot z\)</span>. Otherwise Alice aborts.</li>
+<li>The output of the protocol is <span class="math inline">\(b \oplus b&#39;\)</span>.</li>
+</ol>
+<p>It can be shown that (assuming the protocol is completed) the output is a random coin, which neither Alice or Bob can control or predict with more than negligible advantage over half.
+Trying to formalize this and prove it is an excellent exercise.
+Two main components in the proofs are:</p>
+<ul>
+<li><p>With probability <span class="math inline">\(1-negl(n)\)</span> over <span class="math inline">\(z \leftarrow_R \{0,1\}^{3n}\)</span>, the sets <span class="math inline">\(S_0 = \{ G(x) | x\in \{0,1\}^n \}\)</span> and <span class="math inline">\(S_1 = \{ G(x) \oplus z | x\in \{0,1\}^n \}\)</span> will be disjoint. Hence by choosing <span class="math inline">\(z\)</span> at random, Alice can ensure that Bob is <em>committed</em> to the choice of <span class="math inline">\(b\)</span> after sending <span class="math inline">\(y\)</span>.</p></li>
+<li><p>For every <span class="math inline">\(z\)</span>, both the distribution <span class="math inline">\(G(U_n)\)</span> and <span class="math inline">\(G(U_n)\oplus z\)</span> are pseudorandom. This can be shown to imply that no matter what string <span class="math inline">\(z\)</span> Alice chooses, she cannot predict <span class="math inline">\(b\)</span> from the string <span class="math inline">\(y\)</span> sent by Bob with probability better than <span class="math inline">\(1/2 + negl(n)\)</span>. Hence her choice of <span class="math inline">\(b&#39;\)</span> will be essentially independent of <span class="math inline">\(b\)</span>.</p></li>
+</ul>
+</div>
+</div>
+<div id="what-do-pseudorandom-generators-actually-look-like" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> What do pseudorandom generators actually look like?<a href="pseudorandomness.html#what-do-pseudorandom-generators-actually-look-like" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So far we have made the conjectures that objects such as ciphers and
+pseudorandom generators <em>exist</em>, without giving any hint as to how they would
+actually look like. (Though we have examples such as the Caesar cipher, Vigenere, and Enigma of what secure ciphers <em>don’t</em> look like.)
+As mentioned above, we do not know how to <em>prove</em> that
+any particular function is a pseudorandom generator.
+However, there are quite simple <em>candidates</em> (i.e., functions that are conjectured to be secure pseudorandom generators), though care must be taken in constructing them.
+We now consider candidates for functions that maps <span class="math inline">\(n\)</span> bits
+to <span class="math inline">\(n+1\)</span> bits (or more generally <span class="math inline">\(n+c\)</span> for some constant <span class="math inline">\(c\)</span> ) and look at least
+somewhat “randomish”.
+As these constructions are typically used as a basic
+component for obtaining a longer length PRG via the length extension theorem (<a href="" class="ref">lengthextendprgthm</a>), we
+will think of these pseudorandom generators as mapping a string <span class="math inline">\(s\in\{0,1\}^n\)</span>
+representing the current state into a string <span class="math inline">\(s鈥橽in\{0,1\}^n\)</span> representing the new
+state as well as a string <span class="math inline">\(b\in\{0,1\}^c\)</span> representing the current output. See also
+Section 6.1 in Katz-Lindell and (for greater depth) Sections 3.6-3.9 in the
+Boneh-Shoup book.</p>
+<div id="attempt-0-the-counter-generator" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Attempt 0: The counter generator<a href="pseudorandomness.html#attempt-0-the-counter-generator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To get started, let’s look at an example of an obviously bogus pseudorandom generator.
+We define the “counter pseudorandom generator” <span class="math inline">\(G:\{0,1\}^n \rightarrow \{0,1\}^{n+1}\)</span> as follows.
+<span class="math inline">\(G(s)=(s&#39;,b)\)</span> where <span class="math inline">\(s&#39; = s + 1 \mod 2^n\)</span> (treating <span class="math inline">\(s\)</span> and <span class="math inline">\(s&#39;\)</span> as numbers in <span class="math inline">\(\{0,\ldots,2^n-1\}\)</span>) and <span class="math inline">\(b\)</span> is the least significant digit of <span class="math inline">\(s&#39;\)</span>.
+It’s a great exercise to work out why this is <em>not</em> a secure pseudorandom generator.</p>
+<blockquote>
+<h1 id="section-29" class="pause"></h1>
+<p>You should really pause here and make sure you see why the “counter pseudorandom generator” is not a secure pseudorandom generator. Show that this is true even if we replace the least significant digit by the <span class="math inline">\(k\)</span>-th digit for every <span class="math inline">\(0 \leq k &lt; n\)</span>.</p>
+</blockquote>
+</div>
+<div id="attempt-1-the-linear-checksum-linear-feedback-shift-register-lfsr" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Attempt 1: The linear checksum / linear feedback shift register (LFSR)<a href="pseudorandomness.html#attempt-1-the-linear-checksum-linear-feedback-shift-register-lfsr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>LFSR can be thought of as the “mother” (or maybe more like the sick great-uncle) of all pseudorandom generators.
+One of the simplest ways to generate a “randomish” extra digit given an <span class="math inline">\(n\)</span> digit
+number is to use a <em>checksum</em> - some linear combination of the digits, with a canonical example being the <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">cyclic redundancy check</a> or CRC.<a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a>
+This motivates the notion of a <em>linear feedback shift register generator</em> (LFSR): if the current state is <span class="math inline">\(s\in\{0,1\}^n\)</span> then the output is <span class="math inline">\(f(s)\)</span> where <span class="math inline">\(f\)</span> is a linear function (modulo 2) and the new state is obtained by right shifting the previous state and putting <span class="math inline">\(f(s)\)</span> at the leftmost location.
+That is, <span class="math inline">\(s&#39;_1 = f(s)\)</span> and <span class="math inline">\(s&#39;_i = s_{i-1}\)</span> for <span class="math inline">\(i\in\{2,\ldots,n\}\)</span>.</p>
+<p>LFSR’s have several good properties- if the function <span class="math inline">\(f(\cdot)\)</span> is chosen properly then they can have very long <em>periods</em>
+(i.e., it can take an exponential number of steps until the state repeats itself), though that also holds for the simple “counter” generator we saw above.
+They also have the property that every individual bit is equal to <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span> with probability exactly half (the counter generator also shares this property).</p>
+<p>A more interesting property is that (if the function is selected properly) every two coordinates are independent from one another.
+That is, there is some super-polynomial function <span class="math inline">\(t(n)\)</span> (in fact <span class="math inline">\(t(n)\)</span> can be exponential in <span class="math inline">\(n\)</span>) such that if <span class="math inline">\(\ell \neq \ell&#39; \in \{0,\ldots, t(n) \}\)</span>, then if we look at the two random variables corresponding to the <span class="math inline">\(\ell\)</span>-th and <span class="math inline">\(\ell&#39;\)</span>-th output of the generator (where randomness is the initial state) then they are distributed like two independent random coins. (This is non-trivial to show, and depends on the choice of <span class="math inline">\(f\)</span> - it is a challenging but useful exercise to work this out.)
+The counter generator fails badly at this condition: the least significant bits between two consecutive states always flip.</p>
+<p>There is a more general notion of a <em>linear generator</em> where the new state can be any invertible linear transformation of the previous state. That is, we interpret the state <span class="math inline">\(s\)</span> as an element of <span class="math inline">\(\mathbb{Z}_q^t\)</span> for some integers <span class="math inline">\(q,t\)</span>,<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a> and let <span class="math inline">\(s鈥�=F(s)\)</span> and the output <span class="math inline">\(b=G(s)\)</span> where <span class="math inline">\(F:\mathbb{Z}_q^t\rightarrow\mathbb{Z}_q^t\)</span> and <span class="math inline">\(G:\mathbb{Z}_q^t\rightarrow\mathbb{Z}_q\)</span> are invertible linear transformations (modulo <span class="math inline">\(q\)</span>).
+This includes as a special case the <em>linear congruential generator</em> where <span class="math inline">\(t=1\)</span> and the map <span class="math inline">\(F(s)\)</span> corresponds to taking <span class="math inline">\(as \pmod{q}\)</span> where <span class="math inline">\(a\)</span> is number co-prime to <span class="math inline">\(q\)</span>.</p>
+<p>All these generators are unfortunately insecure due to the great bane of
+cryptography- the <em>Gaussian elimination algorithm</em> which students typically encounter in any linear algebra class.<a href="#fn33" class="footnote-ref" id="fnref33"><sup>33</sup></a></p>
+<blockquote>
+<h1 id="gaussianelimthm" class="theorem" title="The unfortunate theorem for cryptography"></h1>
+<p>There is a polynomial time algorithm to solve
+<span class="math inline">\(m\)</span> linear equations in <span class="math inline">\(n\)</span> variables (or to certify no solution exists) over
+any ring.</p>
+</blockquote>
+<p>Despite its seeming simplicity and ubiquity, Gaussian elimination (and some generalizations and related algorithms such as Euclid鈥檚 extended g.c.d algorithm and the LLL lattice reduction algorithm) has been used time and again to break candidate cryptographic constructions.
+In particular, if we look at the first <span class="math inline">\(n\)</span> outputs of a linear generator
+<span class="math inline">\(b_1,\ldots,b_n\)</span> then we can write linear equations in the unknown initial state
+of the form <span class="math inline">\(f_1(s)=b_1,\ldots,f_n(s)=b_n\)</span> where the <span class="math inline">\(f_i\)</span>’s are known linear
+functions.
+Either those functions are <em>linearly independent</em>, in which case we
+can solve the equations to get the unique solution for the original state <span class="math inline">\(s\)</span>
+and from which point we can predict all outputs of the generator, or they are
+dependent, which means that we can predict some of the outputs even without
+recovering the original state.
+Either way, the generator is <span class="math inline">\(*\sharp !\)</span>鈥檈d (where
+<span class="math inline">\(* \sharp !\)</span> refers to whatever verb you prefer to use when your system is broken).
+See also this <a href="http://alumni.cs.ucr.edu/~jsun/random-number.pdf">1977 paper</a>
+of James Reed.</p>
+<blockquote>
+<h1 id="nocryptoprgs" class="remark" title="Non-cryptographic PRGs"></h1>
+<p>The above means that it is a bad idea to use a linear checksum as a
+pseudorandom generator in a cryptographic application, and in fact in any
+adversarial setting (e.g., one shouldn’t hope that an attacker would not be able
+to reverse engineer the algorithm<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a> that computes the control digit of a credit card
+number). However, that does not mean that there are no legitimate cases
+where linear generators can be used
+. In a setting where the application is not adversarial and you have an ability to <em>test</em> if the generator is actually successful, it
+might be reasonable to use such insecure non-cryptographic generators.
+They tend to be more efficient (though often not by much) and hence are often the default
+option in many programming environments such as the <code>C rand()</code> command. (In
+fact, the real bottleneck in using cryptographic pseudorandom generators is
+often the generation of <em>entropy</em> for their seed, as discussed in the previous
+lecture, and not their actual running time.)</p>
+</blockquote>
+</div>
+<div id="from-insecurity-to-security" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> From insecurity to security<a href="pseudorandomness.html#from-insecurity-to-security" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It is often the case that we want to “fix” a broken cryptographic primitive, such as a pseudorandom generator, to make it secure.
+At the moment this is still more of an art than a science, but there are some principles that cryptographers have used to try to make this more principled.
+The main intuition is that there are certain properties of computational problems that make them more amenable to algorithms (i.e., “easier”) and when we want to make
+the problems useful for cryptography (i.e., “hard”) we often seek variants that don’t possess these properties. The following table illustrates some examples of such properties.
+(These are not formal statements, but rather is intended to give some intuition )</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Easy</th>
+<th align="left">Hard</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Continuous</td>
+<td align="left">Discrete</td>
+</tr>
+<tr class="even">
+<td align="left">Convex</td>
+<td align="left">Non-convex</td>
+</tr>
+<tr class="odd">
+<td align="left">Linear</td>
+<td align="left">Non-linear (degree <span class="math inline">\(\geq 2\)</span>)</td>
+</tr>
+<tr class="even">
+<td align="left">Noiseless</td>
+<td align="left">Noisy</td>
+</tr>
+<tr class="odd">
+<td align="left">Local</td>
+<td align="left">Global</td>
+</tr>
+<tr class="even">
+<td align="left">Shallow</td>
+<td align="left">Deep</td>
+</tr>
+<tr class="odd">
+<td align="left">Low degree</td>
+<td align="left">High degree</td>
+</tr>
+</tbody>
+</table>
+<p>Many cryptographic constructions can be thought of as trying to transform an easy problem into a hard one by moving from the left to the right column of this table.</p>
+<p>The <strong>discrete logarithm problem</strong> is the discrete version of the continuous real logarithm problem.
+The <strong>learning with errors problem</strong> can be thought of as the noisy version of the linear equations problem (or the discrete version of least squares minimization).
+When constructing <strong>block ciphers</strong> we often have <em>mixing</em> transformation to ensure that the dependency structure between different bits is <em>global</em>, <em>S-boxes</em> to ensure <em>non-linearity</em>, and many <em>rounds</em> to ensure <em>deep</em> structure and <em>large algebraic degree</em>.</p>
+<p>This also works in the other direction.
+Many algorithmic and machine learning advances work by embedding a discrete problem in a continuous convex one.
+Some attacks on cryptographic objects can be thought of as trying to recover some of the structure (e.g., by embedding modular arithmetic in the real line or “linearizing” non linear equations).</p>
+</div>
+<div id="attempt-2-linear-congruential-generators-with-dropped-bits" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Attempt 2: Linear Congruential Generators with dropped bits<a href="pseudorandomness.html#attempt-2-linear-congruential-generators-with-dropped-bits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One approach that is widely used in implementations of pseudorandom generators is to take a linear generator such as the
+linear congruential generators described above, and use for the output a “chopped” version of the linear function and drop some of the
+least significant bits. The operation of dropping these bits is non-linear and hence the attack above does not immediately apply.
+Nevertheless, it turns out this attack can be generalized to handle this case, and hence even with dropped bits Linear Congruential Generators are completely insecure
+and should be used (if at all) only in applications such as simulations where there is no adversary.
+Section 3.7.1 in the Boneh-Shoup book describes one attack against such generators that uses the notion of
+<em>lattice algorithms</em> that we will encounter later in this course in very different contexts.</p>
+</div>
+</div>
+<div id="successful-examples" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Successful examples<a href="pseudorandomness.html#successful-examples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s now describe some <em>successful</em> (at least per current knowledge) pseudorandom generators:</p>
+<div id="case-study-1-subset-sum-generator" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Case Study 1: Subset Sum Generator<a href="pseudorandomness.html#case-study-1-subset-sum-generator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here is an extremely simple generator that is yet still secure<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a> as far as we know.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="pseudorandomness.html#cb2-1" tabindex="-1"></a><span class="co"># seed is a list of 40 zero/one values</span></span>
+<span id="cb2-2"><a href="pseudorandomness.html#cb2-2" tabindex="-1"></a><span class="co"># output is a 48 bit integer</span></span>
+<span id="cb2-3"><a href="pseudorandomness.html#cb2-3" tabindex="-1"></a><span class="kw">def</span> subset_sum_gen(seed):</span>
+<span id="cb2-4"><a href="pseudorandomness.html#cb2-4" tabindex="-1"></a>  modulo <span class="op">=</span> <span class="bn">0x1000000</span></span>
+<span id="cb2-5"><a href="pseudorandomness.html#cb2-5" tabindex="-1"></a>  constants <span class="op">=</span> [  </span>
+<span id="cb2-6"><a href="pseudorandomness.html#cb2-6" tabindex="-1"></a>     <span class="bn">0x3D6EA1</span>, <span class="bn">0x1E2795</span>, <span class="bn">0xC802C6</span>, <span class="bn">0xBF742A</span>, <span class="bn">0x45FF31</span>,  </span>
+<span id="cb2-7"><a href="pseudorandomness.html#cb2-7" tabindex="-1"></a>     <span class="bn">0x53A9D4</span>, <span class="bn">0x927F9F</span>, <span class="bn">0x70E09D</span>, <span class="bn">0x56F00A</span>, <span class="bn">0x78B494</span>,  </span>
+<span id="cb2-8"><a href="pseudorandomness.html#cb2-8" tabindex="-1"></a>     <span class="bn">0x9122E7</span>, <span class="bn">0xAFB10C</span>, <span class="bn">0x18C2C8</span>, <span class="bn">0x8FF050</span>, <span class="bn">0x0239A3</span>,  </span>
+<span id="cb2-9"><a href="pseudorandomness.html#cb2-9" tabindex="-1"></a>     <span class="bn">0x02E4E0</span>, <span class="bn">0x779B76</span>, <span class="bn">0x1C4FC2</span>, <span class="bn">0x7C5150</span>, <span class="bn">0x81E05E</span>,  </span>
+<span id="cb2-10"><a href="pseudorandomness.html#cb2-10" tabindex="-1"></a>     <span class="bn">0x154647</span>, <span class="bn">0xB80E68</span>, <span class="bn">0xA042E5</span>, <span class="bn">0xE20269</span>, <span class="bn">0xD3B7F3</span>,  </span>
+<span id="cb2-11"><a href="pseudorandomness.html#cb2-11" tabindex="-1"></a>     <span class="bn">0xCC5FB9</span>, <span class="bn">0x0BFC55</span>, <span class="bn">0x847AE0</span>, <span class="bn">0x8CFDF8</span>, <span class="bn">0xE304B7</span>,  </span>
+<span id="cb2-12"><a href="pseudorandomness.html#cb2-12" tabindex="-1"></a>     <span class="bn">0x869ACE</span>, <span class="bn">0xB4CDAB</span>, <span class="bn">0xC8E31F</span>, <span class="bn">0x00EDC7</span>, <span class="bn">0xC50541</span>,  </span>
+<span id="cb2-13"><a href="pseudorandomness.html#cb2-13" tabindex="-1"></a>     <span class="bn">0x0D6DDD</span>, <span class="bn">0x695A2F</span>, <span class="bn">0xA81062</span>, <span class="bn">0x0123CA</span>, <span class="bn">0xC6C5C3</span> ]</span>
+<span id="cb2-14"><a href="pseudorandomness.html#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="pseudorandomness.html#cb2-15" tabindex="-1"></a>  <span class="co"># return the modular sum of the constants</span></span>
+<span id="cb2-16"><a href="pseudorandomness.html#cb2-16" tabindex="-1"></a>  <span class="co"># corresponding to ones in the seed</span></span>
+<span id="cb2-17"><a href="pseudorandomness.html#cb2-17" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">reduce</span>(<span class="kw">lambda</span> x,y: (x<span class="op">+</span>y) <span class="op">%</span> modulo,</span>
+<span id="cb2-18"><a href="pseudorandomness.html#cb2-18" tabindex="-1"></a>                <span class="bu">map</span>(<span class="kw">lambda</span> a,b: a<span class="op">*</span>b, constants,seed))</span></code></pre></div>
+<p>The seed to this generator is an array <code>seed</code> of 40 bits, with 40 hardwired constants each 48 bits long (these constants were generated at random, but are fixed once and for all, and are not kept secret and hence are not
+considered part of the secret random seed).
+The output is simply
+<span class="math display">\[\sum_{i=1}^{40} \texttt{seed}[i]\texttt{constants}[i] \pmod{2^{48}}\]</span>
+and hence expands the <span class="math inline">\(40\)</span> bit input into a <span class="math inline">\(48\)</span> bit output.</p>
+<p>This generator is loosely motivated by the “subset sum” computational problem, which is NP hard. However, since NP hardness is a <em>worst case</em> notion of complexity, it does not imply security for pseudorandom generators, which requires hardness of an <em>average case</em> variant.
+To get some intuition for its security, we can work out why (given that it seems to be linear) we cannot break it by simply using Gaussian elimination.</p>
+<blockquote>
+<h1 id="section-30" class="pause"></h1>
+<p>This is an excellent point for you to stop and try to answer this question on your own.</p>
+</blockquote>
+<p>Given the known constants and known output, figuring out the set of potential seeds can be thought of as solving a <em>single</em> equation in 40 variables.
+However, this equation is clearly overdetermined, and will have a solution regardless of whether the observed value is indeed an output of the generator, or it is chosen uniformly at random.</p>
+<p>More concretely, we can use linear-equation solving to compute (given the known constants <span class="math inline">\(c_1,\ldots,c_{40} \in \mathbb{Z}_{2^{48}}\)</span> and the output <span class="math inline">\(y \in \mathbb{Z}_{2^{48}}\)</span>) the linear subspace <span class="math inline">\(V\)</span> of all vectors <span class="math inline">\((s_1,\ldots,s_{40}) \in (\mathbb{Z}_{2^{48}})^{40}\)</span> such that <span class="math inline">\(\sum s_i c_i = y \pmod{2^{48}}\)</span>.
+But, regardless of whether <span class="math inline">\(y\)</span> was generated at random from <span class="math inline">\(\mathbb{Z}_{2^{48}}\)</span>, or <span class="math inline">\(y\)</span> was generated as an output of the generator, the subspace <span class="math inline">\(V\)</span> will always have the same dimension (specifically, since it is formed by a single linear equation over <span class="math inline">\(40\)</span> variables, the dimension will be <span class="math inline">\(39\)</span>.)
+To break the generator we seem to need to be able to decide whether this linear subspace <span class="math inline">\(V \subseteq (\mathbb{Z}_{2^{48}})^{40}\)</span> contains a <em>Boolean vector</em> (i.e., a vector <span class="math inline">\(s\in \{0,1\}^n\)</span>).
+Since the condition that a vector is Boolean is not defined by linear equations, we cannot use Gaussian elimination to break the generator.
+Generally, the task of finding a vector with <em>small</em> coefficients inside a discrete linear subspace is closely related to a classical problem known as finding the <a href="https://goo.gl/WRNT9S">shortest vector in a lattice</a>. (See also the <a href="https://goo.gl/KwZWhV">short integer solution (SIS) problem</a>.)</p>
+</div>
+<div id="case-study-2-rc4" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Case Study 2: RC4<a href="pseudorandomness.html#case-study-2-rc4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following is another example of an extremely simple generator known as RC4 (this stands for Rivest Cipher 4, as Ron Rivest invented this in 1987) and is still fairly widely used today.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="pseudorandomness.html#cb3-1" tabindex="-1"></a><span class="kw">def</span> RC4(P,i,j):</span>
+<span id="cb3-2"><a href="pseudorandomness.html#cb3-2" tabindex="-1"></a>    i <span class="op">=</span> (i <span class="op">+</span> <span class="dv">1</span>) <span class="op">%</span> <span class="dv">256</span></span>
+<span id="cb3-3"><a href="pseudorandomness.html#cb3-3" tabindex="-1"></a>    j <span class="op">=</span> (j <span class="op">+</span> P[i]) <span class="op">%</span> <span class="dv">256</span></span>
+<span id="cb3-4"><a href="pseudorandomness.html#cb3-4" tabindex="-1"></a>    P[i], P[j] <span class="op">=</span> P[j], P[i]</span>
+<span id="cb3-5"><a href="pseudorandomness.html#cb3-5" tabindex="-1"></a>    <span class="cf">return</span> (P,i,j,P[(P[i]<span class="op">+</span>P[j]) <span class="op">%</span> <span class="dv">256</span>])</span></code></pre></div>
+<p>The function <code>RC4</code> takes as input the current state <code>P,i,j</code> of the generator and returns the new state together with a single output byte.
+The state of the generator consists of an array <code>P</code> of 256 bytes, which can be thought of as a <em>permutation</em> of the numbers <span class="math inline">\(0,\ldots,255\)</span> in the sense that we maintain the invariant that
+<span class="math inline">\(\texttt{P}[i]\neq\texttt{P}[j]\)</span> for every <span class="math inline">\(i\neq j\)</span>, and two indices <span class="math inline">\(i,j \in \{0,\ldots,255\}\)</span>.
+We can consider the initial state as the case where <code>P</code> is a completely random permutation and <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are initialized to zero, although to save on initial seed size, typically RC4 uses some “pseudorandom” way to generate <code>P</code> from a shorter seed as well.</p>
+<p>RC4 has extremely efficient software implementations and hence has been widely implemented. However, it has several issues with its security. In particular it was shown by Mantin<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a> and Shamir that the second bit of RC4 is <em>not</em> random, even if the initialization vector was random.
+This and other issues led to a practical attack on the 802.11b WiFi protocol, see Section 9.9 in Boneh-Shoup.
+The initial response to those attacks was to suggest to drop the first 1024 bytes of the output, but by now the attacks have been sufficiently extended that RC4 is simply not considered a secure cipher anymore.
+The ciphers Salsa and ChaCha, designed by Dan Bernstein, have a similar design to RC4, and are considered secure and deployed in several standard protocols such as TLS, SSH and QUIC, see Section 3.6 in Boneh-Shoup.</p>
+</div>
+<div id="case-study-3-blum-blum-and-shub" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Case Study 3: Blum, Blum and Shub<a href="pseudorandomness.html#case-study-3-blum-blum-and-shub" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>B.B.S., which stands for the authors Blum, Blum and Shub, is a simple generator constructed from a potentially hard problem in number theory.</p>
+<p>Let <span class="math inline">\(N=P\cdot Q\)</span>, where <span class="math inline">\(P,Q\)</span> are primes. (We will generally use <span class="math inline">\(P,Q\)</span> of size roughly <span class="math inline">\(n\)</span>, where <span class="math inline">\(n\)</span> is our security parameter, and so use capital letters to emphasize that the magnitude of these numbers is exponential in the security parameter.)</p>
+<p>We define <span class="math inline">\(QR_N\)</span> to be the set of <em>quadratic residues modulo <span class="math inline">\(N\)</span></em>, which are the numbers that have a modular square root.
+Formally,</p>
+<p><span class="math display">\[QR_N=\{X^2 \mod N \mid \gcd(X,N )=1\}.\]</span></p>
+<p>This definition extends the concept of “perfect squares” when we are working with standard integers. Notice that each number in <span class="math inline">\(Y \in QR_N\)</span> has at least one square root (number <span class="math inline">\(X\)</span> such that <span class="math inline">\(Y = X^2 \mod N\)</span>).
+We will see later in the course that if <span class="math inline">\(N = P\cdot Q\)</span> for primes <span class="math inline">\(P,Q\)</span> then each <span class="math inline">\(Y\in QR_N\)</span> has exactly <span class="math inline">\(4\)</span> square roots.
+The B.B.S. generator chooses <span class="math inline">\(N=P\cdot Q\)</span>, where <span class="math inline">\(P,Q\)</span> are prime and <span class="math inline">\(P,Q\equiv 3\pmod{4}\)</span>. The second condition guarantees that for each <span class="math inline">\(Y\in QR_N\)</span>, exactly one of its square roots fall in <span class="math inline">\(QR_N\)</span>, and hence the map
+<span class="math inline">\(X \mapsto X^2 \mod N\)</span> is one-to-one and onto map from <span class="math inline">\(QR_N\)</span> to itself.<br />
+It is defined as follows:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="pseudorandomness.html#cb4-1" tabindex="-1"></a><span class="kw">def</span> BBS(X):</span>
+<span id="cb4-2"><a href="pseudorandomness.html#cb4-2" tabindex="-1"></a>    <span class="cf">return</span> (X <span class="op">*</span> X <span class="op">%</span> N, N <span class="op">%</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>In other words, on input <span class="math inline">\(X\)</span>, <span class="math inline">\(BBS(X)\)</span> outputs <span class="math inline">\(X^2 \mod N\)</span> and the least significant bit of <span class="math inline">\(X\)</span>.
+We can think of <span class="math inline">\(BBS\)</span> as a map <span class="math inline">\(BBS:QR_N \rightarrow QR_N \times \{0,1\}\)</span> and so it maps a domain into a larger domain.
+We can also extend it to output <span class="math inline">\(t\)</span> additional bits, by repeatedly squaring the input, letting <span class="math inline">\(X_0 = X\)</span>, <span class="math inline">\(X_{i+1} = X_i^2 \mod N\)</span>, for <span class="math inline">\(i=0,\ldots,{t-1}\)</span>, and outputting <span class="math inline">\(X_t\)</span> together with the least significant bits of <span class="math inline">\(X_0,\ldots,X_{t-1}\)</span>.
+It turns out that assuming that there is no polynomial-time algorithm (where “polynomial-time” means polynomial in the <em>number of bits</em> to represent <span class="math inline">\(N\)</span>, i.e., polynomial in <span class="math inline">\(\log N\)</span>) to factor randomly chosen integers <span class="math inline">\(N=P\cdot Q\)</span>, for every <span class="math inline">\(t\)</span> that is polynomial in the number of bits in <span class="math inline">\(N\)</span>, the output of the <span class="math inline">\(t\)</span>-step <span class="math inline">\(BBS\)</span> generator will be computationally indistinguishable from <span class="math inline">\(U_{QR_N} \times U_t\)</span> where <span class="math inline">\(U_{QR_N}\)</span> denotes the uniform distribution over <span class="math inline">\(QR_N\)</span>.</p>
+<p>The number theory required to show takes a while to develop. However, it is interesting and I recommend the reader to search up this particular generator, see for example <a href="https://www.cs.miami.edu/home/burt/learning/Csc609.062/docs/bbs.pdf">this survey by Junod</a>.</p>
+</div>
+</div>
+<div id="non-constructive-existence-of-pseudorandom-generators" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Non-constructive existence of pseudorandom generators<a href="pseudorandomness.html#non-constructive-existence-of-pseudorandom-generators" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We now show that, if we don’t insist on <em>constructivity</em> of pseudorandom generators, then there exists pseudorandom generators with output that are <em>exponentially larger</em> than the input length.</p>
+<blockquote>
+<h1 id="prgexist" class="lemma" title="Existence of inefficient pseudorandom generators"></h1>
+<p>There is some absolute constant <span class="math inline">\(C\)</span> such that for every <span class="math inline">\(\epsilon,T\)</span>, if <span class="math inline">\(\ell &gt; C (\log T + \log (1/\epsilon))\)</span> and <span class="math inline">\(m \leq T\)</span>, then there is an <span class="math inline">\((T,\epsilon)\)</span> pseudorandom generator <span class="math inline">\(G: \{0,1\}^\ell \rightarrow \{0,1\}^m\)</span>.</p>
+</blockquote>
+<blockquote>
+<h1 id="section-31" class="proofidea"></h1>
+<p>The proof uses an extremely useful technique known as the “probabilistic method” which is not too hard mathematically but can be confusing at first.<a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a>
+The idea is to give a “non constructive” proof of existence of the pseudorandom generator <span class="math inline">\(G\)</span> by showing that if <span class="math inline">\(G\)</span> was chosen at random, then the probability that it would be a valid <span class="math inline">\((T,\epsilon)\)</span> pseudorandom generator is positive.
+In particular this means that there <em>exists</em> a single <span class="math inline">\(G\)</span> that is a valid <span class="math inline">\((T,\epsilon)\)</span> pseudorandom generator.
+The probabilistic method is just a <em>proof technique</em> to demonstrate the existence of such a function.
+Ultimately, our goal is to show the existence of a <em>deterministic</em> function <span class="math inline">\(G\)</span> that satisfies
+the conditions of a <span class="math inline">\((T, \epsilon)\)</span> PRG.</p>
+</blockquote>
+<p>The above discussion might be rather abstract at this point, but would become clearer after seeing the proof.</p>
+<blockquote>
+<h1 id="section-32" class="proof"></h1>
+<p>Let <span class="math inline">\(\epsilon,T,\ell,m\)</span> be as in the lemma’s statement. We need to show that there exists a function <span class="math inline">\(G:\{0,1\}^\ell \rightarrow \{0,1\}^m\)</span> that “fools” every <span class="math inline">\(T\)</span> line program <span class="math inline">\(P\)</span> in the sense of <a href="" class="eqref">prgdefeq</a>.
+We will show that this follows from the following claim:</p>
+<p><strong>Claim I:</strong> For every fixed NAND program / Boolean circuit <span class="math inline">\(P\)</span>, if we pick <span class="math inline">\(G:\{0,1\}^\ell \rightarrow \{0,1\}^m\)</span> <em>at random</em> then the probability that <a href="" class="eqref">prgdefeq</a> is violated is at most <span class="math inline">\(2^{-T^2}\)</span>.</p>
+<p>Before proving Claim I, let us see why it implies <a href="" class="ref">prgexist</a>.
+We can identify a function <span class="math inline">\(G:\{0,1\}^\ell \rightarrow \{0,1\}^m\)</span> with its “truth table” or simply the list of evaluations on all its possible <span class="math inline">\(2^\ell\)</span> inputs. Since each output is an <span class="math inline">\(m\)</span> bit string,
+we can also think of <span class="math inline">\(G\)</span> as a string in <span class="math inline">\(\{0,1\}^{m\cdot 2^\ell}\)</span>. We define <span class="math inline">\(\mathcal{F}^m_\ell\)</span> to be the set of all functions from <span class="math inline">\(\{0,1\}^\ell\)</span> to <span class="math inline">\(\{0,1\}^m\)</span>. As discussed above we can identify <span class="math inline">\(\mathcal{F}_\ell^m\)</span> with <span class="math inline">\(\{0,1\}^{m\cdot 2^\ell}\)</span> and choosing a random function <span class="math inline">\(G \sim \mathcal{F}_\ell^m\)</span> corresponds to choosing a random <span class="math inline">\(m\cdot 2^\ell\)</span>-long bit string.</p>
+<p>For every NAND program / Boolean circuit <span class="math inline">\(P\)</span> let <span class="math inline">\(B_P\)</span> be the event that, if we choose <span class="math inline">\(G\)</span> at random from <span class="math inline">\(\mathcal{F}_\ell^m\)</span> then <a href="" class="eqref">prgdefeq</a> is violated with respect to the program <span class="math inline">\(P\)</span>.
+It is important to understand what is the sample space that the event <span class="math inline">\(B_P\)</span> is defined over, namely this event depends on the choice of <span class="math inline">\(G\)</span> and so <span class="math inline">\(B_P\)</span> is a subset of <span class="math inline">\(\mathcal{F}_\ell^m\)</span>. An equivalent way to define the event <span class="math inline">\(B_P\)</span> is that it is the subset of all functions mapping <span class="math inline">\(\{0,1\}^\ell\)</span> to <span class="math inline">\(\{0,1\}^m\)</span> that violate <a href="" class="eqref">prgdefeq</a>, or in other words:
+<span class="math display">\[
+B_P = \left\{ G \in \mathcal{F}_\ell^m \; \big| \; \left| \tfrac{1}{2^\ell}\sum_{s\in \{0,1\}^\ell} P(G(s)) - \tfrac{1}{2^m}\sum_{r \in \{0,1\}^m}P(r) \right| &gt; \epsilon \right\} \;\;. \label{eq:eventdefine}
+\]</span>
+(We’ve replaced here the probability statements in <a href="" class="eqref">prgdefeq</a> with the equivalent sums so as to reduce confusion as to what is the sample space that <span class="math inline">\(B_P\)</span> is defined over.)</p>
+<p>To understand this proof it is crucial that you pause here and see how the definition of <span class="math inline">\(B_P\)</span> above corresponds to <a href="" class="eqref">eq:eventdefine</a>. This may well take re-reading the above text once or twice, but it is a good exercise at parsing probabilistic statements and learning how to identify the <em>sample space</em> that these statements correspond to.</p>
+<p>Now, the number of programs of size <span class="math inline">\(T\)</span> (or circuits of size <span class="math inline">\(T\)</span>) is at most <span class="math inline">\(2^{O(T\log T)}\)</span>.
+Since <span class="math inline">\(T\log T = o(T^2\)</span>) this means that if Claim I is true, then by the union bound it holds that the probability of the union of <span class="math inline">\(B_P\)</span> over <em>all</em> NAND programs of at most <span class="math inline">\(T\)</span> lines is at most <span class="math inline">\(2^{O(T\log T)}2^{-T^2} &lt; 0.1\)</span> for sufficiently large <span class="math inline">\(T\)</span>.
+What is important for us about the number <span class="math inline">\(0.1\)</span> is that it is smaller than <span class="math inline">\(1\)</span>.
+In particular this means that there <em>exists</em> a single <span class="math inline">\(G^* \in \mathcal{F}_\ell^m\)</span> such that <span class="math inline">\(G^*\)</span> <em>does not</em> violate <a href="" class="eqref">prgdefeq</a> with respect to any NAND program of at most <span class="math inline">\(T\)</span> lines, but that precisely means that <span class="math inline">\(G^*\)</span> is a <span class="math inline">\((T,\epsilon)\)</span> pseudorandom generator.</p>
+<p>Hence, it suffices to prove Claim I to conclude the proof of <a href="" class="ref">prgexist</a>.
+Choosing a random <span class="math inline">\(G: \{0,1\}^\ell \rightarrow \{0,1\}^m\)</span> amounts to choosing <span class="math inline">\(L=2^\ell\)</span> random strings <span class="math inline">\(y_0,\ldots,y_{L-1} \in \{0,1\}^m\)</span> and letting <span class="math inline">\(G(x)=y_x\)</span> (identifying <span class="math inline">\(\{0,1\}^\ell\)</span> and <span class="math inline">\([L]\)</span> via the binary representation).
+Hence the claim amounts to showing that for every fixed function <span class="math inline">\(P:\{0,1\}^m \rightarrow \{0,1\}\)</span>,
+if <span class="math inline">\(L &gt; 2^{C (\log T + \log (1/\epsilon))}\)</span> (which by setting <span class="math inline">\(C&gt;4\)</span>, we can ensure is larger than <span class="math inline">\(10 T^2/\epsilon^2\)</span>) then the probability that
+<span class="math display">\[
+\left| \tfrac{1}{L}\sum_{i=0}^{L-1} P(y_i) - \Pr_{s \leftarrow_R \{0,1\}^m}[P(s)=1] \right| &gt; \epsilon \label{prgdefeqchernoff}
+\]</span>
+is at most <span class="math inline">\(2^{-T^2}\)</span>.
+<a href="" class="eqref">{prgdefeqchernoff}</a> follows directly from the Chernoff bound.
+If we let for every <span class="math inline">\(i\in [L]\)</span> the random variable <span class="math inline">\(X_i\)</span> denote <span class="math inline">\(P(y_i)\)</span>, then since <span class="math inline">\(y_0,\ldots,y_{L-1}\)</span> is chosen independently at random, these are independently and identically distributed random variables with mean <span class="math inline">\(\mathbb{E}_{y \leftarrow_R \{0,1\}^m}[P(y)]= \Pr_{y\leftarrow_R \{0,1\}^m}[ P(y)=1]\)</span> and hence the probability that they deviate from their expectation by <span class="math inline">\(\epsilon\)</span> is at most <span class="math inline">\(2\cdot 2^{-\epsilon^2 L/2}\)</span>.</p>
+</blockquote>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="26">
+<li id="fn26"><p>Edited and expanded by Richard Xu in Spring 2020.<a href="pseudorandomness.html#fnref26" class="footnote-back">↩︎</a></p></li>
+<li id="fn27"><p>Even lawyers grapple with this question, with a recent example being the debate of whether fantasy football is a game of chance or of skill.<a href="pseudorandomness.html#fnref27" class="footnote-back">↩︎</a></p></li>
+<li id="fn28"><p>In fact such a function must exist in some sense since in the entire history of the world, presumably no sequence of <span class="math inline">\(100\)</span> fair coin tosses has ever repeated.<a href="pseudorandomness.html#fnref28" class="footnote-back">↩︎</a></p></li>
+<li id="fn29"><p>The name “The PRG conjecture” is non-standard. In the literature this is known as the conjecture of existence of pseudorandom generators. This is a weaker form of “The Optimal PRG Conjecture” presented in my <a href="https://goo.gl/G7bU4M">intro to theoretical CS lecture notes</a> since the PRG conjecture only posits the existence of pseudorandom generators with arbitrary polynomial blowup, as opposed to an exponential blowup posited in the optimal PRG conjecture.<a href="pseudorandomness.html#fnref29" class="footnote-back">↩︎</a></p></li>
+<li id="fn30"><p>Because we use a small input to grow a large pseudorandom string, the input to a pseudorandom generator is often known as its <em>seed</em>.<a href="pseudorandomness.html#fnref30" class="footnote-back">↩︎</a></p></li>
+<li id="fn31"><p>CRC are often used to generate a “control digit” to detect mistypes of credit card or social security card number. This has very different goals than its use for pseudorandom generators, though there are some common intuitions behind the two usages.<a href="pseudorandomness.html#fnref31" class="footnote-back">↩︎</a></p></li>
+<li id="fn32"><p>A ring is a set of elements where addition and multiplication are defined and obey the natural rules of associativity and commutativity (though without necessarily having a multiplicative inverse for every element). For every integer <span class="math inline">\(q\)</span> we define <span class="math inline">\(\mathbb{Z}_q\)</span> (known as the <em>ring of integers modulo <span class="math inline">\(q\)</span></em>) to be the set <span class="math inline">\(\{0,\ldots,q-1\}\)</span> where addition and multiplication is done modulo <span class="math inline">\(q\)</span>.<a href="pseudorandomness.html#fnref32" class="footnote-back">↩︎</a></p></li>
+<li id="fn33"><p>Despite the name, the algorithm goes at least as far back as the Chinese <em>Jiuzhang Suanshu</em> manuscript, circa 150 B.C.<a href="pseudorandomness.html#fnref33" class="footnote-back">↩︎</a></p></li>
+<li id="fn34"><p>That number is obtained by applying an algorithm of <a href="https://goo.gl/SL8ahM">Hans Peter Luhn</a> which applies a simple map to each digit of the card and then sums them up modulo 10.<a href="pseudorandomness.html#fnref34" class="footnote-back">↩︎</a></p></li>
+<li id="fn35"><p>Actually modern computers will be able to break this generator via brute force, but if the length and number of the constants were doubled (or perhaps quadrupled) this should be sufficiently secure, though longer to write down.<a href="pseudorandomness.html#fnref35" class="footnote-back">↩︎</a></p></li>
+<li id="fn36"><p>I typically do not include references in these lecture notes, and leave them to the texts, but I make here an exception because Itsik Mantin was a close friend of mine in grad school.<a href="pseudorandomness.html#fnref36" class="footnote-back">↩︎</a></p></li>
+<li id="fn37"><p>There is a whole (highly recommended) <a href="https://www.amazon.com/Probabilistic-Method-Discrete-Mathematics-Optimization/dp/1119061954/ref=dp_ob_title_bk">book by Alon and Spencer</a> devoted to this method.<a href="pseudorandomness.html#fnref37" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="computational-security.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pseudorandom-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-Pseudorandomness.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

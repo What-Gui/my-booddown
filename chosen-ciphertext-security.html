@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Chosen Ciphertext Security | A Minimal Book Example</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Chosen Ciphertext Security | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Chosen Ciphertext Security | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"/>
+<link rel="next" href="hash-functions-random-oracles-and-bitcoin.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="mathematical-background.html"><a href="mathematical-background.html"><i class="fa fa-check"></i><b>1</b> Mathematical Background</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="mathematical-background.html"><a href="mathematical-background.html#a-quick-overview-of-mathematical-prerequisites"><i class="fa fa-check"></i><b>1.1</b> A quick overview of mathematical prerequisites</a></li>
+<li class="chapter" data-level="1.2" data-path="mathematical-background.html"><a href="mathematical-background.html#mathematical-proofs"><i class="fa fa-check"></i><b>1.2</b> Mathematical Proofs</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="mathematical-background.html"><a href="mathematical-background.html#example-the-existence-of-infinitely-many-primes."><i class="fa fa-check"></i><b>1.2.1</b> Example: The existence of infinitely many primes.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="mathematical-background.html"><a href="mathematical-background.html#probability-and-sample-spaces"><i class="fa fa-check"></i><b>1.3</b> Probability and Sample spaces</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="mathematical-background.html"><a href="mathematical-background.html#random-variables"><i class="fa fa-check"></i><b>1.3.1</b> Random variables</a></li>
+<li class="chapter" data-level="1.3.2" data-path="mathematical-background.html"><a href="mathematical-background.html#distributions-over-strings"><i class="fa fa-check"></i><b>1.3.2</b> Distributions over strings</a></li>
+<li class="chapter" data-level="1.3.3" data-path="mathematical-background.html"><a href="mathematical-background.html#more-general-sample-spaces."><i class="fa fa-check"></i><b>1.3.3</b> More general sample spaces.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="mathematical-background.html"><a href="mathematical-background.html#correlations-and-independence"><i class="fa fa-check"></i><b>1.4</b> Correlations and independence</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="mathematical-background.html"><a href="mathematical-background.html#independent-random-variables"><i class="fa fa-check"></i><b>1.4.1</b> Independent random variables</a></li>
+<li class="chapter" data-level="1.4.2" data-path="mathematical-background.html"><a href="mathematical-background.html#collections-of-independent-random-variables."><i class="fa fa-check"></i><b>1.4.2</b> Collections of independent random variables.</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="mathematical-background.html"><a href="mathematical-background.html#concentration-and-tail-bounds"><i class="fa fa-check"></i><b>1.5</b> Concentration and tail bounds</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="mathematical-background.html"><a href="mathematical-background.html#chebyshevs-inequality"><i class="fa fa-check"></i><b>1.5.1</b> Chebyshev’s Inequality</a></li>
+<li class="chapter" data-level="1.5.2" data-path="mathematical-background.html"><a href="mathematical-background.html#the-chernoff-bound"><i class="fa fa-check"></i><b>1.5.2</b> The Chernoff bound</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises"><i class="fa fa-check"></i><b>1.6</b> Exercises</a></li>
+<li class="chapter" data-level="1.7" data-path="mathematical-background.html"><a href="mathematical-background.html#exercises-1"><i class="fa fa-check"></i><b>1.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#some-history"><i class="fa fa-check"></i><b>2.1</b> Some history</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction.html"><a href="introduction.html#defining-encryptions"><i class="fa fa-check"></i><b>2.2</b> Defining encryptions</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction.html"><a href="introduction.html#defining-security-of-encryption"><i class="fa fa-check"></i><b>2.3</b> Defining security of encryption</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction.html"><a href="introduction.html#generating-randomness-in-actual-cryptographic-systems"><i class="fa fa-check"></i><b>2.3.1</b> Generating randomness in actual cryptographic systems</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction.html"><a href="introduction.html#defining-the-secrecy-requirement."><i class="fa fa-check"></i><b>2.4</b> Defining the secrecy requirement.</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction.html"><a href="introduction.html#perfect-secrecy"><i class="fa fa-check"></i><b>2.5</b> Perfect Secrecy</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="introduction.html"><a href="introduction.html#achieving-perfect-secrecy"><i class="fa fa-check"></i><b>2.5.1</b> Achieving perfect secrecy</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="introduction.html"><a href="introduction.html#necessity-of-long-keys"><i class="fa fa-check"></i><b>2.6</b> Necessity of long keys</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="introduction.html"><a href="introduction.html#amplifying-success-probability"><i class="fa fa-check"></i><b>2.6.1</b> Amplifying success probability</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="introduction.html"><a href="introduction.html#bibliographical-notes"><i class="fa fa-check"></i><b>2.7</b> Bibliographical notes</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="computational-security.html"><a href="computational-security.html"><i class="fa fa-check"></i><b>3</b> Computational Security</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="computational-security.html"><a href="computational-security.html#proof-by-reduction"><i class="fa fa-check"></i><b>3.0.1</b> Proof by reduction</a></li>
+<li class="chapter" data-level="3.1" data-path="computational-security.html"><a href="computational-security.html#the-asymptotic-approach"><i class="fa fa-check"></i><b>3.1</b> The asymptotic approach</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="computational-security.html"><a href="computational-security.html#countoperation"><i class="fa fa-check"></i><b>3.1.1</b> Counting number of operations.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="computational-security.html"><a href="computational-security.html#our-first-conjecture"><i class="fa fa-check"></i><b>3.2</b> Our first conjecture</a></li>
+<li class="chapter" data-level="3.3" data-path="computational-security.html"><a href="computational-security.html#why-care-about-the-cipher-conjecture"><i class="fa fa-check"></i><b>3.3</b> Why care about the cipher conjecture?</a></li>
+<li class="chapter" data-level="3.4" data-path="computational-security.html"><a href="computational-security.html#prelude-computational-indistinguishability"><i class="fa fa-check"></i><b>3.4</b> Prelude: Computational Indistinguishability</a></li>
+<li class="chapter" data-level="3.5" data-path="computational-security.html"><a href="computational-security.html#the-length-extension-theorem-or-stream-ciphers"><i class="fa fa-check"></i><b>3.5</b> The Length Extension Theorem or Stream Ciphers</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="computational-security.html"><a href="computational-security.html#appendix-the-computational-model"><i class="fa fa-check"></i><b>3.5.1</b> Appendix: The computational model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pseudorandomness.html"><a href="pseudorandomness.html"><i class="fa fa-check"></i><b>4</b> Pseudorandomness</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#unpredictability-an-alternative-approach-for-proving-the-length-extension-theorem"><i class="fa fa-check"></i><b>4.0.1</b> Unpredictability: an alternative approach for proving the length extension theorem</a></li>
+<li class="chapter" data-level="4.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#stream-ciphers"><i class="fa fa-check"></i><b>4.1</b> Stream ciphers</a></li>
+<li class="chapter" data-level="4.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#what-do-pseudorandom-generators-actually-look-like"><i class="fa fa-check"></i><b>4.2</b> What do pseudorandom generators actually look like?</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-0-the-counter-generator"><i class="fa fa-check"></i><b>4.2.1</b> Attempt 0: The counter generator</a></li>
+<li class="chapter" data-level="4.2.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-1-the-linear-checksum-linear-feedback-shift-register-lfsr"><i class="fa fa-check"></i><b>4.2.2</b> Attempt 1: The linear checksum / linear feedback shift register (LFSR)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#from-insecurity-to-security"><i class="fa fa-check"></i><b>4.2.3</b> From insecurity to security</a></li>
+<li class="chapter" data-level="4.2.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#attempt-2-linear-congruential-generators-with-dropped-bits"><i class="fa fa-check"></i><b>4.2.4</b> Attempt 2: Linear Congruential Generators with dropped bits</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#successful-examples"><i class="fa fa-check"></i><b>4.3</b> Successful examples</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-1-subset-sum-generator"><i class="fa fa-check"></i><b>4.3.1</b> Case Study 1: Subset Sum Generator</a></li>
+<li class="chapter" data-level="4.3.2" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-2-rc4"><i class="fa fa-check"></i><b>4.3.2</b> Case Study 2: RC4</a></li>
+<li class="chapter" data-level="4.3.3" data-path="pseudorandomness.html"><a href="pseudorandomness.html#case-study-3-blum-blum-and-shub"><i class="fa fa-check"></i><b>4.3.3</b> Case Study 3: Blum, Blum and Shub</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="pseudorandomness.html"><a href="pseudorandomness.html#non-constructive-existence-of-pseudorandom-generators"><i class="fa fa-check"></i><b>4.4</b> Non-constructive existence of pseudorandom generators</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html"><i class="fa fa-check"></i><b>5</b> Pseudorandom functions</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#one-time-passwords-e.g.-google-authenticator-rsa-id-etc."><i class="fa fa-check"></i><b>5.1</b> One time passwords (e.g. Google Authenticator, RSA ID, etc.)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#how-do-pseudorandom-functions-help-in-the-login-problem"><i class="fa fa-check"></i><b>5.1.1</b> How do pseudorandom functions help in the login problem?</a></li>
+<li class="chapter" data-level="5.1.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#modifying-input-and-output-lengths-of-prfs"><i class="fa fa-check"></i><b>5.1.2</b> Modifying input and output lengths of PRFs</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#message-authentication-codes"><i class="fa fa-check"></i><b>5.2</b> Message Authentication Codes</a></li>
+<li class="chapter" data-level="5.3" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#macs-from-prfs"><i class="fa fa-check"></i><b>5.3</b> MACs from PRFs</a></li>
+<li class="chapter" data-level="5.4" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#arbitrary-input-length-extension-for-macs-and-prfs"><i class="fa fa-check"></i><b>5.4</b> Arbitrary input length extension for MACs and PRFs</a></li>
+<li class="chapter" data-level="5.5" data-path="pseudorandom-functions.html"><a href="pseudorandom-functions.html#aside-natural-proofs"><i class="fa fa-check"></i><b>5.5</b> Aside: natural proofs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><i class="fa fa-check"></i><b>6</b> Pseudorandom functions from pseudorandom generators and CPA security</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#securely-encrypting-many-messages---chosen-plaintext-security"><i class="fa fa-check"></i><b>6.1</b> Securely encrypting many messages - chosen plaintext security</a></li>
+<li class="chapter" data-level="6.2" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#pseudorandom-permutations-block-ciphers"><i class="fa fa-check"></i><b>6.2</b> Pseudorandom permutations / block ciphers</a></li>
+<li class="chapter" data-level="6.3" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#encryption-modes"><i class="fa fa-check"></i><b>6.3</b> Encryption modes</a></li>
+<li class="chapter" data-level="6.4" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#optional-aside-broadcast-encryption"><i class="fa fa-check"></i><b>6.4</b> Optional, Aside: Broadcast Encryption</a></li>
+<li class="chapter" data-level="6.5" data-path="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html"><a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html#reading-comprehension-exercises"><i class="fa fa-check"></i><b>6.5</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html"><i class="fa fa-check"></i><b>7</b> Chosen Ciphertext Security</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#short-recap"><i class="fa fa-check"></i><b>7.1</b> Short recap</a></li>
+<li class="chapter" data-level="7.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#going-beyond-cpa"><i class="fa fa-check"></i><b>7.2</b> Going beyond CPA</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#example-the-wired-equivalence-privacy-wep"><i class="fa fa-check"></i><b>7.2.1</b> Example: The Wired Equivalence Privacy (WEP)</a></li>
+<li class="chapter" data-level="7.2.2" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-security-1"><i class="fa fa-check"></i><b>7.2.2</b> Chosen ciphertext security</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#constructing-cca-secure-encryption"><i class="fa fa-check"></i><b>7.3</b> Constructing CCA secure encryption</a></li>
+<li class="chapter" data-level="7.4" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#simplified-gcm-encryption"><i class="fa fa-check"></i><b>7.4</b> (Simplified) GCM encryption</a></li>
+<li class="chapter" data-level="7.5" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#padding-chopping-and-their-pitfalls-the-buffer-overflow-of-cryptography"><i class="fa fa-check"></i><b>7.5</b> Padding, chopping, and their pitfalls: the “buffer overflow” of cryptography</a></li>
+<li class="chapter" data-level="7.6" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#chosen-ciphertext-attack-as-implementing-metaphors"><i class="fa fa-check"></i><b>7.6</b> Chosen ciphertext attack as implementing metaphors</a></li>
+<li class="chapter" data-level="7.7" data-path="chosen-ciphertext-security.html"><a href="chosen-ciphertext-security.html#reading-comprehension-exercises-1"><i class="fa fa-check"></i><b>7.7</b> Reading comprehension exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="hash-functions-random-oracles-and-bitcoin.html"><a href="hash-functions-random-oracles-and-bitcoin.html"><i class="fa fa-check"></i><b>8</b> Hash Functions, Random Oracles, and Bitcoin</a></li>
+<li class="chapter" data-level="9" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><i class="fa fa-check"></i><b>9</b> Key derivation, protecting passwords, slow hashes, Merkle trees</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#keys-from-passwords"><i class="fa fa-check"></i><b>9.1</b> Keys from passwords</a></li>
+<li class="chapter" data-level="9.2" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#merkle-trees-and-verifying-storage."><i class="fa fa-check"></i><b>9.2</b> Merkle trees and verifying storage.</a></li>
+<li class="chapter" data-level="9.3" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#proofs-of-retrievability"><i class="fa fa-check"></i><b>9.3</b> Proofs of Retrievability</a></li>
+<li class="chapter" data-level="9.4" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#entropy-extraction"><i class="fa fa-check"></i><b>9.4</b> Entropy extraction</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html"><a href="key-derivation-protecting-passwords-slow-hashes-merkle-trees.html#forward-and-backward-secrecy"><i class="fa fa-check"></i><b>9.4.1</b> Forward and backward secrecy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html"><i class="fa fa-check"></i><b>10</b> Public key cryptography</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#private-key-crypto-recap"><i class="fa fa-check"></i><b>10.1</b> Private key crypto recap</a></li>
+<li class="chapter" data-level="10.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#public-key-encryptions-definition"><i class="fa fa-check"></i><b>10.2</b> Public Key Encryptions: Definition</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-obfuscation-paradigm"><i class="fa fa-check"></i><b>10.2.1</b> The obfuscation paradigm</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#some-concrete-candidates"><i class="fa fa-check"></i><b>10.3</b> Some concrete candidates:</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#diffie-hellman-encryption-aka-el-gamal"><i class="fa fa-check"></i><b>10.3.1</b> Diffie-Hellman Encryption (aka El-Gamal)</a></li>
+<li class="chapter" data-level="10.3.2" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#sampling-random-primes"><i class="fa fa-check"></i><b>10.3.2</b> Sampling random primes</a></li>
+<li class="chapter" data-level="10.3.3" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#a-little-bit-of-group-theory."><i class="fa fa-check"></i><b>10.3.3</b> A little bit of group theory.</a></li>
+<li class="chapter" data-level="10.3.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#digital-signatures"><i class="fa fa-check"></i><b>10.3.4</b> Digital Signatures</a></li>
+<li class="chapter" data-level="10.3.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#the-digital-signature-algorithm-dsa"><i class="fa fa-check"></i><b>10.3.5</b> The Digital Signature Algorithm (DSA)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#putting-everything-together---security-in-practice."><i class="fa fa-check"></i><b>10.4</b> Putting everything together - security in practice.</a></li>
+<li class="chapter" data-level="10.5" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#appendix-an-alternative-proof-of-the-density-of-primes"><i class="fa fa-check"></i><b>10.5</b> Appendix: An alternative proof of the density of primes</a></li>
+<li class="chapter" data-level="10.6" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#additional-group-theory-exercises-and-proofs"><i class="fa fa-check"></i><b>10.6</b> Additional Group Theory Exercises and Proofs</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="public-key-cryptography.html"><a href="public-key-cryptography.html#solved-exercises"><i class="fa fa-check"></i><b>10.6.1</b> Solved exercises:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html"><i class="fa fa-check"></i><b>11</b> Concrete candidates for public key crypto</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#some-number-theory."><i class="fa fa-check"></i><b>11.1</b> Some number theory.</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#primaliy-testing"><i class="fa fa-check"></i><b>11.1.1</b> Primaliy testing</a></li>
+<li class="chapter" data-level="11.1.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#fields"><i class="fa fa-check"></i><b>11.1.2</b> Fields</a></li>
+<li class="chapter" data-level="11.1.3" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#chinese-remainder-theorem"><i class="fa fa-check"></i><b>11.1.3</b> Chinese remainder theorem</a></li>
+<li class="chapter" data-level="11.1.4" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#the-rsa-and-rabin-functions"><i class="fa fa-check"></i><b>11.1.4</b> The RSA and Rabin functions</a></li>
+<li class="chapter" data-level="11.1.5" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#abstraction-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.5</b> Abstraction: trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.6" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#public-key-encryption-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.6</b> Public key encryption from trapdoor permutations</a></li>
+<li class="chapter" data-level="11.1.7" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#digital-signatures-from-trapdoor-permutations"><i class="fa fa-check"></i><b>11.1.7</b> Digital signatures from trapdoor permutations</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#hardcore-bits-and-security-without-random-oracles"><i class="fa fa-check"></i><b>11.2</b> Hardcore bits and security without random oracles</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="concrete-candidates-for-public-key-crypto.html"><a href="concrete-candidates-for-public-key-crypto.html#extending-to-more-than-one-hardcore-bit"><i class="fa fa-check"></i><b>11.2.1</b> Extending to more than one hardcore bit</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html"><i class="fa fa-check"></i><b>12</b> Lattice based cryptography</a>
+<ul>
+<li class="chapter" data-level="12.0.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#quick-linear-algebra-recap"><i class="fa fa-check"></i><b>12.0.1</b> Quick linear algebra recap</a></li>
+<li class="chapter" data-level="12.1" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#a-world-without-gaussian-elimination"><i class="fa fa-check"></i><b>12.1</b> A world without Gaussian elimination</a></li>
+<li class="chapter" data-level="12.2" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#security-in-the-real-world."><i class="fa fa-check"></i><b>12.2</b> Security in the real world.</a></li>
+<li class="chapter" data-level="12.3" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#search-to-decision"><i class="fa fa-check"></i><b>12.3</b> Search to decision</a></li>
+<li class="chapter" data-level="12.4" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#lweencsec"><i class="fa fa-check"></i><b>12.4</b> An LWE based encryption scheme</a></li>
+<li class="chapter" data-level="12.5" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#but-what-are-lattices"><i class="fa fa-check"></i><b>12.5</b> But what are lattices?</a></li>
+<li class="chapter" data-level="12.6" data-path="lattice-based-cryptography.html"><a href="lattice-based-cryptography.html#ring-based-lattices"><i class="fa fa-check"></i><b>12.6</b> Ring based lattices</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html"><i class="fa fa-check"></i><b>13</b> Establishing secure connections over insecure channels</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cryptographys-obsession-with-adjectives."><i class="fa fa-check"></i><b>13.1</b> Cryptography’s obsession with adjectives.</a></li>
+<li class="chapter" data-level="13.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#basic-key-exchange-protocol"><i class="fa fa-check"></i><b>13.2</b> Basic Key Exchange protocol</a></li>
+<li class="chapter" data-level="13.3" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#authenticated-key-exchange"><i class="fa fa-check"></i><b>13.3</b> Authenticated key exchange</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#bleichenbachers-attack-on-rsa-pkcs-v1.5-and-ssl-v3.0"><i class="fa fa-check"></i><b>13.3.1</b> Bleichenbacher’s attack on RSA PKCS V1.5 and SSL V3.0</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#chosen-ciphertext-attack-security-for-public-key-cryptography"><i class="fa fa-check"></i><b>13.4</b> Chosen ciphertext attack security for public key cryptography</a></li>
+<li class="chapter" data-level="13.5" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#cca-secure-public-key-encryption-in-the-random-oracle-model"><i class="fa fa-check"></i><b>13.5</b> CCA secure public key encryption in the Random Oracle Model</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#defining-secure-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.1</b> Defining secure authenticated key exchange</a></li>
+<li class="chapter" data-level="13.5.2" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#the-compiler-approach-for-authenticated-key-exchange"><i class="fa fa-check"></i><b>13.5.2</b> The compiler approach for authenticated key exchange</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#password-authenticated-key-exchange."><i class="fa fa-check"></i><b>13.6</b> Password authenticated key exchange.</a></li>
+<li class="chapter" data-level="13.7" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#client-to-client-key-exchange-for-secure-text-messaging---zrtp-otr-textsecure"><i class="fa fa-check"></i><b>13.7</b> Client to client key exchange for secure text messaging - ZRTP, OTR, TextSecure</a></li>
+<li class="chapter" data-level="13.8" data-path="establishing-secure-connections-over-insecure-channels.html"><a href="establishing-secure-connections-over-insecure-channels.html#heartbleed-and-logjam-attacks"><i class="fa fa-check"></i><b>13.8</b> Heartbleed and logjam attacks</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html"><i class="fa fa-check"></i><b>14</b> Zero knowledge proofs</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#applications-for-zero-knowledge-proofs."><i class="fa fa-check"></i><b>14.1</b> Applications for zero knowledge proofs.</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#nuclear-disarmament"><i class="fa fa-check"></i><b>14.1.1</b> Nuclear disarmament</a></li>
+<li class="chapter" data-level="14.1.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#voting"><i class="fa fa-check"></i><b>14.1.2</b> Voting</a></li>
+<li class="chapter" data-level="14.1.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#more-applications"><i class="fa fa-check"></i><b>14.1.3</b> More applications</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-and-constructing-zero-knowledge-proofs"><i class="fa fa-check"></i><b>14.2</b> Defining and constructing zero knowledge proofs</a></li>
+<li class="chapter" data-level="14.3" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#defining-zero-knowledge"><i class="fa fa-check"></i><b>14.3</b> Defining zero knowledge</a></li>
+<li class="chapter" data-level="14.4" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#zero-knowledge-proof-for-hamiltonicity."><i class="fa fa-check"></i><b>14.4</b> Zero knowledge proof for Hamiltonicity.</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#why-is-this-interesting"><i class="fa fa-check"></i><b>14.4.1</b> Why is this interesting?</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#parallel-repetition-and-turning-zero-knowledge-proofs-to-signatures."><i class="fa fa-check"></i><b>14.5</b> Parallel repetition and turning zero knowledge proofs to signatures.</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="zero-knowledge-proofs.html"><a href="zero-knowledge-proofs.html#bonus-features-of-zero-knowledge"><i class="fa fa-check"></i><b>14.5.1</b> “Bonus features” of zero knowledge</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="chapfheone.html"><a href="chapfheone.html"><i class="fa fa-check"></i><b>15</b> Fully homomorphic encryption: Introduction and bootstrapping</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="chapfheone.html"><a href="chapfheone.html#defining-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>15.1</b> Defining fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="chapfheone.html"><a href="chapfheone.html#another-application-fully-homomorphic-encryption-for-verifying-computation"><i class="fa fa-check"></i><b>15.1.1</b> Another application: fully homomorphic encryption for verifying computation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="chapfheone.html"><a href="chapfheone.html#example-an-xor-homomorphic-encryption"><i class="fa fa-check"></i><b>15.2</b> Example: An XOR homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="chapfheone.html"><a href="chapfheone.html#abstraction-a-trapdoor-pseudorandom-generator."><i class="fa fa-check"></i><b>15.2.1</b> Abstraction: A trapdoor pseudorandom generator.</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="chapfheone.html"><a href="chapfheone.html#from-linear-homomorphism-to-full-homomorphism"><i class="fa fa-check"></i><b>15.3</b> From linear homomorphism to full homomorphism</a></li>
+<li class="chapter" data-level="15.4" data-path="chapfheone.html"><a href="chapfheone.html#bootstrapping-fully-homomorphic-escape-velocity"><i class="fa fa-check"></i><b>15.4</b> Bootstrapping: Fully Homomorphic “escape velocity”</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="chapfheone.html"><a href="chapfheone.html#radioactive-legos-analogy"><i class="fa fa-check"></i><b>15.4.1</b> Radioactive legos analogy</a></li>
+<li class="chapter" data-level="15.4.2" data-path="chapfheone.html"><a href="chapfheone.html#proving-the-bootstrapping-theorem"><i class="fa fa-check"></i><b>15.4.2</b> Proving the bootstrapping theorem</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="chapfhetwo.html"><a href="chapfhetwo.html"><i class="fa fa-check"></i><b>16</b> Fully homomorphic encryption: Construction</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#prelude-from-vectors-to-matrices"><i class="fa fa-check"></i><b>16.1</b> Prelude: from vectors to matrices</a></li>
+<li class="chapter" data-level="16.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#real-world-partially-homomorphic-encryption"><i class="fa fa-check"></i><b>16.2</b> Real world partially homomorphic encryption</a></li>
+<li class="chapter" data-level="16.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#noise-management-via-encoding"><i class="fa fa-check"></i><b>16.3</b> Noise management via encoding</a></li>
+<li class="chapter" data-level="16.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#putting-it-all-together"><i class="fa fa-check"></i><b>16.4</b> Putting it all together</a></li>
+<li class="chapter" data-level="16.5" data-path="chapfhetwo.html"><a href="chapfhetwo.html#analysis-of-our-scheme"><i class="fa fa-check"></i><b>16.5</b> Analysis of our scheme</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#correctness"><i class="fa fa-check"></i><b>16.5.1</b> Correctness</a></li>
+<li class="chapter" data-level="16.5.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#cpa-security"><i class="fa fa-check"></i><b>16.5.2</b> CPA Security</a></li>
+<li class="chapter" data-level="16.5.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#homomorphism"><i class="fa fa-check"></i><b>16.5.3</b> Homomorphism</a></li>
+<li class="chapter" data-level="16.5.4" data-path="chapfhetwo.html"><a href="chapfhetwo.html#shallow-decryption-circuit"><i class="fa fa-check"></i><b>16.5.4</b> Shallow decryption circuit</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="chapfhetwo.html"><a href="chapfhetwo.html#advanced-topics"><i class="fa fa-check"></i><b>16.6</b> Advanced topics:</a>
+<ul>
+<li class="chapter" data-level="16.6.1" data-path="chapfhetwo.html"><a href="chapfhetwo.html#fully-homomorphic-encryption-for-approximate-computation-over-the-real-numbers-ckks"><i class="fa fa-check"></i><b>16.6.1</b> Fully homomorphic encryption for approximate computation over the real numbers: CKKS</a></li>
+<li class="chapter" data-level="16.6.2" data-path="chapfhetwo.html"><a href="chapfhetwo.html#bandwidth-efficient-fully-homomorphic-encryption-gh"><i class="fa fa-check"></i><b>16.6.2</b> Bandwidth efficient fully homomorphic encryption GH</a></li>
+<li class="chapter" data-level="16.6.3" data-path="chapfhetwo.html"><a href="chapfhetwo.html#using-fully-homomorphic-encryption-to-achieve-private-information-retrieval."><i class="fa fa-check"></i><b>16.6.3</b> Using fully homomorphic encryption to achieve private information retrieval.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="sfeonechap.html"><a href="sfeonechap.html"><i class="fa fa-check"></i><b>17</b> Multiparty secure computation I: Definition and Honest-But-Curious to Malicious complier</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="sfeonechap.html"><a href="sfeonechap.html#ideal-vs.-real-model-security."><i class="fa fa-check"></i><b>17.1</b> Ideal vs. Real Model Security.</a></li>
+<li class="chapter" data-level="17.2" data-path="sfeonechap.html"><a href="sfeonechap.html#formally-defining-secure-multiparty-computation"><i class="fa fa-check"></i><b>17.2</b> Formally defining secure multiparty computation</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="sfeonechap.html"><a href="sfeonechap.html#first-attempt-a-slightly-too-ideal-definition"><i class="fa fa-check"></i><b>17.2.1</b> First attempt: a slightly “too ideal” definition</a></li>
+<li class="chapter" data-level="17.2.2" data-path="sfeonechap.html"><a href="sfeonechap.html#allowing-for-aborts"><i class="fa fa-check"></i><b>17.2.2</b> Allowing for aborts</a></li>
+<li class="chapter" data-level="17.2.3" data-path="sfeonechap.html"><a href="sfeonechap.html#some-comments"><i class="fa fa-check"></i><b>17.2.3</b> Some comments:</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="sfeonechap.html"><a href="sfeonechap.html#example-second-price-auction-using-bitcoin"><i class="fa fa-check"></i><b>17.3</b> Example: Second price auction using bitcoin</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="sfeonechap.html"><a href="sfeonechap.html#another-example-distributed-and-threshold-cryptography"><i class="fa fa-check"></i><b>17.3.1</b> Another example: distributed and threshold cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="sfeonechap.html"><a href="sfeonechap.html#proving-the-fundamental-theorem"><i class="fa fa-check"></i><b>17.4</b> Proving the fundamental theorem:</a></li>
+<li class="chapter" data-level="17.5" data-path="sfeonechap.html"><a href="sfeonechap.html#hbctomalred"><i class="fa fa-check"></i><b>17.5</b> Malicious to honest but curious reduction</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="sfeonechap.html"><a href="sfeonechap.html#handling-probabilistic-strategies"><i class="fa fa-check"></i><b>17.5.1</b> Handling probabilistic strategies:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="sfetwochap.html"><a href="sfetwochap.html"><i class="fa fa-check"></i><b>18</b> Multiparty secure computation II: Construction using Fully Homomorphic Encryption</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="sfetwochap.html"><a href="sfetwochap.html#constructing-2-party-honest-but-curious-computation-from-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.1</b> Constructing 2 party honest but curious computation from fully homomorphic encryption</a></li>
+<li class="chapter" data-level="18.2" data-path="sfetwochap.html"><a href="sfetwochap.html#achieving-circuit-privacy-in-a-fully-homomorphic-encryption"><i class="fa fa-check"></i><b>18.2</b> Achieving circuit privacy in a fully homomorphic encryption</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="sfetwochap.html"><a href="sfetwochap.html#bottom-line-a-two-party-secure-computation-protocol"><i class="fa fa-check"></i><b>18.2.1</b> Bottom line: A two party secure computation protocol</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="sfetwochap.html"><a href="sfetwochap.html#beyond-two-parties"><i class="fa fa-check"></i><b>18.3</b> Beyond two parties</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html"><i class="fa fa-check"></i><b>19</b> Quantum computing and cryptography I</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#the-double-slit-experiment"><i class="fa fa-check"></i><b>19.1</b> The double slit experiment</a></li>
+<li class="chapter" data-level="19.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-amplitudes"><i class="fa fa-check"></i><b>19.2</b> Quantum amplitudes</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-computing-and-computation---an-executive-summary."><i class="fa fa-check"></i><b>19.2.1</b> Quantum computing and computation - an executive summary.</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#quantum-101"><i class="fa fa-check"></i><b>19.3</b> Quantum 101</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#physically-realizing-quantum-computation"><i class="fa fa-check"></i><b>19.3.1</b> Physically realizing quantum computation</a></li>
+<li class="chapter" data-level="19.3.2" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bra-ket-notation"><i class="fa fa-check"></i><b>19.3.2</b> Bra-ket notation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#bells-inequality"><i class="fa fa-check"></i><b>19.4</b> Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.5" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#analysis-of-bells-inequality"><i class="fa fa-check"></i><b>19.5</b> Analysis of Bell’s Inequality</a></li>
+<li class="chapter" data-level="19.6" data-path="quantum-computing-and-cryptography-i.html"><a href="quantum-computing-and-cryptography-i.html#grovers-algorithm"><i class="fa fa-check"></i><b>19.6</b> Grover’s Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html"><i class="fa fa-check"></i><b>20</b> Quantum computing and cryptography II</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-order-finding-to-factoring-and-discrete-log"><i class="fa fa-check"></i><b>20.1</b> From order finding to factoring and discrete log</a></li>
+<li class="chapter" data-level="20.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#finding-periods-of-a-function-simons-algorithm"><i class="fa fa-check"></i><b>20.2</b> Finding periods of a function: Simon’s Algorithm</a></li>
+<li class="chapter" data-level="20.3" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#from-simon-to-shor"><i class="fa fa-check"></i><b>20.3</b> From Simon to Shor</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#the-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.1</b> The Fourier transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+<li class="chapter" data-level="20.3.2" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-fourier-transform-over-mathbbz_m"><i class="fa fa-check"></i><b>20.3.2</b> Quantum Fourier Transform over <span class="math inline">\(\mathbb{Z}_m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.4" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#shor鈥檚-order-finding-algorithm."><i class="fa fa-check"></i><b>20.4</b> Shor鈥檚 Order-Finding Algorithm.</a>
+<ul>
+<li class="chapter" data-level="20.4.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#analysis-the-case-that-rm"><i class="fa fa-check"></i><b>20.4.1</b> Analysis: the case that <span class="math inline">\(r|m\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="20.5" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#rational-approximation-of-real-numbers"><i class="fa fa-check"></i><b>20.5</b> Rational approximation of real numbers</a>
+<ul>
+<li class="chapter" data-level="20.5.1" data-path="quantum-computing-and-cryptography-ii.html"><a href="quantum-computing-and-cryptography-ii.html#quantum-cryptography"><i class="fa fa-check"></i><b>20.5.1</b> Quantum cryptography</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="software-obfuscation.html"><a href="software-obfuscation.html"><i class="fa fa-check"></i><b>21</b> Software Obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#witness-encryption"><i class="fa fa-check"></i><b>21.1</b> Witness encryption</a></li>
+<li class="chapter" data-level="21.2" data-path="software-obfuscation.html"><a href="software-obfuscation.html#deniable-encryption"><i class="fa fa-check"></i><b>21.2</b> Deniable encryption</a></li>
+<li class="chapter" data-level="21.3" data-path="software-obfuscation.html"><a href="software-obfuscation.html#functional-encryption"><i class="fa fa-check"></i><b>21.3</b> Functional encryption</a></li>
+<li class="chapter" data-level="21.4" data-path="software-obfuscation.html"><a href="software-obfuscation.html#the-software-patch-problem"><i class="fa fa-check"></i><b>21.4</b> The software patch problem</a></li>
+<li class="chapter" data-level="21.5" data-path="software-obfuscation.html"><a href="software-obfuscation.html#software-obfuscation-1"><i class="fa fa-check"></i><b>21.5</b> Software obfuscation</a></li>
+<li class="chapter" data-level="21.6" data-path="software-obfuscation.html"><a href="software-obfuscation.html#applications-of-obfuscation"><i class="fa fa-check"></i><b>21.6</b> Applications of obfuscation</a></li>
+<li class="chapter" data-level="21.7" data-path="software-obfuscation.html"><a href="software-obfuscation.html#impossibility-of-obfuscation"><i class="fa fa-check"></i><b>21.7</b> Impossibility of obfuscation</a>
+<ul>
+<li class="chapter" data-level="21.7.1" data-path="software-obfuscation.html"><a href="software-obfuscation.html#proof-of-impossibility-of-vbb-obfuscation"><i class="fa fa-check"></i><b>21.7.1</b> Proof of impossibility of VBB obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="21.8" data-path="software-obfuscation.html"><a href="software-obfuscation.html#indistinguishability-obfuscation"><i class="fa fa-check"></i><b>21.8</b> Indistinguishability obfuscation</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html"><i class="fa fa-check"></i><b>22</b> More obfuscation, exotic encryptions</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#slower-weaker-less-securer"><i class="fa fa-check"></i><b>22.1</b> Slower, weaker, less securer</a></li>
+<li class="chapter" data-level="22.2" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#how-to-get-ibe-from-pairing-based-assumptions."><i class="fa fa-check"></i><b>22.2</b> How to get IBE from pairing based assumptions.</a></li>
+<li class="chapter" data-level="22.3" data-path="more-obfuscation-exotic-encryptions.html"><a href="more-obfuscation-exotic-encryptions.html#beyond-pairing-based-cryptography"><i class="fa fa-check"></i><b>22.3</b> Beyond pairing based cryptography</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="anonymous-communication.html"><a href="anonymous-communication.html"><i class="fa fa-check"></i><b>23</b> Anonymous communication</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="anonymous-communication.html"><a href="anonymous-communication.html#steganography"><i class="fa fa-check"></i><b>23.1</b> Steganography</a></li>
+<li class="chapter" data-level="23.2" data-path="anonymous-communication.html"><a href="anonymous-communication.html#anonymous-routing"><i class="fa fa-check"></i><b>23.2</b> Anonymous routing</a></li>
+<li class="chapter" data-level="23.3" data-path="anonymous-communication.html"><a href="anonymous-communication.html#tor"><i class="fa fa-check"></i><b>23.3</b> Tor</a></li>
+<li class="chapter" data-level="23.4" data-path="anonymous-communication.html"><a href="anonymous-communication.html#telex"><i class="fa fa-check"></i><b>23.4</b> Telex</a></li>
+<li class="chapter" data-level="23.5" data-path="anonymous-communication.html"><a href="anonymous-communication.html#riposte"><i class="fa fa-check"></i><b>23.5</b> Riposte</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html"><i class="fa fa-check"></i><b>24</b> Ethical, moral, and policy dimensions to cryptography</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#reading-prior-to-lecture"><i class="fa fa-check"></i><b>24.1</b> Reading prior to lecture:</a></li>
+<li class="chapter" data-level="24.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#case-studies."><i class="fa fa-check"></i><b>24.2</b> Case studies.</a>
+<ul>
+<li class="chapter" data-level="24.2.1" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#the-snowden-revelations"><i class="fa fa-check"></i><b>24.2.1</b> The Snowden revelations</a></li>
+<li class="chapter" data-level="24.2.2" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#fbi-vs-apple-case"><i class="fa fa-check"></i><b>24.2.2</b> FBI vs Apple case</a></li>
+<li class="chapter" data-level="24.2.3" data-path="ethical-moral-and-policy-dimensions-to-cryptography.html"><a href="ethical-moral-and-policy-dimensions-to-cryptography.html#juniper-backdoor-case-and-the-opm-break-in"><i class="fa fa-check"></i><b>24.2.3</b> Juniper backdoor case and the OPM break-in</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="course-recap.html"><a href="course-recap.html"><i class="fa fa-check"></i><b>25</b> Course recap</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="course-recap.html"><a href="course-recap.html#some-things-we-did-not-cover"><i class="fa fa-check"></i><b>25.1</b> Some things we did not cover</a></li>
+<li class="chapter" data-level="25.2" data-path="course-recap.html"><a href="course-recap.html#what-i-hope-you-learned"><i class="fa fa-check"></i><b>25.2</b> What I hope you learned</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chosen-ciphertext-security" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Chosen Ciphertext Security<a href="chosen-ciphertext-security.html#chosen-ciphertext-security" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="short-recap" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Short recap<a href="chosen-ciphertext-security.html#short-recap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s start by reviewing what we have learned so far:</p>
+<ul>
+<li><p>We can mathematically define security for encryption schemes. A natural definition is <em>perfect secrecy</em>: no matter what Eve does, she can’t learn anything about the plaintext that she didn’t know before. Unfortunately this requires the key to be as long as the message, thus placing a severe limitation on the usability of it.</p></li>
+<li><p>To get around this, we need to consider computational considerations.
+A basic object is a <em>pseudorandom generator</em> and we considered the <em>PRG Conjecture</em> which stipulates the existence of an efficiently computable function <span class="math inline">\(G:\{0,1\}^n\rightarrow\{0,1\}^{n+1}\)</span>
+such that <span class="math inline">\(G(U_n)\approx U_{n+1}\)</span> (where <span class="math inline">\(U_m\)</span> denotes the uniform distribution on <span class="math inline">\(\{0,1\}^m\)</span> and <span class="math inline">\(\approx\)</span> denotes computational indistinguishability).<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a></p></li>
+<li><p>We showed that the PRG conjecture implies a pseudorandom generator of any polynomial output length which in particular via the stream cipher construction implies a computationally secure encryption with plaintext arbitrarily larger than the key. (The only restriction is that the plaintext is of polynomial size which is needed anyway if we want to actually be able to read and write it.)</p></li>
+<li><p>We then showed that the PRG conjecture actually implies a stronger object known as a <em>pseudorandom function (PRF) function collection</em>: this is a collection <span class="math inline">\(\{ f_s \}\)</span> of functions such that if we choose <span class="math inline">\(s\)</span> at random and fix it, and give an adversary a black box computing <span class="math inline">\(i \mapsto f_s(i)\)</span> then she can’t tell the difference between this and a blackbox computing a random function.<a href="#fn47" class="footnote-ref" id="fnref47"><sup>47</sup></a></p></li>
+<li><p>Pseudorandom functions turn out to be useful for <em>identification protocols</em>, <em>message authentication codes</em> and this strong notion of security of encryption known as <em>chosen plaintext attack (CPA) security</em> where we are allowed to encrypt <em>many messages of Eve’s choice</em> and still require that the next message hides all information except for what Eve already knew before.</p></li>
+</ul>
+</div>
+<div id="going-beyond-cpa" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Going beyond CPA<a href="chosen-ciphertext-security.html#going-beyond-cpa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>It may seem that we have finally nailed down the security definition for encryption. After all, what could be stronger than allowing Eve unfettered access to the encryption function? Clearly an encryption satisfying this property will hide the contents of the message in all practical circumstances.
+Or will it?</p>
+<blockquote>
+<h1 id="section-40" class="pause"></h1>
+<p>Please stop and play an ominous sound track at this point.</p>
+</blockquote>
+<div id="example-the-wired-equivalence-privacy-wep" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Example: The Wired Equivalence Privacy (WEP)<a href="chosen-ciphertext-security.html#example-the-wired-equivalence-privacy-wep" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Wired Equivalence Privacy (WEP) protocol is perhaps one of the most inaccurately named protocols of all times.
+It was invented in 1999 for the purpose of securing Wi-Fi networks so that they would have virtually the same level of security as wired networks, but already early on several security flaws were pointed out.
+In particular in 2001, Fluhrer, Mantin, and Shamir showed how the RC4 flaws we mentioned in prior lecture can be used to completely break WEP in less than one minute.
+Yet, the protocol lingered on and for many years after was still the most widely used WiFi encryption protocol as many routers had it as the default option.
+In 2007 the WEP was blamed for a hack stealing 45 million credit card numbers from T.J. Maxx.
+In 2012 (after 11 years of attacks!) it was estimated that it is still used in about a quarter of encrypted wireless networks, and in 2014 it was still the default option on many Verizon home routers.
+It is still (!) used in some routers, see <a href="" class="ref">wepusage</a>. This is a great example of how hard it is to remove insecure protocols from practical usage (and so how important it is to get these protocols right).</p>
+<div class="float" id="wepusage">
+<img src="../figure/WEP.png" alt="WEP usage over time according to Wigle.net. Despite having documented security issues since 2001 and being officially deprecated since 2004, WEP continued to be the most popular WiFi encryption protocol up to 2012, and at the time of writing, it is still used by a non-trivial number of devices (though see this stackoverflow answer for more)." />
+<div class="figcaption">WEP usage over time according to <a href="https://wigle.net/stats">Wigle.net</a>. Despite having documented security issues since 2001 and being officially deprecated since 2004, WEP continued to be the most popular WiFi encryption protocol up to 2012, and at the time of writing, it is still used by a non-trivial number of devices (though see <a href="https://security.stackexchange.com/a/191076">this stackoverflow answer</a> for more).</div>
+</div>
+<p>Here we will talk about a different flaw of WEP that is in fact shared by many other protocols, including the first versions of the secure socket layer (SSL) protocol that is used to protect all encrypted web traffic.</p>
+<p>To avoid superfluous details we will consider a highly abstract (and somewhat inaccurate) version of WEP that still demonstrates our main point.
+In this protocol Alice (the user) sends to Bob (the access point) an IP packet that she wants routed somewhere on the internet.</p>
+<p>Thus we can think of the message Alice sends to Bob as a string <span class="math inline">\(m\in\{0,1\}^\ell\)</span> of the form <span class="math inline">\(m=m_1\|m_2\)</span> where <span class="math inline">\(m_1\)</span> is the IP address this packet needs to be routed to and <span class="math inline">\(m_2\)</span> is the actual message that needs to be delivered.
+In the WEP protocol, the message that Alice sends to Bob has the form
+<span class="math inline">\(E_k(m\|CRC(m))\)</span> (where <span class="math inline">\(\|\)</span> denotes concatenation and <span class="math inline">\(CRC(m)\)</span> is some <a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">cyclic redundancy check</a>).
+A <span class="math inline">\(CRC\)</span> is some function mapping <span class="math inline">\(\{0,1\}^n\)</span> to <span class="math inline">\(\{0,1\}^t\)</span> which is meant to enable detection of errors in typing or communication. The idea is that if a message <span class="math inline">\(m\)</span> is mistyped into <span class="math inline">\(m&#39;\)</span>, then it is very likely that <span class="math inline">\(CRC(m) \neq CRC(m&#39;)\)</span>. It is similar to the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">checksum digits</a> used in credit card numbers and many other cases. Unlike a message authentication code, a CRC does not have a secret key and is not secure against adversarial perturbations.</p>
+<p>The actual encryption WEP used was RC4, but for us it doesn’t really matter.
+What does matter is that the encryption has the form <span class="math inline">\(E_k(m&#39;) = pad \oplus m&#39;\)</span>
+where <span class="math inline">\(pad\)</span> is computed as some function of the key.
+In particular the attack we will describe works even if we use our stronger CPA secure PRF-based scheme where <span class="math inline">\(pad=f_k(r)\)</span> for some random (or counter) <span class="math inline">\(r\)</span> that is sent out separately.</p>
+<p>Now the security of the encryption means that an adversary seeing the ciphertext <span class="math inline">\(c=E_k(m\|CRC(m))\)</span> will not be able to know <span class="math inline">\(m\)</span>, but since this is traveling over the air, the adversary could “spoof” the signal and send a different ciphertext <span class="math inline">\(c&#39;\)</span> to Bob.
+In particular, if the adversary knows the IP address <span class="math inline">\(m_1\)</span> that Alice was using (e.g., for example, the adversary can guess that Alice is probably one of the billions of people that visit the website boazbarak.org on a regular basis) then she can XOR the ciphertext with a string of her choosing and hence convert the ciphertext <span class="math inline">\(c = pad \oplus (m_1\| m_2 \|CRC(m_1,m_2))\)</span> into the ciphertext <span class="math inline">\(c&#39; = c \oplus x\)</span> where <span class="math inline">\(x = x_1\|x_2\|x_3\)</span> is computed so that <span class="math inline">\(x_1 \oplus m_1\)</span> is equal to the adversary’s own IP address!</p>
+<p>So, the adversary doesn’t need to decrypt the message- by spoofing the ciphertext she can ensure that Bob (who is an access point, and whose job is to decrypt and then deliver packets) simply delivers it unencrypted straight into her hands.
+One issue is that Eve modifies <span class="math inline">\(m_1\)</span> then it is unlikely that the CRC code will still check out, and hence Bob would reject the packet.
+However, <a href="https://goo.gl/5aqEHB">CRC 32</a> - the CRC algorithm used by WEP - is <em>linear</em> modulo <span class="math inline">\(2\)</span>, that is <span class="math inline">\(CRC(x \oplus x&#39;) = CRC(x)\oplus CRC(x&#39;)\)</span>.
+This means that if the original ciphertext <span class="math inline">\(c\)</span> was an encryption of the message
+<span class="math inline">\(m= m_1 \| m_2 \| CRC(m_1,m_2)\)</span> then <span class="math inline">\(c&#39;=c \oplus (x_1\|0^t\|CRC(x_1\|0^t))\)</span> will be an encryption of the message <span class="math inline">\(m&#39;=(m_1 \oplus x_1) \|m_2 \| CRC( (x_1\oplus m_1) \| m_2)\)</span> (where <span class="math inline">\(0^t\)</span> denotes a string of zeroes of the same length <span class="math inline">\(t\)</span> as <span class="math inline">\(m_2\)</span>, and hence <span class="math inline">\(m_2 \oplus 0^t = m_2\)</span>).
+Therefore by XOR’ing <span class="math inline">\(c\)</span> with <span class="math inline">\(x_1 \|0^t \| CRC(x_1\|0^t)\)</span>, the adversary Mallory can ensure that Bob will deliver the message <span class="math inline">\(m_2\)</span> to the IP address <span class="math inline">\(m_1 \oplus x_1\)</span> of her choice (see <a href="" class="ref">WEPattackfig</a>).</p>
+<div class="float" id="WEPattackfig">
+<img src="../figure/wep-attack.jpg" style="width:90.0%" alt="The attack on the WEP protocol allowing the adversary Mallory to read encrypted messages even when Alice uses a CPA secure encryption." />
+<div class="figcaption">The attack on the WEP protocol allowing the adversary Mallory to read encrypted messages even when Alice uses a CPA secure encryption.</div>
+</div>
+</div>
+<div id="chosen-ciphertext-security-1" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Chosen ciphertext security<a href="chosen-ciphertext-security.html#chosen-ciphertext-security-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This is not an isolated example but in fact an instance of a general pattern of many breaks in practical protocols.
+Some examples of protocols broken through similar means include <a href="http://www.nds.rub.de/media/nds/veroeffentlichungen/2011/10/22/HowToBreakXMLenc.pdf">XML encryption</a>, <a href="https://www.cs.columbia.edu/~smb/papers/badesp.pdf">IPSec</a> (see also <a href="https://eprint.iacr.org/2005/416">here</a>) as well as JavaServer Faces, Ruby on Rails, ASP.NET, and the Steam gaming client (see the Wikipedia page on <a href="https://goo.gl/b5aKYg">Padding Oracle Attacks</a>).</p>
+<p>The point is that often our adversaries can be <em>active</em> and modify the communication between sender and receiver, which in effect gives them access not just to choose <em>plaintexts</em> of their choice to encrypt but even to have some impact on the <em>ciphertexts</em> that are decrypted. This motivates the following notion of security (see also <a href="" class="ref">CCAgamefig</a>):</p>
+<div class="definition" title="CCA security">
+<p><span id="def:CCAdef" class="definition"><strong>Definition 7.1  </strong></span>An encryption scheme <span class="math inline">\((E,D)\)</span> is <em>chosen ciphertext attack (CCA) secure</em> if every
+efficient adversary <em>Mallory</em> wins in the following game with probability at most <span class="math inline">\(1/2+ negl(n)\)</span>:</p>
+<ul>
+<li><p>Mallory gets <span class="math inline">\(1^n\)</span> where <span class="math inline">\(n\)</span> is the length of the key</p></li>
+<li><p>For <span class="math inline">\(poly(n)\)</span> rounds, Mallory gets access to the functions <span class="math inline">\(m \mapsto E_k(m)\)</span> and <span class="math inline">\(c \mapsto D_k(c)\)</span>.</p></li>
+<li><p>Mallory chooses a pair of messages <span class="math inline">\(\{ m_0,m_1 \}\)</span>, a secret <span class="math inline">\(b\)</span> is chosen at random in <span class="math inline">\(\{0,1\}\)</span>, and Mallory gets <span class="math inline">\(c^* = E_k(m_b)\)</span>.</p></li>
+<li><p>Mallory now gets another <span class="math inline">\(poly(n)\)</span> rounds of access to the functions <span class="math inline">\(m \mapsto E_k(m)\)</span> and <span class="math inline">\(c \mapsto D_k(c)\)</span> except that she is not allowed to query <span class="math inline">\(c^*\)</span> to her second oracle.</p></li>
+<li><p>Mallory outputs <span class="math inline">\(b&#39;\)</span> and <em>wins</em> if <span class="math inline">\(b&#39;=b\)</span>.</p></li>
+</ul>
+</div>
+<div class="float" id="CCAgamefig">
+<img src="../figure/cca-game.jpg" alt="The CCA security game." />
+<div class="figcaption">The CCA security game.</div>
+</div>
+<p>This might seems a rather strange definition so let’s try to digest it slowly.
+Most people, once they understand what the definition says, don’t like it that much.
+There are two natural objections to it:</p>
+<ul>
+<li><strong>This definition seems to be too strong:</strong> There is no way we would let Mallory play with a <em>decryption box</em> - that basically amounts to letting her break the encryption scheme. Sure, she could have some impact on the ciphertexts that Bob decrypts and observe some resulting side effects, but there is a long way from that to giving her oracle access to the decryption algorithm.</li>
+</ul>
+<p>The response to this is that it is very hard to model what is the “realistic” information Mallory might get about the ciphertexts she might cause Bob to decrypt. The goal of a security definition is not to capture exactly the attack scenarios that occur in real life but rather to be <em>sufficiently conservative</em> so that these real life attacks could be modeled in our game. Therefore, having a too strong definition is not a bad thing (as long as it can be achieved!).
+The WEP example shows that the definition does capture a practical issue in security and similar attacks on practical protocols have been shown time and again (see for example the discussion of “padding attacks” in Section 3.7.2 of the Katz Lindell book.)</p>
+<ul>
+<li><strong>This definition seems to be too weak:</strong> What justification do we have for not allowing Mallory to make the query <span class="math inline">\(c^*\)</span> to the decryption box? After all she is an adversary so she could do whatever she wants. The answer is that the definition would be clearly impossible to achieve if Mallory could simply get the decryption of <span class="math inline">\(c^*\)</span> and learn whether it was an encryption of <span class="math inline">\(m_0\)</span> or <span class="math inline">\(m_1\)</span>. So this restriction is the absolutely minimal one we could make without causing the notion to be obviously impossible. Perhaps surprisingly, it turns out that once we make this minimal restriction, we can in fact construct CCA-secure encryptions.</li>
+</ul>
+<p><strong>What does CCA have to do with WEP?</strong> The CCA security game is somewhat strange, and it might not be immediately clear whether it has anything to do with the attack we described on the WEP protocol. However, it turns out that using a CCA secure encryption <em>would</em> have prevented that attack. The key is the following claim:</p>
+<blockquote>
+<h1 id="ccaweplem" class="lemma"></h1>
+<p>Suppose that <span class="math inline">\((E,D)\)</span> is a CCA secure encryption. Then, there is no efficient algorithm that given an encryption <span class="math inline">\(c\)</span> of the plaintext <span class="math inline">\((m_1,m_2)\)</span> outputs a ciphertext <span class="math inline">\(c&#39;\)</span> that decrypts to <span class="math inline">\((m&#39;_1,m_2)\)</span> where <span class="math inline">\(m&#39;_1\neq m_1\)</span>.</p>
+</blockquote>
+<p>In particular <a href="" class="ref">ccaweplem</a> rules out the attack of transforming <span class="math inline">\(c\)</span> that encrypts a message starting with a some address <span class="math inline">\(IP\)</span> to a ciphertext that starts with a different address <span class="math inline">\(IP&#39;\)</span>. Let us now sketch its proof.</p>
+<div class="proof" data-ref="ccaweplem">
+<p><span id="unlabeled-div-20" class="proof"><em>Proof</em>. </span>We’ll show that such if we had an adversary <span class="math inline">\(M&#39;\)</span> that violates the conclusion of the claim, then there is an adversary <span class="math inline">\(M\)</span> that can win in the CCA game.</p>
+<p>The proof is simple and relies on the crucial fact that the CCA game allows <span class="math inline">\(M\)</span> to query the decryption box on <em>any</em> ciphertext of her choice, as long as it’s not <em>exactly identical</em> to the challenge cipertext <span class="math inline">\(c^*\)</span>. In particular, if <span class="math inline">\(M&#39;\)</span> is able to morph an encryption <span class="math inline">\(c\)</span> of <span class="math inline">\(m\)</span> to some encryption <span class="math inline">\(c&#39;\)</span> of some different <span class="math inline">\(m&#39;\)</span> that agrees with <span class="math inline">\(m\)</span> on some set of bits, then <span class="math inline">\(M\)</span> can do the following: in the security game, use <span class="math inline">\(m_0\)</span> to be some random message and <span class="math inline">\(m_1\)</span> to be this plaintext <span class="math inline">\(m\)</span>. Then, when receiving <span class="math inline">\(c^*\)</span>, apply <span class="math inline">\(M&#39;\)</span> to it to obtain a ciphertext <span class="math inline">\(c&#39;\)</span> (note that if the plaintext differs then the ciphertext must differ also; can you see why?) ask the decryption box to decrypt it and output <span class="math inline">\(1\)</span> if the resulting message agrees with <span class="math inline">\(m\)</span> in the corresponding set of bits (otherwise output a random bit). If <span class="math inline">\(M&#39;\)</span> was successful with probability <span class="math inline">\(\epsilon\)</span>, then <span class="math inline">\(M\)</span> would win in the CCA game with probability at least <span class="math inline">\(1/2 + \epsilon/10\)</span> or so.</p>
+</div>
+<blockquote>
+<h1 id="section-41" class="pause"></h1>
+<p>The proof above is rather sketchy. However it is not very difficult and proving <a href="" class="ref">ccaweplem</a> on your own is an excellent way to ensure familiarity with the definition of CCA security.</p>
+</blockquote>
+</div>
+</div>
+<div id="constructing-cca-secure-encryption" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Constructing CCA secure encryption<a href="chosen-ciphertext-security.html#constructing-cca-secure-encryption" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The definition of CCA seems extremely strong, so perhaps it is not surprising that it is useful, but can we actually construct it?
+The WEP attack shows that the CPA secure encryption we saw before (i.e., <span class="math inline">\(E_k(m)=(r,f_k(r)\oplus m)\)</span>) is <em>not</em> CCA secure.
+We will see other examples of <em>non</em> CCA secure encryptions in the exercises.
+So, how <em>do</em> we construct such a scheme?
+The WEP attack actually already hints of the crux of CCA security. We want to ensure that Mallory is not able to modify the challenge ciphertext <span class="math inline">\(c^*\)</span>
+to some related <span class="math inline">\(c&#39;\)</span>.
+Another way to say it is that we need to ensure the <em>integrity</em> of messages to achieve their <em>confidentiality</em> if we want to handle <em>active</em> adversaries that might modify messages on the channel.
+Since in a great many practical scenarios, an adversary might be able to do so, this is an important message that deserves to be repeated:</p>
+<blockquote>
+<p><em>To ensure confidentiality, you need integrity.</em></p>
+</blockquote>
+<p>This is a lesson that has been time and again been shown and many protocols have been broken due to the mistaken belief that if we only care about <em>secrecy</em>, it is enough to use only
+<em>encryption</em> (and one that is only CPA secure) and there is no need for <em>authentication</em>. <a href="http://blog.cryptographyengineering.com/2012/05/how-to-choose-authenticated-encryption.html">Matthew Green</a> writes this more provocatively as</p>
+<blockquote>
+<p><em>Nearly all of the symmetric encryption modes you learned about in school, textbooks, and Wikipedia are (potentially) insecure.<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a></em></p>
+</blockquote>
+<p>exactly because these basic modes only ensure security for <em>passive</em> eavesdropping adversaries and do not ensure chosen ciphertext security
+which is the “gold standard” for online applications. (For symmetric encryption people often use the name “authenticated encryption” in practice rather than CCA security; those are not identical but are extremely related notions.)</p>
+<p>All of this suggests that Message Authentication Codes might help us get CCA security. This turns out to be the case. But one needs to take some care exactly <em>how</em> to use MAC’s to get CCA security. At this point, you might want to stop and think how you would do this…</p>
+<blockquote>
+<h1 id="section-42" class="pause"></h1>
+<p>You should stop here and try to think how you would implement a CCA secure encryption by combining MAC’s with a CPA secure encryption.</p>
+</blockquote>
+<div style="page-break-after: always;"></div>
+<blockquote>
+<h1 id="section-43" class="pause"></h1>
+<p>If you didn’t stop before, then you should really stop and think now.</p>
+</blockquote>
+<div style="page-break-after: always;"></div>
+<p>OK, so now that you had a chance to think about this on your own, we will describe one way that works to achieve CCA security from MACs. We will explore other approaches that may or may not work in the exercises.</p>
+<div class="theorem" title="CCA from CPA and MAC (encrypt-then-sign)">
+<p><span id="thm:CCAfromCPAMACthm" class="theorem"><strong>Theorem 7.1  </strong></span>Let <span class="math inline">\((E,D)\)</span> be CPA-secure encryption scheme and <span class="math inline">\((S,V)\)</span> be a CMA-secure MAC with <span class="math inline">\(n\)</span> bit keys and a canonical verification algorithm.<a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a>
+Then the following encryption <span class="math inline">\((E&#39;,D&#39;)\)</span> with keys <span class="math inline">\(2n\)</span> bits is CCA secure:</p>
+<ul>
+<li><p><span class="math inline">\(E&#39;_{k_1,k_2}(m)\)</span> is obtained by computing <span class="math inline">\(c=E_{k_1}(m)\)</span> , <span class="math inline">\(\sigma = S_{k_2}(c)\)</span> and outputting <span class="math inline">\((c,\sigma)\)</span>.</p></li>
+<li><p><span class="math inline">\(D&#39;_{k_1,k_2}(c,\sigma)\)</span> outputs nothing (e.g., an error message) if <span class="math inline">\(V_{k_2}(c,\sigma)\neq 1\)</span>, and otherwise outputs <span class="math inline">\(D_{k_1}(c)\)</span>.</p></li>
+</ul>
+</div>
+<div class="proof" data-ref="CCAfromCPAMACthm">
+<p><span id="unlabeled-div-21" class="proof"><em>Proof</em>. </span>Suppose, for the sake of contradiction, that there exists an adversary <span class="math inline">\(M&#39;\)</span> that wins the CCA game for the scheme <span class="math inline">\((E&#39;,D&#39;)\)</span> with probability
+at least <span class="math inline">\(1/2+\epsilon\)</span>. We consider the following two cases:</p>
+<p><strong>Case I:</strong> With probability at least <span class="math inline">\(\epsilon/10\)</span>, at some point during the CCA game, <span class="math inline">\(M&#39;\)</span> sends to its decryption box a ciphertext <span class="math inline">\((c,\sigma)\)</span> that is
+not identical to one of the ciphertexts it previously obtained from its encryption box, and obtains from it a non-error response.</p>
+<p><strong>Case II:</strong> The event above happens with probability smaller than <span class="math inline">\(\epsilon/10\)</span>.</p>
+<p>We will derive a contradiction in either case. In the first case, we will use <span class="math inline">\(M&#39;\)</span> to obtain an adversary that breaks the MAC <span class="math inline">\((S,V)\)</span>, while in the second case, we will use <span class="math inline">\(M&#39;\)</span> to obtain an adversary that breaks the CPA-security of <span class="math inline">\((E,D)\)</span>.</p>
+<p>Let’s start with Case I: When this case holds, we will build an adversary <span class="math inline">\(F\)</span> (for “forger”) for the MAC <span class="math inline">\((S,V)\)</span>, we can assume the adversary <span class="math inline">\(F\)</span> has access to the both signing and verification algorithms as black boxes for some unknown key <span class="math inline">\(k_2\)</span> that is chosen at random and fixed.<a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a>
+<span class="math inline">\(F\)</span> will choose <span class="math inline">\(k_1\)</span> on its own, and will also choose at random a number <span class="math inline">\(i_0\)</span> from <span class="math inline">\(1\)</span> to <span class="math inline">\(T\)</span>, where <span class="math inline">\(T\)</span> is the total number of queries that <span class="math inline">\(M&#39;\)</span> makes to the decryption box. <span class="math inline">\(F\)</span> will run the entire CCA game with <span class="math inline">\(M&#39;\)</span>, using <span class="math inline">\(k_1\)</span> and its access to the black boxes to execute the decryption and decryption boxes, all the way until just before <span class="math inline">\(M&#39;\)</span> makes the <span class="math inline">\(i_0^{th}\)</span> query <span class="math inline">\((c,\sigma)\)</span> to its decryption box. At that point, <span class="math inline">\(F\)</span> will output <span class="math inline">\((c,\sigma)\)</span>.
+We claim that with probability at least <span class="math inline">\(\epsilon/(10T)\)</span>, our forger will succeed in the CMA game in the sense that <strong>(i)</strong> the query <span class="math inline">\((c,\sigma)\)</span> will pass verification, and <strong>(ii)</strong> the message <span class="math inline">\(c\)</span> was not previously queried before to the signing oracle.</p>
+<p>Indeed, because we are in Case I, with probability <span class="math inline">\(\epsilon/10\)</span>, in this game <em>some</em> query that <span class="math inline">\(M&#39;\)</span> makes will be one that was not asked before and hence was <em>not</em> queried by <span class="math inline">\(F\)</span> to its signing oracle, and moreover, the returned message is not an error message, and hence the signature passes verification.
+Since <span class="math inline">\(i_0\)</span> is random, with probability <span class="math inline">\(\epsilon/(10T)\)</span> this query will be at the <span class="math inline">\(i_0^{th}\)</span> round.
+Let us assume that this above event <span class="math inline">\(GOOD\)</span> happened in which the <span class="math inline">\(i_0\)</span>-th query to the decryption box is a pair <span class="math inline">\((c,\sigma)\)</span> that both passes verification and the pair <span class="math inline">\((c,\sigma)\)</span> was not returned before by the encryption oracle.
+Since we pass (canonical) verification, we know that <span class="math inline">\(\sigma=S_{k_2}(c)\)</span>, and because all encryption queries return pairs of the form <span class="math inline">\((c&#39;,S_{k_2}(c&#39;))\)</span>, this means that no such query returned <span class="math inline">\(c\)</span> as its first element either.
+In other words, when the event <span class="math inline">\(GOOD\)</span> happens the <span class="math inline">\(i_0^{th}\)</span> query contains a pair <span class="math inline">\((c,\sigma)\)</span> such that <span class="math inline">\(c\)</span> was not queried before to the signature box, but <span class="math inline">\((c,\sigma)\)</span> passes verification. This is the definition of breaking <span class="math inline">\((S,V)\)</span> in a chosen message attack, and hence we obtain a contradiction to the CMA security of <span class="math inline">\((S,V)\)</span>.</p>
+<p>Now for Case II: In this case, we will build an adversary <span class="math inline">\(Eve\)</span> for CPA-game in the original scheme <span class="math inline">\((E,D)\)</span>. As you might expect, the adversary <span class="math inline">\(Eve\)</span> will choose by herself the key <span class="math inline">\(k_2\)</span> for the MAC scheme, and attempt to play the CCA security game with <span class="math inline">\(M&#39;\)</span>. When <span class="math inline">\(M&#39;\)</span> makes <em>encryption queries</em> this should not be a problem-
+<span class="math inline">\(Eve\)</span> can forward the plaintext <span class="math inline">\(m\)</span> to its encryption oracle to get <span class="math inline">\(c=E_{k_1}(m)\)</span> and then compute <span class="math inline">\(\sigma = S_{k_2}(c)\)</span> since she knows the signing key <span class="math inline">\(k_2\)</span>.</p>
+<p>However, what does <span class="math inline">\(Eve\)</span> do when <span class="math inline">\(M&#39;\)</span> makes <em>decryption</em> queries? That is, suppose that <span class="math inline">\(M&#39;\)</span> sends a query of the form <span class="math inline">\((c,\sigma)\)</span> to its decryption box. To simulate the algorithm <span class="math inline">\(D&#39;\)</span>, <span class="math inline">\(Eve\)</span> will need access to a <em>decryption box</em> for <span class="math inline">\(D\)</span>, but she doesn’t get such a box in the CPA game (This is a subtle point- please pause here and reflect on it until you are sure you understand it!)</p>
+<p>To handle this issue <span class="math inline">\(Eve\)</span> will follow the common approach of “winging it and hoping for the best”. When <span class="math inline">\(M&#39;\)</span> sends a query of the form <span class="math inline">\((c,\sigma)\)</span>, <span class="math inline">\(Eve\)</span> will first check if it happens to be the case that <span class="math inline">\((c,\sigma)\)</span> was returned before as an answer to an encryption query <span class="math inline">\(m\)</span>. In this case <span class="math inline">\(Eve\)</span> will breathe a sigh of relief and simply return <span class="math inline">\(m\)</span> to <span class="math inline">\(M&#39;\)</span> as the answer. (This is obviously correct: if <span class="math inline">\((c,\sigma)\)</span> is the encryption of <span class="math inline">\(m\)</span> then <span class="math inline">\(m\)</span> is the decryption of <span class="math inline">\((c,\sigma)\)</span>.) However, if the query <span class="math inline">\((c,\sigma)\)</span> has not been returned before as an answer, then <span class="math inline">\(Eve\)</span> is in a bit of a pickle. The way out of it is for her to simply return “error” and hope that everything will work out.
+The crucial observation is that because we are in case II things <em>will</em> work out.
+After all, the only way <span class="math inline">\(Eve\)</span> makes a mistake is if she returns an error message
+where the original decryption box would not have done so, but this happens with probability at most <span class="math inline">\(\epsilon/10\)</span>. Hence, if <span class="math inline">\(M&#39;\)</span> has success <span class="math inline">\(1/2+\epsilon\)</span> in the CCA game, then even if it’s the case that <span class="math inline">\(M&#39;\)</span> always outputs the wrong answer when <span class="math inline">\(Eve\)</span> makes this mistake, we will still get success at least <span class="math inline">\(1/2+0.9\epsilon\)</span>.
+Since <span class="math inline">\(\epsilon\)</span> is non negligible, this would contradict the CPA security of <span class="math inline">\((E,D)\)</span> thereby concluding the proof of the theorem.</p>
+</div>
+<blockquote>
+<h1 id="section-44" class="pause"></h1>
+<p>This proof is emblematic of a general principle for proving CCA security.
+The idea is to show that the decryption box is completely “useless” for the adversary, since the only way to get a non error response from it is to feed it with a ciphertext that was received from the encryption box.</p>
+</blockquote>
+</div>
+<div id="simplified-gcm-encryption" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> (Simplified) GCM encryption<a href="chosen-ciphertext-security.html#simplified-gcm-encryption" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The construction above works as a generic construction, but it is somewhat costly in the sense that we need to evaluate both the block cipher and the MAC. In particular, if messages have <span class="math inline">\(t\)</span> blocks, then we would need to invoke two cryptographic operations (a block cipher encryption and a MAC computation) per block. The <a href="https://goo.gl/uz6WgS">GCM (Galois Counter Mode)</a> is a way around this. We are going to describe a simplified version of this mode.
+For simplicity, assume that the number of blocks <span class="math inline">\(t\)</span> is fixed and known (though many of the annoying but important details in block cipher modes of operations involve dealing with padding to multiple of blocks and dealing with variable block size).</p>
+<p>A <a href="https://goo.gl/jLpNtU">universal hash function collection</a> is a family of functions <span class="math inline">\(\{ h:\{0,1\}^\ell\rightarrow\{0,1\}^n \}\)</span> such that for every <span class="math inline">\(x \neq x&#39; \in \{0,1\}^\ell\)</span>, the random variables <span class="math inline">\(h(x)\)</span> and <span class="math inline">\(h(x&#39;)\)</span> (taken over the choice of a random <span class="math inline">\(h\)</span> from this family) are pairwise independent in <span class="math inline">\(\{0,1\}^{2n}\)</span>. That is, for every two potential outputs <span class="math inline">\(y,y&#39;\in \{0,1\}^n\)</span>,
+<span class="math display">\[
+\Pr_h[ h(x)=y \;\wedge\; h(x&#39;)=y&#39;]=2^{-2n} \label{equnivhash}
+\]</span></p>
+<p>Universal hash functions have rather efficient constructions, and in particular if we relax the definition to allow <em>almost universal</em> hash functions (where we replace the <span class="math inline">\(2^{-2n}\)</span> factor in the righthand side of <a href="" class="eqref">equnivhash</a> by a slightly bigger, though still negligible quantity) then the constructions become extremely efficient and the size of the description of <span class="math inline">\(h\)</span> is only related to <span class="math inline">\(n\)</span>, no matter how big <span class="math inline">\(\ell\)</span> is.<a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a></p>
+<p>Our encryption scheme is defined as follow. The key is <span class="math inline">\((k,h)\)</span> where <span class="math inline">\(k\)</span> is an index to a pseudorandom permutation <span class="math inline">\(\{ p_k \}\)</span> and <span class="math inline">\(h\)</span> is the key for a <em>universal hash function</em>.<a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a> To encrypt a message <span class="math inline">\(m = (m_1,\ldots,m_t) \in \{0,1\}^{nt}\)</span> do the following:</p>
+<ul>
+<li><p>Choose <span class="math inline">\(IV\)</span> at random in <span class="math inline">\([2^n]\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(z_i = E_k(IV+i)\)</span> for <span class="math inline">\(i=1,\ldots,t+1\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(c_i = z_i \oplus m_i\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(c_{t+1} = h(c_1,\ldots,c_t) \oplus z_{t+1}\)</span>.</p></li>
+<li><p>Output <span class="math inline">\((IV,c_1,\ldots,c_{t+1})\)</span>.</p></li>
+</ul>
+<p>The communication overhead includes one additional output block plus the IV (whose transmission can often be avoided or reduced, depending on the settings; see the notion of “nonce based encryption”).
+This is fairly minimal. The additional computational cost on top of <span class="math inline">\(t\)</span> block-cipher evaluation is the application of <span class="math inline">\(h(\cdot)\)</span>.
+For the particular choice of <span class="math inline">\(h\)</span> used in Galois Counter Mode, this function <span class="math inline">\(h\)</span> can be evaluated very efficiently- at a cost of a single multiplication in the Galois field of size <span class="math inline">\(2^{128}\)</span> per block (one can think of it as some very particular operation that maps two <span class="math inline">\(128\)</span> bit strings to a single one, and can be carried out quite efficiently).
+We leave it as an (excellent!) exercise to prove that the resulting scheme is CCA secure.</p>
+</div>
+<div id="padding-chopping-and-their-pitfalls-the-buffer-overflow-of-cryptography" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Padding, chopping, and their pitfalls: the “buffer overflow” of cryptography<a href="chosen-ciphertext-security.html#padding-chopping-and-their-pitfalls-the-buffer-overflow-of-cryptography" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this course we typically focus on the simplest case where messages have a <em>fixed size</em>. But in fact, in real life we often need to chop long messages into blocks, or pad messages so that their length becomes an integral multiple of the block size. Moreover, there are several subtle ways to get this wrong, and these have been used in several practical attacks.</p>
+<p><strong>Chopping into blocks:</strong> A block cipher a-priori provides a way to encrypt a message of length <span class="math inline">\(n\)</span>, but we often have much longer messages and need to “chop” them into blocks. This is where the <em>block cipher modes</em> discussed in the previous lecture come in. However, the basic popular modes such as CBC and OFB do <em>not</em> provide security against chosen ciphertext attack, and in fact typically make it easy to <em>extend</em> a ciphertext with an additional block or to <em>remove</em> the last block from a ciphertext, both being operations which should not be feasible in a CCA secure encryption.</p>
+<p><strong>Padding:</strong> Oftentimes messages are not an integer multiple of the block size and hence need to be <em>padded</em>. The <em>padding</em> is typically a map that takes the last partial block of the message (i.e., a string <span class="math inline">\(m\)</span> of length in <span class="math inline">\(\{0,\ldots,n-1\}\)</span>) and maps it into a full block (i.e., a string <span class="math inline">\(m\in\{0,1\}^n\)</span>). The map needs to be invertible which in particular means that if the message is already an integer multiple of the block size we will need to add an extra block. (Since we have to map all the <span class="math inline">\(1+2+\ldots+2^{n-1}\)</span> messages of length <span class="math inline">\(1,\ldots,n-1\)</span> into the <span class="math inline">\(2^n\)</span> messages of length <span class="math inline">\(n\)</span> in a one-to-one fashion.) One approach for doing so is to pad an <span class="math inline">\(n&#39;&lt;n\)</span> length message with the string <span class="math inline">\(10^{n-n&#39;-1}\)</span>. Sometimes people use a different padding which involves encoding the length of the pad.</p>
+</div>
+<div id="chosen-ciphertext-attack-as-implementing-metaphors" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Chosen ciphertext attack as implementing metaphors<a href="chosen-ciphertext-security.html#chosen-ciphertext-attack-as-implementing-metaphors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The classical “metaphor” for an encryption is a sealed envelope, but as we have seen in the WEP, this metaphor can lead you astray.
+If you placed a message <span class="math inline">\(m\)</span> in a sealed envelope, you should not be able to modify it to the message <span class="math inline">\(m \oplus m&#39;\)</span> without opening the envelope, and yet this is exactly what happens in the canonical CPA secure encryption <span class="math inline">\(E_k(m)=(r,f_k(r) \oplus m)\)</span>.
+CCA security comes much closer to realizing the metaphor, and hence is considered as the “gold standard” of secure encryption.
+This is important even if you do not intend to write poetry about encryption.
+<em>Formal verification</em> of computer programs is an area that is growing in importance given that computer programs become both more complex and more mission critical.
+Cryptographic protocols can fail in subtle ways, and even published proofs of security can turn out to have bugs in them.
+Hence there is a line of research dedicated to finding ways to <em>automatically</em> prove security of cryptographic protocols.
+Much of these line of research is based on simple models to describe protocols that are known as <em>Dolev Yao models</em>, based on the first paper that proposed such models.
+These models define an <em>algebraic</em> form of security, where rather than thinking of messages, keys, and ciphertexts as binary string, we think of them as abstract entities.
+There are certain rules for manipulating these symbols.
+For example, given a key <span class="math inline">\(k\)</span> and a message <span class="math inline">\(m\)</span> you can create the ciphertext <span class="math inline">\(\{ m \}_k\)</span>, which you can decrypt back to <span class="math inline">\(m\)</span> using the same key.
+However the assumption is that any information that cannot be obtained by such manipulation is unknown.</p>
+<p>Translating a proof of security in this algebra to a proof for real world adversaries is highly non trivial. However, to have even a fighting chance, the encryption scheme needs to be as strong as possible, and in particular it turns out that security notions such as CCA play a crucial role.</p>
+<div class="float" id="dolevyaofig">
+<img src="../figure/Dolev-Yao-intruder-rules.png" alt="The Dolev-Yao Algebra of what an adversary or “intruder” knows. Figure taken from here." />
+<div class="figcaption">The <a href="https://en.wikipedia.org/wiki/Dolev%E2%80%93Yao_model">Dolev-Yao</a> Algebra of what an adversary or “intruder” knows. Figure taken from <a href="https://www.ceeol.com/search/article-detail?id=896120">here</a>.</div>
+</div>
+</div>
+<div id="reading-comprehension-exercises-1" class="section level2 hasAnchor" number="7.7">
+<h2><span class="header-section-number">7.7</span> Reading comprehension exercises<a href="chosen-ciphertext-security.html#reading-comprehension-exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>I recommend students do the following exercises after reading the lecture. They do not cover all material, but can be a good way to check your understanding.</p>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-22" class="exercise"><strong>Exercise 7.1  </strong></span>Let <span class="math inline">\((E,D)\)</span> be the “canonical” PRF-based CPA secure encryption, where <span class="math inline">\(E_k(m)= (r,f_k(r)\oplus m)\)</span> and <span class="math inline">\(\{ f_k \}\)</span>
+is a PRF collection and <span class="math inline">\(r\)</span> is chosen at random. Is this scheme CCA secure?</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>No it is never CCA secure.</p></li>
+<li><p>It is always CCA secure.</p></li>
+<li><p>It is sometimes CCA secure and sometimes not, depending on the properties of the PRF <span class="math inline">\(\{ f_k \}\)</span>.</p></li>
+</ol>
+</div>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-23" class="exercise"><strong>Exercise 7.2  </strong></span>Suppose that we allow a key to be as long as the message, and so we can use the one time pad.
+Would the one-time pad be:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>CPA secure</p></li>
+<li><p>CCA secure</p></li>
+<li><p>Neither CPA nor CCA secure.</p></li>
+</ol>
+</div>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-24" class="exercise"><strong>Exercise 7.3  </strong></span>Which of the following statements is true about the proof of <a href="" class="ref">CCAfromCPAMACthm</a>:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Case I corresponds to breaking the MAC and Case II corresponds to breaking the CPA security of the underlying encryption scheme.</p></li>
+<li><p>Case I corresponds to breaking the CPA security of the underlying encryption scheme and Case II corresponds to breaking the MAC.</p></li>
+<li><p>Both cases correspond to both breaking the MAC and encryption scheme</p></li>
+<li><p>If neither Case I nor Case II happens then we obtain an adversary breaking the security of the underlying encryption scheme.</p></li>
+</ol>
+</div>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="46">
+<li id="fn46"><p>The PRG conjecture is the name we use in this course. In the literature this is known as the conjecture of the existence of pseudorandom generators, and through the work of <a href="https://www.csc.kth.se/~johanh/prgfromowf.pdf">H氓stad, Impagliazzo, Levin and Luby (HILL)</a> it is known to be equivalent to the existence of <em>one way functions</em>, see <a href="https://people.seas.harvard.edu/~salil/pseudorandomness/">Vadhan, Chapter 7</a>.<a href="chosen-ciphertext-security.html#fnref46" class="footnote-back">↩︎</a></p></li>
+<li id="fn47"><p>This was done by <a href="https://www.wisdom.weizmann.ac.il/~oded/X/ggm.pdf">Goldreich, Goldwasser and Micali</a>.<a href="chosen-ciphertext-security.html#fnref47" class="footnote-back">↩︎</a></p></li>
+<li id="fn48"><p>I also like the part where Green says about a block cipher mode that “if OCB was your kid, he’d play three sports and be on his way to Harvard.” We will have an exercise about a simplified version of the GCM mode (which perhaps only plays a single sport and is on its way to …). You can read about OCB in Exercise 9.14 in the Boneh-Shoup book; it uses the notion of a “tweakable block cipher” which simply means that given a single key <span class="math inline">\(k\)</span>, you actually get a set <span class="math inline">\(\{ p_{k,1},\ldots,p_{k,t} \}\)</span> of permutations that are indistinguishable from <span class="math inline">\(t\)</span> independent random permutation (the set <span class="math inline">\(\{1,\ldots, t\}\)</span> is called the set of “tweaks” and we sometimes index it using strings instead of numbers).<a href="chosen-ciphertext-security.html#fnref48" class="footnote-back">↩︎</a></p></li>
+<li id="fn49"><p>By a <em>canonical verification algorithm</em> we mean that <span class="math inline">\(V_k(m,\sigma)=1\)</span> iff <span class="math inline">\(S_k(m)=\sigma\)</span>.<a href="chosen-ciphertext-security.html#fnref49" class="footnote-back">↩︎</a></p></li>
+<li id="fn50"><p>Since we use a MAC with canonical verification, access to the signature algorithm implies access to the verification algorithm.<a href="chosen-ciphertext-security.html#fnref50" class="footnote-back">↩︎</a></p></li>
+<li id="fn51"><p>In <span class="math inline">\(\epsilon\)</span>-almost universal hash functions we require that for every <span class="math inline">\(y,y&#39;\in \{0,1\}^{n}\)</span>, and <span class="math inline">\(x\neq x&#39; \in \{0,1\}^\ell\)</span>, the probability that <span class="math inline">\(h(x)= h(x&#39;)\)</span> is at most <span class="math inline">\(\epsilon\)</span>. It can be easily shown that the analysis below extends to <span class="math inline">\(\epsilon\)</span> almost universal hash functions as long as <span class="math inline">\(\epsilon\)</span> is negligible, but we will leave verifying this to the reader.<a href="chosen-ciphertext-security.html#fnref51" class="footnote-back">↩︎</a></p></li>
+<li id="fn52"><p>In practice the key <span class="math inline">\(h\)</span> is derived from the key <span class="math inline">\(k\)</span> by applying the PRP to some particular input.<a href="chosen-ciphertext-security.html#fnref52" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pseudorandom-functions-from-pseudorandom-generators-and-cpa-security.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hash-functions-random-oracles-and-bitcoin.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-Chosen-Ciphertext-Security.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
